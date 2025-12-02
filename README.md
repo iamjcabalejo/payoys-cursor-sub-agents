@@ -96,6 +96,14 @@ This setup emphasizes:
 - Cursor (latest version recommended)
 - Works with any project (optimized for Next.js + Supabase)
 
+## Installation
+
+1. Push this repository to GitHub (see `PUBLISHING.md` if you need a refresher).
+2. In Cursor, open the Command Palette and choose **Install Plugin from GitHub**.
+3. Paste `iamjcabalejo/payoys-cursor-sub-agents` when prompted; Cursor will read `.cursor-plugin/plugin.json` and register all commands and agents automatically.
+4. Alternatively, run the CLI command `cursor plugins install iamjcabalejo/payoys-cursor-sub-agents`.
+5. After installation, tweak any command/agent files under `.cursor/commands/` or `.cursor/agents/` to suit your workflow.
+
 ## Customization
 
 After installation, you can customize any command by editing files in `.cursor/commands/` and `.cursor/agents/`.

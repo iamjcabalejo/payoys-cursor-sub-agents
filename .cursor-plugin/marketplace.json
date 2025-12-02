@@ -1,5 +1,5 @@
 {
-  "name": "brader-payoy-cursor-agents",
+  "name": "payoys-cursor-sub-agents",
   "owner": {
     "name": "Brader Payoy",
     "contact": "github.com/iamjcabalejo"
@@ -7,7 +7,7 @@
   "description": "Brader Payoy's curated Cursor Agents setup for productive development",
   "plugins": [
     {
-      "name": "brader-payoy-cursor-agents",
+      "name": "payoys-cursor-sub-agents",
       "source": "./",
       "description": "Personal Cursor Agents configuration with 14 productivity commands and 11 specialized AI agents for modern web development",
       "version": "1.0.0",
