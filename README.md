@@ -117,4 +117,4 @@ Created by Brader Payoy
 
 ---
 
-**Note**: This is my personal setup that I've refined over time. Commands are optimized for Next.js + Supabase workflows but work great with any modern web stack.
+**Note**: Commands are optimized for Next.js + Supabase workflows but work great with any modern web stack.
