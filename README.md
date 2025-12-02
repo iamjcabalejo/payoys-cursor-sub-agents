@@ -1,6 +1,6 @@
 # Brader Payoy's Cursor Setup
 
-My personal Cursor configuration for productive web development. This plugin provides **14 slash commands** and **11 specialized AI agents** to supercharge your development workflow.
+This plugin provides **14 slash commands** and **11 specialized AI agents** to supercharge your development workflow.
 
 ## What's Inside
 
@@ -114,6 +114,10 @@ MIT - Use freely in your projects
 ## Author
 
 Created by Brader Payoy
+
+### Shoutout
+
+This project was inspired by Edmun Yong's claude-code agents on GitHub—huge thanks to him for the original idea. The workflows here build on his approach, tailored specifically for Cursor.
 
 ---
 

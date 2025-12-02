@@ -44,8 +44,8 @@ Your README already includes your GitHub username `iamjcabalejo`, so users can c
 
 ```json
 {
-  "name": "cursor-sub-agents",
-  "source": "iamjcabalejo/cursor-sub-agents",
+  "name": "payoys-cursor-sub-agents",
+  "source": "iamjcabalejo/payoys-cursor-sub-agents",
   "description": "Personal Cursor configuration with 14 productivity commands and 11 specialized AI agents for modern web development",
   "version": "1.0.0",
   "author": "Brader Payoy",
