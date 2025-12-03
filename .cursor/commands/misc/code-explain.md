@@ -14,6 +14,48 @@ The user needs help understanding complex code sections, algorithms, design patt
 
 $ARGUMENTS
 
+## Agent Definitions
+
+**CRITICAL**: Before explaining and analyzing code, you MUST:
+
+1. **Read Agent Definitions**: Load and review the agent definitions from `.cursor-plugin/plugin.json`
+   - Read the `agents` array to understand available specialized agents
+   - Identify agent definitions relevant to code explanation and education
+
+2. **Identify Relevant Agents**: For code explanation, the following agents are typically relevant:
+   - **technical-writer**: For clear communication, audience analysis, and structured explanations (PRIMARY AGENT)
+   - **learning-guide**: For educational approaches, progressive learning, and knowledge transfer
+   - **backend-architect**: For explaining backend code, API design patterns, and system architecture concepts
+   - **frontend-architect**: For explaining frontend code, React/Next.js patterns, and UI component architecture
+   - **system-architect**: For explaining system-level concepts, architectural patterns, and design decisions
+   - **refactoring-expert**: For explaining design patterns, SOLID principles, and code quality concepts
+
+3. **Load Agent Definitions**: Read the agent definition files from `.cursor/agents/` directory:
+   - `.cursor/agents/technical-writer.md` - Apply technical writing principles, audience analysis, and clear communication (REQUIRED)
+   - `.cursor/agents/learning-guide.md` - Apply educational approaches and progressive learning techniques
+   - `.cursor/agents/backend-architect.md` - Apply backend architecture perspectives if explaining backend code
+   - `.cursor/agents/frontend-architect.md` - Apply frontend architecture perspectives if explaining frontend code
+   - `.cursor/agents/system-architect.md` - Apply system architecture perspectives for system-level explanations
+   - `.cursor/agents/refactoring-expert.md` - Apply design pattern and code quality perspectives when explaining patterns
+
+4. **Apply Agent Roles**: Use the agent definitions to inform your explanation approach:
+   - Incorporate the perspectives, principles, and guidelines from relevant agents
+   - Apply agent-specific expertise to tailor explanations to the appropriate audience level
+   - Ensure the explanation aligns with the agent's focus areas and behavioral mindset
+   - Use technical-writer's audience analysis to determine explanation depth and complexity
+   - Apply learning-guide's progressive disclosure techniques for complex concepts
+   - Incorporate domain-specific knowledge from architecture agents when explaining system components
+
+5. **Role Integration**: The agent definitions should shape the role and approach for this command:
+   - Combine the command's explanation guidelines with agent-specific expertise
+   - Apply agent principles throughout code analysis, explanation structure, and educational content creation
+   - Ensure the explanation reflects the specialized knowledge from relevant agents
+   - Prioritize technical-writer's focus on clarity, audience targeting, and practical examples
+   - Use learning-guide's educational techniques for progressive complexity disclosure
+   - Leverage architecture agents' domain expertise to provide accurate technical context
+
+**Note**: The agent definitions provide specialized expertise that enhances the base command instructions. Always consult and apply relevant agent definitions when explaining code, with technical-writer and learning-guide as primary guides for effective communication and education.
+
 ## Instructions
 
 ### 1. Code Comprehension Analysis
@@ -363,7 +405,7 @@ class AlgorithmVisualizer:
 ### Call Stack Visualization:
 ````
 
-{func*name}({example_input})
+{func_name}({example_input})
 │
 ├─> Base case check: {example_input} == 0? No
 ├─> Recursive call: {func_name}({example_input - 1})

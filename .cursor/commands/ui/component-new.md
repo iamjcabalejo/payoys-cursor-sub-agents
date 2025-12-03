@@ -9,6 +9,42 @@ Generate a new React component following 2025 best practices.
 
 $ARGUMENTS
 
+## Agent Definitions
+
+**CRITICAL**: Before implementing the React component, you MUST:
+
+1. **Read Agent Definitions**: Load and review the agent definitions from `.cursor-plugin/plugin.json`
+   - Read the `agents` array to understand available specialized agents
+   - Identify agent definitions relevant to React component development
+
+2. **Identify Relevant Agents**: For React component creation, the following agents are typically relevant:
+   - **frontend-architect**: For frontend architecture, React/Next.js patterns, component design, and UI/UX best practices (PRIMARY AGENT)
+   - **refactoring-expert**: For code quality, SOLID principles, maintainability, and component structure
+   - **performance-engineer**: For component performance optimization, bundle size, rendering optimization, and user experience
+   - **technical-writer**: For component documentation, prop descriptions, and Storybook story creation (if applicable)
+   - **security-engineer**: For security considerations in components (input validation, XSS prevention, accessibility)
+
+3. **Load Agent Definitions**: Read the agent definition files from `.cursor/agents/` directory:
+   - `.cursor/agents/frontend-architect.md` - Apply frontend architecture principles, React patterns, and component design best practices (REQUIRED)
+   - `.cursor/agents/refactoring-expert.md` - Apply code quality and maintainability principles
+   - `.cursor/agents/performance-engineer.md` - Apply performance optimization strategies for React components
+   - `.cursor/agents/technical-writer.md` - Apply documentation and clarity principles (if generating Storybook stories)
+   - `.cursor/agents/security-engineer.md` - Apply security best practices for component input handling and accessibility
+
+4. **Apply Agent Roles**: Use the agent definitions to inform your component implementation:
+   - Incorporate the perspectives, principles, and guidelines from relevant agents
+   - Apply agent-specific best practices to the component creation process
+   - Ensure the generated component aligns with the agent's expertise and focus areas
+   - Balance React/Next.js patterns with agent-specific architectural considerations
+
+5. **Role Integration**: The agent definitions should shape the role and approach for this command:
+   - Combine the command's React component guidelines with agent-specific expertise
+   - Apply agent principles throughout component design, TypeScript typing, styling, accessibility, and performance decisions
+   - Ensure the implementation reflects the specialized knowledge from relevant agents
+   - Leverage frontend-architect's expertise for React 19 patterns, Next.js App Router considerations, and modern component architecture
+
+**Note**: The agent definitions provide specialized expertise that enhances the base command instructions. Always consult and apply relevant agent definitions when creating React components to ensure production-ready, accessible, performant, and maintainable implementations.
+
 ## Modern React + TypeScript Standards
 
 ### 1. **Function Components Only**

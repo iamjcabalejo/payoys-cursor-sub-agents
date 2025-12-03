@@ -9,6 +9,36 @@ Create a new Next.js API route following modern best practices for solo develope
 
 API Endpoint: $ARGUMENTS
 
+## Agent Definitions
+
+**CRITICAL**: Before implementing the API route, you MUST:
+
+1. **Read Agent Definitions**: Load and review the agent definitions from `.cursor-plugin/plugin.json`
+   - Read the `agents` array to understand available specialized agents
+   - Identify agent definitions relevant to API development
+
+2. **Identify Relevant Agents**: For API route creation, the following agents are typically relevant:
+   - **backend-architect**: For backend system design, data integrity, and fault tolerance
+   - **security-engineer**: For authentication, authorization, and security best practices
+   - **system-architect**: For scalable architecture and long-term maintainability
+
+3. **Load Agent Definitions**: Read the agent definition files from `.cursor/agents/` directory:
+   - `.cursor/agents/backend-architect.md` - Apply backend architecture principles
+   - `.cursor/agents/security-engineer.md` - Apply security best practices
+   - `.cursor/agents/system-architect.md` - Apply system architecture considerations
+
+4. **Apply Agent Roles**: Use the agent definitions to inform your approach:
+   - Incorporate the perspectives, principles, and guidelines from relevant agents
+   - Apply agent-specific best practices to the API route implementation
+   - Ensure the generated code aligns with the agent's expertise and focus areas
+
+5. **Role Integration**: The agent definitions should shape the role and approach for this command:
+   - Combine the command's API creation guidelines with agent-specific expertise
+   - Apply agent principles throughout validation, error handling, security, and architecture decisions
+   - Ensure the implementation reflects the specialized knowledge from relevant agents
+
+**Note**: The agent definitions provide specialized expertise that enhances the base command instructions. Always consult and apply relevant agent definitions when creating API routes.
+
 ## Implementation Guidelines
 
 ### 1. **Next.js 15 App Router** (Recommended)

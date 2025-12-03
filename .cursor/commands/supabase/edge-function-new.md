@@ -9,6 +9,40 @@ Create a new Supabase Edge Function.
 
 $ARGUMENTS
 
+## Agent Definitions
+
+**CRITICAL**: Before implementing the Edge Function, you MUST:
+
+1. **Read Agent Definitions**: Load and review the agent definitions from `.cursor-plugin/plugin.json`
+   - Read the `agents` array to understand available specialized agents
+   - Identify agent definitions relevant to Edge Function development
+
+2. **Identify Relevant Agents**: For Supabase Edge Function creation, the following agents are typically relevant:
+   - **backend-architect**: For backend system design, data integrity, fault tolerance, and Deno/edge runtime considerations
+   - **security-engineer**: For authentication, authorization, security best practices, and edge function security patterns
+   - **system-architect**: For scalable architecture, edge deployment patterns, and long-term maintainability
+   - **performance-engineer**: For edge function performance optimization, cold start minimization, and response time optimization
+
+3. **Load Agent Definitions**: Read the agent definition files from `.cursor/agents/` directory:
+   - `.cursor/agents/backend-architect.md` - Apply backend architecture principles for edge functions
+   - `.cursor/agents/security-engineer.md` - Apply security-first mindset and zero-trust principles
+   - `.cursor/agents/system-architect.md` - Apply system architecture considerations for edge deployments
+   - `.cursor/agents/performance-engineer.md` - Apply performance optimization strategies for edge functions
+
+4. **Apply Agent Roles**: Use the agent definitions to inform your approach:
+   - Incorporate the perspectives, principles, and guidelines from relevant agents
+   - Apply agent-specific best practices to the Edge Function implementation
+   - Ensure the generated code aligns with the agent's expertise and focus areas
+   - Consider edge-specific concerns: cold starts, global distribution, Deno runtime limitations
+
+5. **Role Integration**: The agent definitions should shape the role and approach for this command:
+   - Combine the command's Edge Function creation guidelines with agent-specific expertise
+   - Apply agent principles throughout authentication, error handling, security, and architecture decisions
+   - Ensure the implementation reflects the specialized knowledge from relevant agents
+   - Balance edge function constraints (Deno runtime, 150s timeout, global distribution) with agent best practices
+
+**Note**: The agent definitions provide specialized expertise that enhances the base command instructions. Always consult and apply relevant agent definitions when creating Supabase Edge Functions to ensure production-ready, secure, and performant implementations.
+
 ## Supabase Edge Functions Overview
 
 Edge Functions run on Deno Deploy (not Node.js):

@@ -9,6 +9,43 @@ Optimize the following code for performance and efficiency.
 
 $ARGUMENTS
 
+## Agent Definitions
+
+**CRITICAL**: Before optimizing the code, you MUST:
+
+1. **Read Agent Definitions**: Load and review the agent definitions from `.cursor-plugin/plugin.json`
+   - Read the `agents` array to understand available specialized agents
+   - Identify agent definitions relevant to code optimization and performance
+
+2. **Identify Relevant Agents**: For code optimization, the following agents are typically relevant:
+   - **performance-engineer**: For measurement-driven performance analysis and bottleneck elimination
+   - **refactoring-expert**: For code quality improvements and maintainability during optimization
+   - **backend-architect**: For backend performance, database optimization, and API efficiency
+   - **frontend-architect**: For frontend performance, bundle optimization, and user experience improvements
+   - **system-architect**: For architectural-level performance considerations and scalability
+
+3. **Load Agent Definitions**: Read the agent definition files from `.cursor/agents/` directory:
+   - `.cursor/agents/performance-engineer.md` - Apply measurement-driven optimization principles
+   - `.cursor/agents/refactoring-expert.md` - Apply code quality and maintainability principles
+   - `.cursor/agents/backend-architect.md` - Apply backend performance and optimization strategies
+   - `.cursor/agents/frontend-architect.md` - Apply frontend performance and UX optimization strategies
+   - `.cursor/agents/system-architect.md` - Apply system-level performance and scalability considerations
+
+4. **Apply Agent Roles**: Use the agent definitions to inform your optimization approach:
+   - Incorporate the perspectives, principles, and guidelines from relevant agents
+   - Apply agent-specific best practices to the optimization process
+   - Ensure the optimized code aligns with the agent's expertise and focus areas
+   - Follow the performance-engineer's "measure first, optimize second" mindset
+   - Balance performance gains with code quality using refactoring-expert principles
+
+5. **Role Integration**: The agent definitions should shape the role and approach for this command:
+   - Combine the command's optimization guidelines with agent-specific expertise
+   - Apply agent principles throughout profiling, analysis, optimization, and validation phases
+   - Ensure the optimization process reflects specialized knowledge from relevant agents
+   - Prioritize measurement-driven optimizations that provide measurable user experience improvements
+
+**Note**: The agent definitions provide specialized expertise that enhances the base command instructions. Always consult and apply relevant agent definitions when optimizing code, with particular emphasis on the performance-engineer's measurement-driven approach.
+
 ## Optimization Strategy for Solo Developers
 
 ### 1. **Profiling First**

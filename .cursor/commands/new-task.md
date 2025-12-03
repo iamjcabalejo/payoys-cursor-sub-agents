@@ -9,6 +9,40 @@ Analyze the following task and create a clear, actionable implementation plan.
 
 $ARGUMENTS
 
+## Agent Definitions
+
+**IMPORTANT**: Before analyzing the task and creating the implementation plan, identify and use the correct agent definitions based on the task's requirements.
+
+1. **Identify Relevant Agents**: Analyze the task description to determine which agent(s) are relevant:
+   - Backend/API tasks → `backend-architect`
+   - Frontend/UI tasks → `frontend-architect`
+   - System architecture → `system-architect`
+   - Security concerns → `security-engineer`
+   - Performance needs → `performance-engineer`
+   - Research/learning → `tech-stack-researcher` or `learning-guide`
+   - Documentation → `technical-writer`
+   - Requirements analysis → `requirements-analyst`
+   - Refactoring needs → `refactoring-expert`
+
+2. **Read Agent Definitions**: Load the relevant agent definition files from `.cursor/agents/` directory:
+   - Read the agent's frontmatter (name, description, category)
+   - Review triggers, behavioral mindset, focus areas, and key actions
+   - Understand the agent's boundaries and outputs
+
+3. **Apply Agent Perspective**: Incorporate the agent's perspective into the task analysis:
+   - Use the agent's behavioral mindset when analyzing requirements
+   - Apply the agent's focus areas to complexity assessment
+   - Follow the agent's key actions in the implementation steps
+   - Respect the agent's boundaries (what it will/will not do)
+
+4. **Multi-Agent Analysis**: If the task spans multiple domains:
+   - Identify all relevant agents
+   - Read definitions for each
+   - Plan how their perspectives integrate
+   - Clearly separate concerns in the implementation plan
+
+**Example**: For a task requiring both API and UI work, use both `backend-architect` and `frontend-architect` definitions to ensure comprehensive analysis from both perspectives.
+
 ## Analysis Framework
 
 ### 1. **Task Breakdown**

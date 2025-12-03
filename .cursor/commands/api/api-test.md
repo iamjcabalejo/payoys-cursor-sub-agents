@@ -9,6 +9,42 @@ Generate comprehensive API tests for the specified endpoint.
 
 $ARGUMENTS
 
+## Agent Definitions
+
+**CRITICAL**: Before generating API tests, you MUST:
+
+1. **Read Agent Definitions**: Load and review the agent definitions from `.cursor-plugin/plugin.json`
+   - Read the `agents` array to understand available specialized agents
+   - Identify agent definitions relevant to API testing
+
+2. **Identify Relevant Agents**: For API testing, the following agents are typically relevant:
+   - **backend-architect**: For testing backend system reliability, data integrity, fault tolerance, and API design patterns
+   - **security-engineer**: For security testing, vulnerability testing, authentication/authorization testing, and security edge cases
+   - **performance-engineer**: For performance testing scenarios, response time validation, load testing, and bottleneck identification
+   - **system-architect**: For integration testing, system-level testing, and end-to-end API flow validation
+
+3. **Load Agent Definitions**: Read the agent definition files from `.cursor/agents/` directory:
+   - `.cursor/agents/backend-architect.md` - Apply backend architecture testing principles
+   - `.cursor/agents/security-engineer.md` - Apply security-first testing mindset and vulnerability testing
+   - `.cursor/agents/performance-engineer.md` - Apply performance testing and measurement-driven validation
+   - `.cursor/agents/system-architect.md` - Apply system architecture testing considerations
+
+4. **Apply Agent Roles**: Use the agent definitions to inform your testing approach:
+   - Incorporate the testing perspectives, principles, and guidelines from relevant agents
+   - Apply agent-specific testing best practices to the test suite generation
+   - Ensure the generated tests align with the agent's expertise and focus areas
+   - Include security-focused test cases from security-engineer (SQL injection, XSS, authentication bypass)
+   - Include performance-focused test cases from performance-engineer (response times, load testing, concurrent requests)
+   - Include reliability-focused test cases from backend-architect (error handling, fault tolerance, data integrity)
+
+5. **Role Integration**: The agent definitions should shape the role and approach for this command:
+   - Combine the command's testing guidelines with agent-specific testing expertise
+   - Apply agent principles throughout test case design, validation scenarios, and edge case coverage
+   - Ensure the test implementation reflects the specialized knowledge from relevant agents
+   - Prioritize comprehensive coverage that addresses security, performance, reliability, and system-level concerns
+
+**Note**: The agent definitions provide specialized testing expertise that enhances the base command instructions. Always consult and apply relevant agent definitions when generating API tests, especially security-engineer for comprehensive security testing and backend-architect for reliability-focused test scenarios.
+
 ## Test Strategy for Solo Developers
 
 Create practical, maintainable tests using modern tools:

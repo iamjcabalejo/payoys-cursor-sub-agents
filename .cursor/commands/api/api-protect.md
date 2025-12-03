@@ -9,6 +9,39 @@ Add comprehensive security, authentication, and authorization to the specified A
 
 $ARGUMENTS
 
+## Agent Definitions
+
+**CRITICAL**: Before implementing security and authentication, you MUST:
+
+1. **Read Agent Definitions**: Load and review the agent definitions from `.cursor-plugin/plugin.json`
+   - Read the `agents` array to understand available specialized agents
+   - Identify agent definitions relevant to security and API protection
+
+2. **Identify Relevant Agents**: For API security and protection, the following agents are typically relevant:
+   - **security-engineer**: For authentication, authorization, vulnerability assessment, and security best practices
+   - **backend-architect**: For backend system design, data integrity, and secure API architecture
+   - **system-architect**: For scalable security architecture and long-term maintainability
+
+3. **Load Agent Definitions**: Read the agent definition files from `.cursor/agents/` directory:
+   - `.cursor/agents/security-engineer.md` - Apply security-first mindset and zero-trust principles
+   - `.cursor/agents/backend-architect.md` - Apply backend architecture principles for secure APIs
+   - `.cursor/agents/system-architect.md` - Apply system architecture considerations for security
+
+4. **Apply Agent Roles**: Use the agent definitions to inform your security approach:
+   - Incorporate the security perspectives, principles, and guidelines from relevant agents
+   - Apply agent-specific security best practices to the API protection implementation
+   - Ensure the generated code aligns with the agent's security expertise and focus areas
+   - Follow zero-trust principles and defense-in-depth strategies from security-engineer
+   - Consider threat modeling and attack vector analysis when implementing protections
+
+5. **Role Integration**: The agent definitions should shape the role and approach for this command:
+   - Combine the command's security guidelines with agent-specific security expertise
+   - Apply agent principles throughout authentication, authorization, validation, and security decisions
+   - Ensure the implementation reflects the specialized security knowledge from relevant agents
+   - Prioritize security-first mindset and comprehensive threat protection
+
+**Note**: The agent definitions provide specialized security expertise that enhances the base command instructions. Always consult and apply relevant agent definitions when securing API routes, especially the security-engineer agent for comprehensive security implementation.
+
 ## Security Layers to Implement
 
 ###1. **Authentication** (Who are you?)
