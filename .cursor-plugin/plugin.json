@@ -13,7 +13,7 @@
     {
       "name": "agents-md-generate",
       "path": ".cursor/commands/misc/agents-md-generate.md",
-      "description": "Generate detailed code explanations"
+      "description": "Generate AGENTS.md file documenting project coding patterns, structure, and standards"
     },
     {
       "name": "code-optimize",
