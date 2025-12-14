@@ -197,88 +197,6 @@ Document project-specific best practices:
 - README structure
 - API documentation format
 
-### 7. **Code Update and Suggestion Best Practices**
-
-Document critical guidelines for AI agents when updating or suggesting code:
-
-**Code Update Best Practices**
-
-**Context Preservation**
-- Always read the entire file before making changes to understand full context
-- Preserve existing code structure and organization patterns
-- Maintain existing comments and documentation unless explicitly updating them
-- Keep related code together (don't split related logic unnecessarily)
-
-**Change Scope Management**
-- Make minimal, focused changes that address the specific requirement
-- Avoid refactoring unrelated code unless explicitly requested
-- Preserve existing patterns and conventions even when suggesting improvements
-- Don't change working code unless there's a clear reason
-
-**Code Block Updates**
-- When updating code blocks, provide sufficient context (3-5 lines before and after)
-- Use exact string matching for old_string to ensure unique identification
-- Preserve exact indentation and whitespace from the original code
-- Maintain existing formatting style (spaces vs tabs, quote style, etc.)
-- Keep line breaks and spacing consistent with the file's style
-
-**Incremental Changes**
-- Break large changes into smaller, logical steps when possible
-- Make one logical change per edit operation
-- Test each change before proceeding to the next
-- Document why changes were made in commit messages or comments
-
-**Error Prevention**
-- Verify imports are correct and match project conventions
-- Check for breaking changes that might affect other files
-- Ensure type safety is maintained (for TypeScript projects)
-- Validate that changes don't introduce linting errors
-- Consider edge cases and error handling
-
-**Code Suggestion Best Practices**
-
-**Context-Aware Suggestions**
-- Analyze the codebase structure before suggesting new code
-- Follow existing architectural patterns (component structure, state management, etc.)
-- Match the project's coding style and conventions
-- Use the same libraries and patterns already in use
-- Respect the project's file organization structure
-
-**Complete and Usable Code**
-- Provide complete, runnable code examples (not pseudocode)
-- Include necessary imports and dependencies
-- Add proper TypeScript types/interfaces when applicable
-- Include error handling and edge cases
-- Provide code that follows project linting rules
-
-**Documentation in Suggestions**
-- Add JSDoc/TSDoc comments for new functions/methods
-- Explain complex logic with inline comments
-- Document parameters, return types, and exceptions
-- Include usage examples when introducing new patterns
-- Note any breaking changes or migration requirements
-
-**Best Practice Alignment**
-- Suggest code that follows security best practices
-- Consider performance implications
-- Ensure accessibility standards are met (for UI code)
-- Follow the project's testing patterns
-- Align with the project's error handling approach
-
-**Suggestion Format**
-- Use clear, descriptive variable and function names
-- Structure code for readability and maintainability
-- Group related functionality together
-- Separate concerns appropriately
-- Make code self-documenting where possible
-
-**Validation Before Suggesting**
-- Verify suggested code compiles/validates
-- Check that suggested patterns match project conventions
-- Ensure suggested libraries are compatible with the tech stack
-- Confirm suggested approaches align with project architecture
-- Validate that suggestions don't conflict with existing patterns
-
 ## Analysis Process
 
 ### Step 1: Project Discovery
@@ -373,12 +291,14 @@ The generated AGENTS.md should be:
    - Document conventions observed (naming, style, structure)
    - Identify inconsistencies and document the preferred approach
    - **DO NOT** include actual code, business logic, or sensitive data in analysis
+   - **ALWAYS** include the "Code Update and Suggestion Best Practices" section (standard content, not analyzed)
 
 2. **If Project is New**:
    - Analyze configuration files
    - Infer patterns from framework defaults
    - Suggest best practices based on tech stack
    - Document recommended patterns
+   - **ALWAYS** include the "Code Update and Suggestion Best Practices" section (standard content, not analyzed)
 
 3. **Agent Optimization**:
    - Use imperative language ("Use X", "Always Y", "Never Z")
@@ -403,10 +323,94 @@ Generate an AGENTS.md file at the project root that includes:
 4. **Coding Patterns Section**: Architectural patterns and code organization
 5. **Style Guide Section**: Formatting and style rules
 6. **Best Practices Section**: Project-specific standards
-7. **Code Update and Suggestion Best Practices Section**: Guidelines for AI agents when updating or suggesting code
+7. **Code Update and Suggestion Best Practices Section**: Standard guidelines for AI agents when updating or suggesting code (detailed content provided in the section below)
 8. **Critical Rules Section**: Must-follow rules highlighted
 
 The file should be immediately usable by AI agents to understand and follow project conventions without ambiguity.
+
+## Code Update and Suggestion Best Practices Content
+
+**IMPORTANT**: The "Code Update and Suggestion Best Practices" section (item #7 in Output Requirements above) must be included in every generated AGENTS.md file. This section provides standard guidelines that AI agents should follow when updating or suggesting code. This content is NOT analyzed from the codebase - it is a standard set of best practices that should always be included.
+
+Include the following content in the "Code Update and Suggestion Best Practices" section:
+
+### Code Update Best Practices
+
+**Context Preservation**
+- Always read the entire file before making changes to understand full context
+- Preserve existing code structure and organization patterns
+- Maintain existing comments and documentation unless explicitly updating them
+- Keep related code together (don't split related logic unnecessarily)
+
+**Change Scope Management**
+- Make minimal, focused changes that address the specific requirement
+- Avoid refactoring unrelated code unless explicitly requested
+- Preserve existing patterns and conventions even when suggesting improvements
+- Don't change working code unless there's a clear reason
+
+**Code Block Updates**
+- When updating code blocks using search_replace or similar tools, provide sufficient context (3-5 lines before and after the change)
+- Use exact string matching for old_string parameter to ensure unique identification (no partial matches)
+- Preserve exact indentation and whitespace from the original code
+- Maintain existing formatting style (spaces vs tabs, quote style, etc.)
+- Keep line breaks and spacing consistent with the file's style
+
+**Incremental Changes**
+- Break large changes into smaller, logical steps when possible
+- Make one logical change per edit operation
+- Verify each change compiles/validates before proceeding to the next (check for syntax errors, type errors, linting errors)
+- Document why changes were made in commit messages or comments
+
+**Error Prevention**
+- Verify imports are correct and match project conventions
+- Check for breaking changes that might affect other files
+- Ensure type safety is maintained (for TypeScript projects)
+- Validate that changes don't introduce linting errors
+- Consider edge cases and error handling
+
+### Code Suggestion Best Practices
+
+**Context-Aware Suggestions**
+- Analyze the codebase structure before suggesting new code
+- Follow existing architectural patterns (component structure, state management, etc.)
+- Match the project's coding style and conventions
+- Use the same libraries and patterns already in use
+- Respect the project's file organization structure
+
+**Complete and Usable Code**
+- Provide complete, runnable code examples (not pseudocode)
+- Include necessary imports and dependencies
+- Add proper TypeScript types/interfaces when applicable
+- Include error handling and edge cases
+- Provide code that follows project linting rules
+
+**Documentation in Suggestions**
+- Add JSDoc/TSDoc comments for new functions/methods
+- Explain complex logic with inline comments
+- Document parameters, return types, and exceptions
+- Include usage examples when introducing new patterns
+- Note any breaking changes or migration requirements
+
+**Best Practice Alignment**
+- Suggest code that follows security best practices
+- Consider performance implications
+- Ensure accessibility standards are met (for UI code)
+- Follow the project's testing patterns
+- Align with the project's error handling approach
+
+**Suggestion Format**
+- Use clear, descriptive variable and function names
+- Structure code for readability and maintainability
+- Group related functionality together
+- Separate concerns appropriately
+- Make code self-documenting where possible
+
+**Validation Before Suggesting**
+- Verify suggested code compiles/validates
+- Check that suggested patterns match project conventions
+- Ensure suggested libraries are compatible with the tech stack
+- Confirm suggested approaches align with project architecture
+- Validate that suggestions don't conflict with existing patterns
 
 ---
 
