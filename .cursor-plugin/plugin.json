@@ -11,8 +11,8 @@
       "description": "Analyze code for performance issues and suggest optimizations"
     },
     {
-      "name": "code-explain",
-      "path": ".cursor/commands/misc/code-explain.md",
+      "name": "agents-md-generate",
+      "path": ".cursor/commands/misc/agents-md-generate.md",
       "description": "Generate detailed code explanations"
     },
     {
