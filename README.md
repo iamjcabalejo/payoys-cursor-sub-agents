@@ -13,6 +13,7 @@ This plugin provides **14 slash commands** and **11 specialized AI agents** to s
 - `/feature-plan` - Feature implementation planning
 - `/lint` - Linting and fixes
 - `/docs-generate` - Documentation generation
+- `/agents-md-generate` - AGENTS.md generation
 
 ### 🔌 API Commands (3)
 
