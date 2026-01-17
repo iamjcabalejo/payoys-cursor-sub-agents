@@ -1,10 +1,10 @@
 # Brader Payoy's Cursor Setup
 
-This plugin provides **14 slash commands** and **11 specialized AI agents** to supercharge your development workflow.
+This plugin provides **14 slash commands** and **12 specialized AI agents** to supercharge your development workflow.
 
 ## What's Inside
 
-### 📋 Development Commands (7)
+### 📋 Development Commands (8)
 
 - `/new-task` - Analyze code for performance issues
 - `/code-explain` - Generate detailed explanations
