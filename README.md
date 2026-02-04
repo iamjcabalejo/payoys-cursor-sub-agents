@@ -1,6 +1,6 @@
 # Brader Payoy's Cursor Setup
 
-This plugin provides **14 slash commands**, **12 specialized AI agents**, and **11 project skills** to supercharge your development workflow.
+This plugin provides **14 slash commands**, **12 specialized AI agents**, **11 project skills**, and **5 rules** to supercharge your development workflow.
 
 ## What's Inside
 
@@ -126,9 +126,23 @@ Skills in `.cursor/skills/` provide reusable workflows and checklists that agent
 
 See `.cursor/skills/README.md` for the full mapping to agents.
 
+### 📐 Rules (5)
+
+Rules in `.cursor/rules/` provide persistent AI guidance:
+
+| Rule | Scope | Purpose |
+|------|-------|---------|
+| `core-standards` | Always | General coding standards |
+| `typescript` | `**/*.ts` | TypeScript conventions |
+| `react` | `**/*.tsx` | React component patterns |
+| `api-routes` | `**/api/**/*.ts` | API validation and error handling |
+| `e2e-tests` | `**/*.spec.ts` | Playwright E2E patterns |
+
+See `.cursor/rules/README.md` for details.
+
 ## Customization
 
-After installation, you can customize any command by editing files in `.cursor/commands/` and `.cursor/agents/`. Add or modify skills in `.cursor/skills/` to extend agent capabilities.
+After installation, you can customize any command by editing files in `.cursor/commands/` and `.cursor/agents/`. Add or modify skills in `.cursor/skills/` and rules in `.cursor/rules/` to extend agent capabilities.
 
 ## Contributing
 

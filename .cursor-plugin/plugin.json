@@ -1,7 +1,7 @@
 {
   "name": "payoys-cursor-sub-agents",
   "version": "1.1.0",
-  "description": "Brader Payoy's personal Cursor Agents setup with 14 commands, 12 agents, and 11 skills for modern web development",
+  "description": "Brader Payoy's personal Cursor Agents setup with 14 commands, 12 agents, 11 skills, and 5 rules for modern web development",
   "author": "Brader Payoy",
   "license": "MIT",
   "commands": [
@@ -193,6 +193,33 @@
       "name": "feature-planning",
       "path": ".cursor/skills/feature-planning",
       "description": "Break features into implementation tasks for backend, frontend, and E2E subagents"
+    }
+  ],
+  "rules": [
+    {
+      "name": "core-standards",
+      "path": ".cursor/rules/core-standards.mdc",
+      "description": "Core coding standards applied to all sessions"
+    },
+    {
+      "name": "typescript",
+      "path": ".cursor/rules/typescript.mdc",
+      "description": "TypeScript conventions"
+    },
+    {
+      "name": "react",
+      "path": ".cursor/rules/react.mdc",
+      "description": "React component patterns"
+    },
+    {
+      "name": "api-routes",
+      "path": ".cursor/rules/api-routes.mdc",
+      "description": "API route conventions"
+    },
+    {
+      "name": "e2e-tests",
+      "path": ".cursor/rules/e2e-tests.mdc",
+      "description": "E2E test patterns"
     }
   ],
   "mcpServers": {
