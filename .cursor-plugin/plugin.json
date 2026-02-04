@@ -1,7 +1,7 @@
 {
   "name": "payoys-cursor-sub-agents",
   "version": "1.1.0",
-  "description": "Brader Payoy's personal Cursor Agents setup with 14 commands, 12 agents, 11 skills, and 5 rules for modern web development",
+  "description": "Brader Payoy's personal Cursor Agents setup with 15 commands, 12 agents, 11 skills, 5 rules, and hooks for modern web development",
   "author": "Brader Payoy",
   "license": "MIT",
   "commands": [
@@ -74,6 +74,11 @@
       "name": "edge-function-new",
       "path": ".cursor/commands/supabase/edge-function-new.md",
       "description": "Create new Supabase Edge Function"
+    },
+    {
+      "name": "commit-best",
+      "path": ".cursor/commands/git/commit-best.md",
+      "description": "Create a well-structured commit with proper message and push"
     }
   ],
   "agents": [
