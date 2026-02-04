@@ -1,6 +1,6 @@
 # Brader Payoy's Cursor Setup
 
-This plugin provides **14 slash commands**, **12 specialized AI agents**, **11 project skills**, and **5 rules** to supercharge your development workflow.
+This plugin provides **15 slash commands**, **12 specialized AI agents**, **11 project skills**, **5 rules**, and **hooks** for trigger-based automation.
 
 ## What's Inside
 
@@ -30,6 +30,10 @@ This plugin provides **14 slash commands**, **12 specialized AI agents**, **11 p
 
 - `/types-gen` - Generate TypeScript types
 - `/edge-function-new` - Create Edge Functions
+
+### 🔀 Git Commands (1)
+
+- `/commit-best` - Create a well-structured commit with conventional message and push
 
 ### 🤖 Specialized AI Agents (12)
 
@@ -61,6 +65,14 @@ This plugin provides **14 slash commands**, **12 specialized AI agents**, **11 p
 - Full-stack engineers
 
 ## Usage Examples
+
+### Creating a Commit
+
+```bash
+/commit-best
+```
+
+Runs the full workflow: if on `main`, creates a new branch; stages changes; generates a conventional commit message (feat, fix, docs, etc.); commits and pushes.
 
 ### Planning a Feature
 
@@ -140,9 +152,31 @@ Rules in `.cursor/rules/` provide persistent AI guidance:
 
 See `.cursor/rules/README.md` for details.
 
+### 🪝 Hooks
+
+**Why hooks?** Hooks let you observe, control, and extend the agent loop automatically. Use them to:
+- **Enforce consistency** — Run Prettier/ESLint after every file edit
+- **Add safety guards** — Block risky commands (`rm -rf`, `kubectl apply`) or require approval for network calls
+- **Audit activity** — Log commands, file edits, and MCP usage for compliance or debugging
+- **Inject context** — Add env vars or project context at session start
+- **Gate access** — Block reads of sensitive files or scans of prompts for PII
+
+**Included hooks:**
+
+| Event | Script | Purpose |
+|-------|--------|---------|
+| afterFileEdit | format.sh | Run Prettier on edited files |
+| beforeShellExecution | audit.sh | Log shell commands |
+| sessionStart | session-init.sh | Session setup |
+| stop | audit.sh | Log when agent completes |
+
+**Examples:** Block risky commands, audit all activity, inject session context, block sensitive file reads—see `.cursor/hooks/README.md` for detailed examples and when/how to use each hook.
+
+Run `chmod +x .cursor/hooks/*.sh` after installation.
+
 ## Customization
 
-After installation, you can customize any command by editing files in `.cursor/commands/` and `.cursor/agents/`. Add or modify skills in `.cursor/skills/` and rules in `.cursor/rules/` to extend agent capabilities.
+After installation, you can customize any command by editing files in `.cursor/commands/` and `.cursor/agents/`. Add or modify skills in `.cursor/skills/`, rules in `.cursor/rules/`, and hooks in `.cursor/hooks.json` to extend agent capabilities.
 
 ## Contributing
 
