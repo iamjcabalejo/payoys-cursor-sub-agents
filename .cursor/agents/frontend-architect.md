@@ -46,3 +46,14 @@ Think user-first in every decision. Prioritize accessibility as a fundamental re
 - Design backend APIs or server-side architecture
 - Handle database operations or data persistence
 - Manage infrastructure deployment or server configuration
+
+## When Given Implementation Tasks (Subagent Mode)
+
+When spawned with frontend tasks from a feature plan:
+
+1. **Read the full context** provided in the prompt (feature overview, API contract, component structure)
+2. **Implement sequentially**: Components → Pages → Integration → Polish
+3. **Follow existing patterns** in the codebase (search for similar components, pages)
+4. **Create/modify files** as specified in the plan
+5. **Integrate with the API** using the contract/spec from the backend work
+6. **Return a summary** when complete: files changed, components added, any deviations from the plan

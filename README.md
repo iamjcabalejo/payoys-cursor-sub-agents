@@ -1,6 +1,6 @@
 # Brader Payoy's Cursor Setup
 
-This plugin provides **14 slash commands** and **12 specialized AI agents** to supercharge your development workflow.
+This plugin provides **14 slash commands**, **12 specialized AI agents**, and **11 project skills** to supercharge your development workflow.
 
 ## What's Inside
 
@@ -31,7 +31,7 @@ This plugin provides **14 slash commands** and **12 specialized AI agents** to s
 - `/types-gen` - Generate TypeScript types
 - `/edge-function-new` - Create Edge Functions
 
-### 🤖 Specialized AI Agents (11)
+### 🤖 Specialized AI Agents (12)
 
 **Architecture & Planning**
 - **tech-stack-researcher** - Technology choice recommendations with trade-offs
@@ -40,7 +40,8 @@ This plugin provides **14 slash commands** and **12 specialized AI agents** to s
 - **frontend-architect** - Performant, accessible UI architecture
 - **requirements-analyst** - Transform ideas into concrete specifications
 
-**Code Quality & Performance**
+**Code Quality & Testing**
+- **e2e-runner** - End-to-end testing with Playwright
 - **refactoring-expert** - Systematic refactoring and clean code
 - **performance-engineer** - Measurement-driven optimization
 - **security-engineer** - Vulnerability identification and security standards
@@ -105,9 +106,29 @@ This setup emphasizes:
 4. Alternatively, run the CLI command `cursor plugins install iamjcabalejo/payoys-cursor-sub-agents`.
 5. After installation, tweak any command/agent files under `.cursor/commands/` or `.cursor/agents/` to suit your workflow.
 
+### 🧩 Project Skills (11)
+
+Skills in `.cursor/skills/` provide reusable workflows and checklists that agents apply automatically:
+
+| Skill | Use Case |
+|-------|----------|
+| `api-design-patterns` | REST conventions, error handling |
+| `api-testing` | API test structure and coverage |
+| `accessibility-checklist` | WCAG 2.1 AA compliance |
+| `e2e-playwright` | Playwright E2E patterns |
+| `security-audit` | OWASP Top 10 checks |
+| `refactoring-checklist` | Safe refactoring steps |
+| `requirements-discovery` | User stories, PRD structure |
+| `docs-structure` | README, API docs templates |
+| `performance-profiling` | Measure-first optimization |
+| `code-review` | PR review checklist |
+| `feature-planning` | Task blocks for subagent hand-off |
+
+See `.cursor/skills/README.md` for the full mapping to agents.
+
 ## Customization
 
-After installation, you can customize any command by editing files in `.cursor/commands/` and `.cursor/agents/`.
+After installation, you can customize any command by editing files in `.cursor/commands/` and `.cursor/agents/`. Add or modify skills in `.cursor/skills/` to extend agent capabilities.
 
 ## Contributing
 

@@ -1,7 +1,7 @@
 {
   "name": "payoys-cursor-sub-agents",
-  "version": "1.0.0",
-  "description": "Brader Payoy's personal Cursor Agents setup with 14 productivity commands and 11 specialized AI agents for modern web development",
+  "version": "1.1.0",
+  "description": "Brader Payoy's personal Cursor Agents setup with 14 commands, 12 agents, and 11 skills for modern web development",
   "author": "Brader Payoy",
   "license": "MIT",
   "commands": [
@@ -131,6 +131,68 @@
       "name": "technical-writer",
       "path": ".cursor/agents/technical-writer.md",
       "description": "Create clear, comprehensive technical documentation tailored to specific audiences with focus on usability"
+    },
+    {
+      "name": "e2e-runner",
+      "path": ".cursor/agents/e2e-runner.md",
+      "description": "Design and execute best-in-class end-to-end tests with focus on reliability, coverage, and maintainability"
+    }
+  ],
+  "skills": [
+    {
+      "name": "api-design-patterns",
+      "path": ".cursor/skills/api-design-patterns",
+      "description": "Apply RESTful and API design best practices for endpoints, error handling, and validation"
+    },
+    {
+      "name": "api-testing",
+      "path": ".cursor/skills/api-testing",
+      "description": "Structure and write API tests covering success, validation, auth, and error cases"
+    },
+    {
+      "name": "accessibility-checklist",
+      "path": ".cursor/skills/accessibility-checklist",
+      "description": "Verify WCAG 2.1 AA compliance for UI components"
+    },
+    {
+      "name": "e2e-playwright",
+      "path": ".cursor/skills/e2e-playwright",
+      "description": "Write reliable Playwright E2E tests with Page Object Model and stable selectors"
+    },
+    {
+      "name": "security-audit",
+      "path": ".cursor/skills/security-audit",
+      "description": "Perform OWASP-aligned security checks on code and APIs"
+    },
+    {
+      "name": "refactoring-checklist",
+      "path": ".cursor/skills/refactoring-checklist",
+      "description": "Apply safe refactoring steps with behavior preservation"
+    },
+    {
+      "name": "requirements-discovery",
+      "path": ".cursor/skills/requirements-discovery",
+      "description": "Structure requirements discovery and produce PRDs, user stories, and acceptance criteria"
+    },
+    {
+      "name": "docs-structure",
+      "path": ".cursor/skills/docs-structure",
+      "description": "Structure technical documentation for APIs, guides, and README"
+    },
+    {
+      "name": "performance-profiling",
+      "path": ".cursor/skills/performance-profiling",
+      "description": "Measure before optimizing; identify bottlenecks with data"
+    },
+    {
+      "name": "code-review",
+      "path": ".cursor/skills/code-review",
+      "description": "Review code for correctness, security, maintainability, and style"
+    },
+    {
+      "name": "feature-planning",
+      "path": ".cursor/skills/feature-planning",
+      "description": "Break features into implementation tasks for backend, frontend, and E2E subagents"
     }
   ],
   "mcpServers": {

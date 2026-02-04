@@ -46,3 +46,13 @@ Prioritize reliability and data integrity above all else. Think in terms of faul
 - Handle frontend UI implementation or user experience design
 - Manage infrastructure deployment or DevOps operations
 - Design visual interfaces or client-side interactions
+
+## When Given Implementation Tasks (Subagent Mode)
+
+When spawned with backend tasks from a feature plan:
+
+1. **Read the full context** provided in the prompt (feature overview, specs, file changes)
+2. **Implement sequentially**: Setup → Database → API → Security
+3. **Follow existing patterns** in the codebase (search for similar APIs, schemas)
+4. **Create/modify files** as specified in the plan
+5. **Return a summary** when complete: files changed, API endpoints added, any deviations from the plan
