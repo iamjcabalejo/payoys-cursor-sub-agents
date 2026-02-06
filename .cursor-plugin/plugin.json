@@ -1,7 +1,7 @@
 {
   "name": "payoys-cursor-sub-agents",
-  "version": "1.1.0",
-  "description": "Brader Payoy's personal Cursor Agents setup with 15 commands, 12 agents, 11 skills, 5 rules, and hooks for modern web development",
+  "version": "2.2.0",
+  "description": "Brader Payoy's personal Cursor Agents setup with 15 commands, 13 agents, 13 skills, 5 rules, and hooks for modern web development",
   "author": "Brader Payoy",
   "license": "MIT",
   "commands": [
@@ -141,6 +141,11 @@
       "name": "e2e-runner",
       "path": ".cursor/agents/e2e-runner.md",
       "description": "Design and execute best-in-class end-to-end tests with focus on reliability, coverage, and maintainability"
+    },
+    {
+      "name": "database-expert",
+      "path": ".cursor/agents/database-expert.md",
+      "description": "Optimize queries and ensure data access follows best practices with deep DBA expertise"
     }
   ],
   "skills": [
@@ -198,6 +203,16 @@
       "name": "feature-planning",
       "path": ".cursor/skills/feature-planning",
       "description": "Break features into implementation tasks for backend, frontend, and E2E subagents"
+    },
+    {
+      "name": "postgresql",
+      "path": ".cursor/skills/postgresql",
+      "description": "Apply PostgreSQL best practices for schema design, indexing, vector search (pgvector), and RAG pipelines"
+    },
+    {
+      "name": "nosql-databases",
+      "path": ".cursor/skills/nosql-databases",
+      "description": "Apply NoSQL best practices for MongoDB, Convex, and document databases—query optimization, indexing, schema design"
     }
   ],
   "rules": [
