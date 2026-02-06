@@ -7,6 +7,8 @@ Skills in `.cursor/skills/` extend agent capabilities with reusable workflows an
 | Skill | Agent(s) | Purpose |
 |-------|----------|---------|
 | `api-design-patterns` | backend-architect | REST conventions, error handling, validation |
+| `postgresql` | backend-architect, database-expert | Schema design, indexing, pgvector, RAG, query optimization |
+| `nosql-databases` | backend-architect, database-expert | MongoDB, Convex, document stores—indexing, query optimization, schema design |
 | `api-testing` | backend-architect, api-test | API test structure, assertions, coverage |
 | `accessibility-checklist` | frontend-architect | WCAG 2.1 AA compliance checks |
 | `e2e-playwright` | e2e-runner | Playwright patterns, POM, selectors |

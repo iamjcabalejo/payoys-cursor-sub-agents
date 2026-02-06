@@ -1,6 +1,6 @@
 # Brader Payoy's Cursor Setup
 
-This plugin provides **15 slash commands**, **12 specialized AI agents**, **11 project skills**, **5 rules**, and **hooks** for trigger-based automation.
+This plugin provides **15 slash commands**, **12 specialized AI agents**, **12 project skills**, **5 rules**, and **hooks** for trigger-based automation.
 
 ## What's Inside
 
@@ -35,12 +35,13 @@ This plugin provides **15 slash commands**, **12 specialized AI agents**, **11 p
 
 - `/commit-best` - Create a well-structured commit with conventional message and push
 
-### 🤖 Specialized AI Agents (12)
+### 🤖 Specialized AI Agents (13)
 
 **Architecture & Planning**
 - **tech-stack-researcher** - Technology choice recommendations with trade-offs
 - **system-architect** - Scalable system architecture design
 - **backend-architect** - Backend systems with data integrity & security
+- **database-expert** - Query optimization and data access best practices (20+ years DBA experience)
 - **frontend-architect** - Performant, accessible UI architecture
 - **requirements-analyst** - Transform ideas into concrete specifications
 
@@ -118,7 +119,7 @@ This setup emphasizes:
 4. Alternatively, run the CLI command `cursor plugins install iamjcabalejo/payoys-cursor-sub-agents`.
 5. After installation, tweak any command/agent files under `.cursor/commands/` or `.cursor/agents/` to suit your workflow.
 
-### 🧩 Project Skills (11)
+### 🧩 Project Skills (12)
 
 Skills in `.cursor/skills/` provide reusable workflows and checklists that agents apply automatically:
 
@@ -135,6 +136,7 @@ Skills in `.cursor/skills/` provide reusable workflows and checklists that agent
 | `performance-profiling` | Measure-first optimization |
 | `code-review` | PR review checklist |
 | `feature-planning` | Task blocks for subagent hand-off |
+| `postgresql` | Schema design, indexing, pgvector, RAG pipelines |
 
 See `.cursor/skills/README.md` for the full mapping to agents.
 
