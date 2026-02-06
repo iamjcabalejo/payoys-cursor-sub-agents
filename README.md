@@ -1,6 +1,6 @@
 # Brader Payoy's Cursor Setup
 
-This plugin provides **15 slash commands**, **12 specialized AI agents**, **12 project skills**, **5 rules**, and **hooks** for trigger-based automation.
+This plugin provides **15 slash commands**, **13 specialized AI agents**, **13 project skills**, **5 rules**, and **hooks** for trigger-based automation.
 
 ## What's Inside
 
@@ -119,7 +119,7 @@ This setup emphasizes:
 4. Alternatively, run the CLI command `cursor plugins install iamjcabalejo/payoys-cursor-sub-agents`.
 5. After installation, tweak any command/agent files under `.cursor/commands/` or `.cursor/agents/` to suit your workflow.
 
-### 🧩 Project Skills (12)
+### 🧩 Project Skills (13)
 
 Skills in `.cursor/skills/` provide reusable workflows and checklists that agents apply automatically:
 
@@ -137,6 +137,7 @@ Skills in `.cursor/skills/` provide reusable workflows and checklists that agent
 | `code-review` | PR review checklist |
 | `feature-planning` | Task blocks for subagent hand-off |
 | `postgresql` | Schema design, indexing, pgvector, RAG pipelines |
+| `nosql-databases` | MongoDB, Convex, document stores—indexing, query optimization |
 
 See `.cursor/skills/README.md` for the full mapping to agents.
 
