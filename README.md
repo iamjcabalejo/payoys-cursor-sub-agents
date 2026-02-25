@@ -116,11 +116,57 @@ Just ask Cursor questions like:
 
 The tech-stack-researcher agent automatically activates and provides detailed, researched answers.
 
+## Compounding development cycle
+
+This setup follows a **Plan → Code → Review/Test → Plan** cycle so work stays traceable and handoffs between agents are clear. The rule `compounding-dev-cycle` (`.cursor/rules/compounding-dev-cycle.mdc`) defines the phases and artifacts; commands, agents, and skills are aligned so each phase produces what the next one needs.
+
+### How it works
+
+| Phase | Goal | Handoff to next phase |
+|-------|------|------------------------|
+| **Plan** | Unambiguous scope, acceptance criteria (AC), technical approach, task list | Single plan doc (or in-chat artifact) so Code can implement without guessing |
+| **Code** | Implement to the plan; no scope creep | Implementation + tests + **implementation notes** (done, deferred, assumptions) |
+| **Review/Test** | Verify against AC and project rules; produce pass/fail and rework list | **Review summary** + **test status** + **rework list** (concrete, file/line + change + severity) |
+| **Plan** (next) | Rework or new scope becomes a new cycle | Rework items → new acceptance criteria → Code → Review/Test again |
+
+**Cross-phase:** All phases respect `core-standards.mdc` and domain rules (`api-routes.mdc`, etc.). Traceability: link code and review back to the plan (e.g. "implements AC-1, AC-2"). The plan doc is the single source of truth; when scope or criteria change, update the plan first.
+
+### Commands in the cycle
+
+- **Plan:** `/feature-plan` — Produces scope, acceptance criteria, technical approach, and task blocks (Backend / Frontend / Integration & Testing) for Code-phase agents. Can spawn backend-architect, frontend-architect, and e2e-runner with the plan as context.
+- **Code:** `/api-new`, `/api-protect`, `/code-cleanup`, `/code-optimize` — Each consumes or implies a plan, implements to it, and produces implementation notes (and tests where relevant) for Review/Test.
+- **Review/Test:** `/api-test` — Generates tests that feed **test status** for backend-reviewer; supports verifying gates (AC covered, no rule violations).
+
+All of these commands reference `compounding-dev-cycle.mdc` and, where relevant, backend-reviewer / frontend-reviewer checklists so output is handoff-ready.
+
+### Agents in the cycle
+
+| Phase | Agents | Role |
+|-------|--------|------|
+| **Plan** | requirements-analyst, tech-stack-researcher, system-architect, backend-architect, frontend-architect | Discovery, tech choices, design; produce scope, AC, technical approach, task list. One agent may own the final plan. |
+| **Code** | backend-architect, frontend-architect, database-expert, e2e-runner (implementation), refactoring-expert | Implement to the plan; produce implementation + tests + implementation notes. |
+| **Review/Test** | backend-reviewer, frontend-reviewer, e2e-runner (coverage), security-engineer, performance-engineer | Consume plan + diff + implementation notes; produce review summary, test status, rework list. Non-trivial rework → back to Plan; trivial → to Code. |
+
+Every agent file in `.cursor/agents/` includes a **Compounding dev cycle** section stating which phase(s) it participates in and what artifacts it produces or consumes. Supporting agents (learning-guide, technical-writer, deep-research-agent) reference the plan and standards when their work touches the cycle.
+
+### Skills that support the cycle
+
+- **feature-planning** — Task blocks for subagent hand-off (Plan → Code).
+- **code-review** — Checklist for correctness, security, maintainability, style; used by backend-reviewer and frontend-reviewer.
+- **api-design-patterns**, **api-testing** — API contract and test coverage; used in Code and Review/Test.
+- **security-audit** — OWASP-aligned checks; used by security-engineer and backend-reviewer in Review/Test.
+- **accessibility-checklist** — WCAG 2.1 AA; used by frontend-reviewer.
+- **requirements-discovery** — PRDs, user stories, acceptance criteria; used in Plan.
+- **performance-profiling** — Measure-first optimization; used when performance is in scope in Code/Review/Test.
+
+Together, the rule, commands, agents, and skills keep the compounding cycle consistent: written handoffs, no guesswork, and a single source of truth (the plan) for the whole workflow.
+
 ## Philosophy
 
 This setup emphasizes:
-- **Type Safety**: Never uses `any` types
-- **Best Practices**: Follows modern Next.js/React patterns
+- **Compounding cycle**: Plan → Code → Review/Test → Plan with clear handoffs so agents (and you) always have a single source of truth and traceable artifacts
+- **Type safety**: Never uses `any` types
+- **Best practices**: Follows modern Next.js/React patterns
 - **Productivity**: Reduces repetitive scaffolding
 - **Research**: AI-powered tech decisions with evidence
 
@@ -166,7 +212,7 @@ Rules in `.cursor/rules/` provide persistent AI guidance:
 | Rule | Scope | Purpose |
 |------|-------|---------|
 | `core-standards` | Always | General coding standards |
-| `compounding-dev-cycle` | Always | Plan → Code → Review/Test → Plan cycle with handoffs |
+| `compounding-dev-cycle` | Always | Plan → Code → Review/Test → Plan with clear handoffs between agents |
 | `typescript` | `**/*.ts` | TypeScript conventions |
 | `react` | `**/*.tsx` | React component patterns |
 | `api-routes` | `**/api/**/*.ts` | API validation and error handling |

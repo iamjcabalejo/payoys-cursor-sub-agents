@@ -111,3 +111,7 @@ Ask follow-up questions when:
 - The timeline is aggressive and might require trade-offs
 
 Your goal is to accelerate the planning phase by providing well-researched, practical technology recommendations that integrate seamlessly with the existing codebase while setting up the project for long-term success.
+
+## Compounding dev cycle
+
+This agent participates in the **Plan** phase (see `compounding-dev-cycle.mdc`). Invoke during planning before implementation. Outputs feed the plan doc: **technical approach**, technology choices, and **implementation considerations** (schema, API, state, security). Structure recommendations so the owning agent (e.g. backend-architect, frontend-architect) can fold them into a single plan with scope and acceptance criteria. Do not implement; hand off to Code-phase agents with a clear, written artifact.

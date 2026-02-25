@@ -3,11 +3,15 @@ description: Add authentication, authorization, and security to API endpoints
 model: claude-sonnet-4-5
 ---
 
-Add comprehensive security, authentication, and authorization to the specified API route.
+Add comprehensive security, authentication, and authorization to the specified API route. Follow the compounding dev cycle and project rules: `.cursor/rules/compounding-dev-cycle.mdc`, `.cursor/rules/api-routes.mdc`.
 
 ## Target API Route
 
 $ARGUMENTS
+
+## Compounding dev cycle
+
+This command delivers **Code** phase output. If protection is part of a feature with a plan doc, implement to that plan (scope and acceptance criteria) and do not expand scope without updating the plan. Produce **implementation notes** (what was done, deferred, assumptions, env/config) so **backend-reviewer** and **security-engineer** can verify in Review/Test. Align with `api-routes.mdc` (401/403, error shape, no sensitive data in responses) and the security-audit skill (OWASP-aligned checks).
 
 ## Agent Definitions
 
@@ -17,34 +21,30 @@ $ARGUMENTS
    - Read the `agents` array to understand available specialized agents
    - Identify agent definitions relevant to security and API protection
 
-2. **Identify Relevant Agents**: For API security and protection, the following agents are typically relevant:
-   - **security-engineer**: For authentication, authorization, vulnerability assessment, and security best practices
-   - **backend-architect**: For backend system design, data integrity, and secure API architecture
-   - **system-architect**: For scalable security architecture and long-term maintainability
+2. **Identify Relevant Agents**: For API security and protection, the following agents are relevant:
+   - **security-engineer** (PRIMARY): Authentication, authorization, vulnerability assessment, zero-trust principles. Participates in Review/Test when security is in scope; implement so their audit can verify (rework list = handback to Code).
+   - **backend-architect**: Secure API design, data integrity, alignment with api-routes and core-standards.
+   - **backend-reviewer**: Use their checklist (auth/authz, validation, error handling, tests) to self-check so output is handoff-ready for Review/Test.
+   - **system-architect**: When security touches system boundaries or long-term architecture.
 
-3. **Load Agent Definitions**: Read the agent definition files from `.cursor/agents/` directory:
-   - `.cursor/agents/security-engineer.md` - Apply security-first mindset and zero-trust principles
-   - `.cursor/agents/backend-architect.md` - Apply backend architecture principles for secure APIs
-   - `.cursor/agents/system-architect.md` - Apply system architecture considerations for security
+3. **Load Agent Definitions**: Read the agent definition files from `.cursor/agents/` directory as needed:
+   - `.cursor/agents/security-engineer.md` – security-first mindset, OWASP-aligned checks, compounding dev cycle (Review/Test).
+   - `.cursor/agents/backend-architect.md` – secure API design and handoff.
+   - `.cursor/agents/backend-reviewer.md` – validate implementation against their checklist before considering done.
+   - `.cursor/agents/system-architect.md` – when security has system-wide impact.
 
 4. **Apply Agent Roles**: Use the agent definitions to inform your security approach:
-   - Incorporate the security perspectives, principles, and guidelines from relevant agents
-   - Apply agent-specific security best practices to the API protection implementation
-   - Ensure the generated code aligns with the agent's security expertise and focus areas
-   - Follow zero-trust principles and defense-in-depth strategies from security-engineer
-   - Consider threat modeling and attack vector analysis when implementing protections
+   - Implement in line with `api-routes.mdc` (401/403, consistent error shape, no stack traces or sensitive data in responses).
+   - Apply security-audit skill (OWASP Top 10 quick checks: access control, injection, auth failures, etc.).
+   - If part of a Plan → Code → Review/Test cycle: do not add scope beyond the plan; produce implementation notes for handoff.
 
-5. **Role Integration**: The agent definitions should shape the role and approach for this command:
-   - Combine the command's security guidelines with agent-specific security expertise
-   - Apply agent principles throughout authentication, authorization, validation, and security decisions
-   - Ensure the implementation reflects the specialized security knowledge from relevant agents
-   - Prioritize security-first mindset and comprehensive threat protection
+5. **Handoff for Review/Test**: The protected route should be verifiable by backend-reviewer and security-engineer: include tests or test guidance for auth/authz and validation; document what was done, deferred, and any env/config so the review phase has full context.
 
-**Note**: The agent definitions provide specialized security expertise that enhances the base command instructions. Always consult and apply relevant agent definitions when securing API routes, especially the security-engineer agent for comprehensive security implementation.
+**Note**: Follow `.cursor/rules/compounding-dev-cycle.mdc` and `.cursor/rules/api-routes.mdc`. Agent definitions and backend-reviewer’s checklist ensure the protected API is handoff-ready for the compounding cycle.
 
 ## Security Layers to Implement
 
-###1. **Authentication** (Who are you?)
+### 1. **Authentication** (Who are you?)
 - Verify user identity
 - Token validation (JWT, session, API keys)
 - Handle expired/invalid tokens
@@ -177,4 +177,12 @@ if (!user || !hasRole(user, 'admin')) {
 }
 ```
 
-Generate production-ready, secure code that follows the principle of least privilege.
+## Output (handoff for Review/Test)
+
+Deliver:
+
+1. **Protected route and utilities** – Secured handler, middleware/helpers, types, and standardized auth error responses.
+2. **Tests or test guidance** – Auth success/failure, authorization, validation, and rate-limit scenarios so backend-reviewer and security-engineer can verify.
+3. **Implementation notes** – What was implemented, what was deferred (e.g. rate limiting, CORS), assumptions, and env/config (e.g. `ADMIN_TOKEN`, session secret). Enables Review/Test without guessing.
+
+Generate production-ready, secure code that is handoff-ready for the compounding dev cycle and that follows the principle of least privilege.

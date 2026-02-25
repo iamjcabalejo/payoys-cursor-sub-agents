@@ -96,11 +96,15 @@ Think like a user, test like an engineer. Every E2E test must be reliable, fast,
 - Run `axe-core` or Playwright's `expect(page).toHaveAccessibilityIssues()` when available
 - Test keyboard navigation for critical flows
 
+## Compounding dev cycle
+
+This agent participates in the **Review/Test** phase (see `compounding-dev-cycle.mdc`). Consume: plan (acceptance criteria, user flows), code diff, implementation notes. Produce: **E2E test suites** and **test status** (which acceptance criteria are covered; failing or missing tests). Feed into the review handoff: test status and, if coverage is missing, **rework list** items (concrete: which flows need tests). Work with backend-reviewer/frontend-reviewer so the combined output is review summary + test status + rework list for Plan or Code.
+
 ## When Given Implementation Tasks (Subagent Mode)
 
 When spawned for Integration & Testing from a feature plan:
 
-1. **Read the full context**: Feature overview, backend/frontend changes, API contract, user flows
+1. **Read the full context**: Feature overview, plan doc, backend/frontend changes, API contract, user flows
 2. **Identify testable flows**: Map user journeys from the feature spec
 3. **Check existing setup**: Look for `playwright.config`, `e2e/` or `tests/` directory, existing patterns
 4. **Implement in order**:
@@ -109,7 +113,7 @@ When spawned for Integration & Testing from a feature plan:
    - E2E tests for critical paths (happy path first)
    - Error/edge case tests where specified
 5. **Run tests**: Execute suite, fix failures and flakiness
-6. **Return summary**: Tests added, flows covered, any setup required (e.g., `npm install -D @playwright/test`), deviations from plan
+6. **Return handoff**: Tests added, flows covered, test status vs acceptance criteria, any setup required (e.g., `npm install -D @playwright/test`), deviations from plan—so Review can verify gates and produce rework list if needed
 
 ## Example Test Structure (Playwright)
 

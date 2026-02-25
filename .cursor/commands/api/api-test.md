@@ -3,11 +3,15 @@ description: Test API endpoints with automated test generation
 model: claude-sonnet-4-5
 ---
 
-Generate comprehensive API tests for the specified endpoint.
+Generate comprehensive API tests for the specified endpoint. Follow the compounding dev cycle and project rules: `.cursor/rules/compounding-dev-cycle.mdc`, `.cursor/rules/api-routes.mdc`. Use the api-testing skill for structure and coverage.
 
 ## Target
 
 $ARGUMENTS
+
+## Compounding dev cycle
+
+This command supports both **Code** and **Review/Test** phases. When tests are added as part of implementation (Code), they are part of the handoff to Review/Test—backend-reviewer uses **test status** (which acceptance criteria are covered, failing/missing tests) to verify gates. When generating tests for an existing endpoint, produce tests that map to the plan’s acceptance criteria where possible, plus success, validation, auth, and error cases per api-routes and api-testing skill. Produce a short **implementation notes** (scenarios covered, deferred, setup required) so backend-reviewer has full context.
 
 ## Agent Definitions
 
@@ -17,33 +21,28 @@ $ARGUMENTS
    - Read the `agents` array to understand available specialized agents
    - Identify agent definitions relevant to API testing
 
-2. **Identify Relevant Agents**: For API testing, the following agents are typically relevant:
-   - **backend-architect**: For testing backend system reliability, data integrity, fault tolerance, and API design patterns
-   - **security-engineer**: For security testing, vulnerability testing, authentication/authorization testing, and security edge cases
-   - **performance-engineer**: For performance testing scenarios, response time validation, load testing, and bottleneck identification
-   - **system-architect**: For integration testing, system-level testing, and end-to-end API flow validation
+2. **Identify Relevant Agents**: For API testing, the following agents are relevant:
+   - **backend-reviewer** (PRIMARY for handoff): Their review uses **test status**—which AC are covered, which tests pass/fail. Generate tests that satisfy their checklist (correctness, validation, auth, error cases) so the review phase can verify gates without redoing work.
+   - **backend-architect**: Reliability, data integrity, and API contract coverage in tests (success, validation, error paths).
+   - **security-engineer**: Security test cases (auth bypass, injection, invalid tokens, rate limiting) so security audit can verify.
+   - **performance-engineer**: Performance-related tests only when in scope (response time, load); measure-first per performance-profiling skill.
+   - **system-architect**: Integration and system-level test scenarios when the API crosses boundaries.
 
-3. **Load Agent Definitions**: Read the agent definition files from `.cursor/agents/` directory:
-   - `.cursor/agents/backend-architect.md` - Apply backend architecture testing principles
-   - `.cursor/agents/security-engineer.md` - Apply security-first testing mindset and vulnerability testing
-   - `.cursor/agents/performance-engineer.md` - Apply performance testing and measurement-driven validation
-   - `.cursor/agents/system-architect.md` - Apply system architecture testing considerations
+3. **Load Agent Definitions**: Read the agent definition files from `.cursor/agents/` directory as needed:
+   - `.cursor/agents/backend-reviewer.md` – test status and gates (AC covered, no rule violations); align tests with their checklist.
+   - `.cursor/agents/backend-architect.md` – API contract and reliability test coverage.
+   - `.cursor/agents/security-engineer.md` – when security test cases are in scope.
+   - `.cursor/agents/performance-engineer.md` – when performance test scenarios are in scope.
+   - `.cursor/agents/system-architect.md` – when integration/system tests are needed.
 
-4. **Apply Agent Roles**: Use the agent definitions to inform your testing approach:
-   - Incorporate the testing perspectives, principles, and guidelines from relevant agents
-   - Apply agent-specific testing best practices to the test suite generation
-   - Ensure the generated tests align with the agent's expertise and focus areas
-   - Include security-focused test cases from security-engineer (SQL injection, XSS, authentication bypass)
-   - Include performance-focused test cases from performance-engineer (response times, load testing, concurrent requests)
-   - Include reliability-focused test cases from backend-architect (error handling, fault tolerance, data integrity)
+4. **Apply Agent Roles**: Use the agent definitions and api-testing skill to inform your approach:
+   - Cover success, validation, auth, and error cases per api-routes and backend-reviewer expectations.
+   - Map tests to acceptance criteria when a plan exists (traceability for Review/Test).
+   - If part of a Plan → Code → Review/Test cycle: produce implementation notes so backend-reviewer can report test status and rework list if needed.
 
-5. **Role Integration**: The agent definitions should shape the role and approach for this command:
-   - Combine the command's testing guidelines with agent-specific testing expertise
-   - Apply agent principles throughout test case design, validation scenarios, and edge case coverage
-   - Ensure the test implementation reflects the specialized knowledge from relevant agents
-   - Prioritize comprehensive coverage that addresses security, performance, reliability, and system-level concerns
+5. **Handoff for Review/Test**: The test suite should enable backend-reviewer to answer: which acceptance criteria are covered, which tests pass/fail, and what (if anything) is missing. Document scenarios covered and any setup (mocks, env, DB) in implementation notes.
 
-**Note**: The agent definitions provide specialized testing expertise that enhances the base command instructions. Always consult and apply relevant agent definitions when generating API tests, especially security-engineer for comprehensive security testing and backend-architect for reliability-focused test scenarios.
+**Note**: Follow `.cursor/rules/compounding-dev-cycle.mdc` and the api-testing skill. Tests are the bridge between Code and Review/Test; backend-reviewer uses them to verify gates and produce rework list or sign-off.
 
 ## Test Strategy for Solo Developers
 
@@ -149,4 +148,12 @@ describe('API Endpoint', () => {
    - Large dataset handling
    - Concurrent requests
 
-Generate production-ready tests I can run immediately with `npm test`.
+## Output (handoff for Review/Test)
+
+Deliver:
+
+1. **Test file and helpers** – Complete test suite, fixtures, setup/teardown, and run script (e.g. `npm test`).
+2. **Test status / coverage summary** – Which scenarios are covered (success, validation, auth, errors); which acceptance criteria (if any) the tests map to. Enables backend-reviewer to report test status in the review handoff.
+3. **Implementation notes** – Scenarios covered, scenarios deferred, setup required (mocks, env, DB), and any assumptions. Enables Review/Test to re-run and verify without guessing.
+
+Generate production-ready tests that are handoff-ready for the compounding dev cycle and that you can run immediately with `npm test`.

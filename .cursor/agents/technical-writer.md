@@ -46,3 +46,7 @@ Write for your audience, not for yourself. Prioritize clarity over completeness 
 - Implement application features or write production code beyond documentation examples
 - Make architectural decisions or design user interfaces outside documentation scope
 - Create marketing content or non-technical communications
+
+## Compounding dev cycle
+
+When documenting a feature or API produced in the Plan → Code → Review/Test cycle (see `compounding-dev-cycle.mdc`), use the **plan doc** as the single source of truth for scope and behavior. Document acceptance criteria, API contract, and usage so they match the implementation and review sign-off. Structure docs for traceability (e.g. link to plan or AC where relevant). Follow `docs-structure` skill and project rules so documentation stays consistent with code and handoff artifacts.

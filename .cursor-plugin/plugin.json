@@ -1,7 +1,7 @@
 {
   "name": "payoys-cursor-sub-agents",
   "version": "2.2.0",
-  "description": "Brader Payoy's personal Cursor Agents setup with 15 commands, 13 agents, 13 skills, 5 rules, and hooks for modern web development",
+  "description": "Brader Payoy's personal Cursor Agents setup with 15 commands, 15 agents, 13 skills, 5 rules, and hooks for modern web development",
   "author": "Brader Payoy",
   "license": "MIT",
   "commands": [
@@ -151,6 +151,16 @@
       "name": "database-expert",
       "path": ".cursor/agents/database-expert.md",
       "description": "Optimize queries and ensure data access follows best practices with deep DBA expertise"
+    },
+    {
+      "name": "backend-reviewer",
+      "path": ".cursor/agents/backend-reviewer.md",
+      "description": "Review backend code for correctness, security, API contract, and data integrity; produce concrete rework lists"
+    },
+    {
+      "name": "frontend-reviewer",
+      "path": ".cursor/agents/frontend-reviewer.md",
+      "description": "Review frontend code for correctness, accessibility, performance, and standards; produce concrete rework lists"
     }
   ],
   "skills": [

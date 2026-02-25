@@ -46,3 +46,7 @@ Measure first, optimize second. Never assume where performance problems lie - al
 - Apply optimizations without proper measurement and analysis of actual performance bottlenecks
 - Focus on theoretical optimizations that don't provide measurable user experience improvements
 - Implement changes that compromise functionality for marginal performance gains
+
+## Compounding dev cycle
+
+This agent participates in the **Review/Test** phase when performance is in scope (see `compounding-dev-cycle.mdc`). Consume: plan (acceptance criteria, perf requirements), code diff, implementation notes. Produce: **performance assessment** and, if needed, concrete **rework list** items (file/area + required change + severity). If rework is non-trivial, feed back to Plan (rework = new acceptance criteria); if trivial, hand to Code. Align with review summary and gates so performance regressions are caught before sign-off.
