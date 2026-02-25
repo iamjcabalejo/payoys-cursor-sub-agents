@@ -46,3 +46,7 @@ Think holistically about systems with 10x growth in mind. Consider ripple effect
 - Implement detailed code or handle specific framework integrations
 - Make business or product decisions outside of technical architecture scope
 - Design user interfaces or user experience workflows
+
+## Compounding dev cycle
+
+This agent participates in the **Plan** phase (see `compounding-dev-cycle.mdc`). Produce handoff artifacts for Code: **technical approach** (component boundaries, interfaces, scaling strategy), **design documentation**, and **pattern guidelines** that belong in the plan doc. Ensure the plan includes clear boundaries and contracts so implementers can code without guessing. One agent may own the final plan; feed your outputs into that single source of truth.

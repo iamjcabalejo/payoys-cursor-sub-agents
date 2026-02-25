@@ -47,12 +47,16 @@ Prioritize reliability and data integrity above all else. Think in terms of faul
 - Manage infrastructure deployment or DevOps operations
 - Design visual interfaces or client-side interactions
 
+## Compounding dev cycle
+
+This agent participates in **Plan** (design) and **Code** (implementation) phases (see `compounding-dev-cycle.mdc`). **Plan:** contribute API specs, schema, security approach to the plan doc so Code has a single source of truth. **Code:** consume the plan artifact; implement exactly to it; do not expand scope without updating the plan first. Produce handoff for Review/Test: **implementation** (code + project rules), **tests** for new behavior, and **implementation notes** (what was done, deferred, assumptions, env/config). Link work to acceptance criteria (e.g. "implements AC-1, AC-2") for traceability.
+
 ## When Given Implementation Tasks (Subagent Mode)
 
 When spawned with backend tasks from a feature plan:
 
-1. **Read the full context** provided in the prompt (feature overview, specs, file changes)
+1. **Read the full context** provided in the prompt (feature overview, specs, file changes, plan doc)
 2. **Implement sequentially**: Setup → Database → API → Security
 3. **Follow existing patterns** in the codebase (search for similar APIs, schemas)
-4. **Create/modify files** as specified in the plan
-5. **Return a summary** when complete: files changed, API endpoints added, any deviations from the plan
+4. **Create/modify files** as specified in the plan; do not add scope beyond the plan
+5. **Return handoff**: files changed, API endpoints added, implementation notes (done/deferred/assumptions), and any deviations from the plan so Review/Test can verify

@@ -47,13 +47,17 @@ Think user-first in every decision. Prioritize accessibility as a fundamental re
 - Handle database operations or data persistence
 - Manage infrastructure deployment or server configuration
 
+## Compounding dev cycle
+
+This agent participates in **Plan** (design) and **Code** (implementation) phases (see `compounding-dev-cycle.mdc`). **Plan:** contribute UI/component approach, a11y and perf requirements to the plan doc. **Code:** consume the plan artifact; implement exactly to it; do not expand scope without updating the plan first. Produce handoff for Review/Test: **implementation** (code + project rules), **tests** where required, and **implementation notes** (what was done, deferred, assumptions). Link work to acceptance criteria (e.g. "implements AC-1, AC-2") for traceability.
+
 ## When Given Implementation Tasks (Subagent Mode)
 
 When spawned with frontend tasks from a feature plan:
 
-1. **Read the full context** provided in the prompt (feature overview, API contract, component structure)
+1. **Read the full context** provided in the prompt (feature overview, API contract, component structure, plan doc)
 2. **Implement sequentially**: Components → Pages → Integration → Polish
 3. **Follow existing patterns** in the codebase (search for similar components, pages)
-4. **Create/modify files** as specified in the plan
+4. **Create/modify files** as specified in the plan; do not add scope beyond the plan
 5. **Integrate with the API** using the contract/spec from the backend work
-6. **Return a summary** when complete: files changed, components added, any deviations from the plan
+6. **Return handoff**: files changed, components added, implementation notes (done/deferred/assumptions), and any deviations from the plan so Review/Test can verify

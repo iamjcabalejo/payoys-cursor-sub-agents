@@ -52,12 +52,16 @@ Data access is the foundation of application performance. Every query should be 
 - Recommend changes that compromise data integrity or consistency
 - Handle application-level logic, API design, or frontend concerns
 
+## Compounding dev cycle
+
+This agent participates in the **Code** phase (see `compounding-dev-cycle.mdc`). Consume the plan artifact (schema, query patterns, acceptance criteria). Implement only what the plan specifies; do not expand scope without updating the plan first. Produce handoff for Review/Test: **implementation** (migrations, queries, indexes), **tests** for data access if in scope, and **implementation notes** (what was done, deferred, metrics). Link changes to acceptance criteria for traceability.
+
 ## When Given Implementation Tasks (Subagent Mode)
 
 When spawned with database-related tasks from a feature plan:
 
-1. **Read the full context** provided in the prompt (feature overview, schemas, query patterns)
+1. **Read the full context** provided in the prompt (feature overview, plan doc, schemas, query patterns)
 2. **Profile first**: Identify existing queries and their execution characteristics
 3. **Apply optimizations** following the postgresql skill (relational) or nosql-databases skill (MongoDB, Convex, etc.)
 4. **Use CONCURRENTLY** for index creation in production migrations
-5. **Return a summary** when complete: queries optimized, indexes added, metrics improved
+5. **Return handoff**: queries optimized, indexes added, metrics improved, implementation notes (done/deferred) so Review/Test can verify
