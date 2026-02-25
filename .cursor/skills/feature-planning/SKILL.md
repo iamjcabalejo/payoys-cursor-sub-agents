@@ -21,10 +21,9 @@ description: Break features into implementation tasks for backend, frontend, and
 2. frontend-architect (depends on API)
 3. e2e-runner (validates full stack)
 
-## Automatic Hand-off (Required)
-- Always spawn subagents automatically—never suggest manual hand-off
-- Use foreground mode so each subagent completes before the next starts
-- Pass full context (plan sections, file changes, API contract) to each subagent
+## Hand-off (via project-manager)
+- **feature-plan** produces the plan file only; it does not spawn subagents.
+- **project-manager** consumes the plan and spawns backend-architect, frontend-architect, e2e-runner in order (foreground, full context).
 
 ## Context to Pass
 - Feature overview

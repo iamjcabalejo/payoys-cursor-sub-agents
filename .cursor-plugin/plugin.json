@@ -28,7 +28,12 @@
     {
       "name": "feature-plan",
       "path": ".cursor/commands/misc/feature-plan.md",
-      "description": "Plan new feature implementation"
+      "description": "Produce feature plan only (output .md file)"
+    },
+    {
+      "name": "project-manager",
+      "path": ".cursor/commands/misc/project-manager.md",
+      "description": "Delegate plan to backend, frontend, and E2E agents"
     },
     {
       "name": "lint",

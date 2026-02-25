@@ -1,6 +1,6 @@
 # Brader Payoy's Cursor Setup
 
-This plugin provides **15 slash commands**, **13 specialized AI agents**, **13 project skills**, **5 rules**, and **hooks** for trigger-based automation.
+This plugin provides **16 slash commands**, **15 specialized AI agents**, **13 project skills**, **6 rules**, and **hooks** for trigger-based automation.
 
 ## What's Inside
 
@@ -10,7 +10,8 @@ This plugin provides **15 slash commands**, **13 specialized AI agents**, **13 p
 - `/code-explain` - Generate detailed explanations
 - `/code-optimize` - Performance optimization
 - `/code-cleanup` - Refactoring and cleanup
-- `/feature-plan` - Feature implementation planning
+- `/feature-plan` - Produce feature plan only (writes `docs/plans/<feature>.md`)
+- `/project-manager` - Run Code from plan, then auto-trigger code review (backend/frontend reviewers); loop on critical until production ready. E2E testing is user-triggered only.
 - `/lint` - Linting and fixes
 - `/docs-generate` - Documentation generation
 - `/agents-md-generate` - AGENTS.md generation
@@ -35,7 +36,7 @@ This plugin provides **15 slash commands**, **13 specialized AI agents**, **13 p
 
 - `/commit-best` - Create a well-structured commit with conventional message and push
 
-### 🤖 Specialized AI Agents (13)
+### 🤖 Specialized AI Agents (15)
 
 **Architecture & Planning**
 - **tech-stack-researcher** - Technology choice recommendations with trade-offs
@@ -50,6 +51,10 @@ This plugin provides **15 slash commands**, **13 specialized AI agents**, **13 p
 - **refactoring-expert** - Systematic refactoring and clean code
 - **performance-engineer** - Measurement-driven optimization
 - **security-engineer** - Vulnerability identification and security standards
+
+**Review (Plan → Code → Review/Test cycle)**
+- **backend-reviewer** - Review backend code for correctness, security, API contract, and data integrity; produce concrete rework lists
+- **frontend-reviewer** - Review frontend code for correctness, accessibility, performance, and standards; produce concrete rework lists
 
 **Documentation & Research**
 - **technical-writer** - Clear, comprehensive documentation
@@ -75,12 +80,25 @@ This plugin provides **15 slash commands**, **13 specialized AI agents**, **13 p
 
 Runs the full workflow: if on `main`, creates a new branch; stages changes; generates a conventional commit message (feat, fix, docs, etc.); commits and pushes.
 
-### Planning a Feature
+### Planning and implementing a feature
+
+**Step 1 — Plan only (outputs a .md file):**
 
 ```bash
 /feature-plan
-# Then describe your feature idea
+# Then describe your feature idea (e.g. "User profile API and edit page")
 ```
+
+This produces a plan and writes it to `docs/plans/<feature-slug>.md`. It does not run any implementation agents.
+
+**Step 2 — Run implementation and code review:**
+
+```bash
+/project-manager docs/plans/user-profile.md
+# Or: /project-manager user-profile
+```
+
+The project-manager reads the plan and: (1) **Code** — spawns backend-architect, frontend-architect, and e2e-runner (implementation) in order; (2) **Review** — automatically spawns backend-reviewer and frontend-reviewer (code review only; no E2E run); (3) if reviewers report **critical issues**, it plans rework, codes again, and reviews again until there are no critical issues and the code is **production ready**. **E2E testing** is not auto-triggered—run it when you want (e.g. run the test suite or ask e2e-runner to run/verify E2E for the feature).
 
 ### Creating an API
 
@@ -141,13 +159,14 @@ Skills in `.cursor/skills/` provide reusable workflows and checklists that agent
 
 See `.cursor/skills/README.md` for the full mapping to agents.
 
-### 📐 Rules (5)
+### 📐 Rules (6)
 
 Rules in `.cursor/rules/` provide persistent AI guidance:
 
 | Rule | Scope | Purpose |
 |------|-------|---------|
 | `core-standards` | Always | General coding standards |
+| `compounding-dev-cycle` | Always | Plan → Code → Review/Test → Plan cycle with handoffs |
 | `typescript` | `**/*.ts` | TypeScript conventions |
 | `react` | `**/*.tsx` | React component patterns |
 | `api-routes` | `**/api/**/*.ts` | API validation and error handling |
