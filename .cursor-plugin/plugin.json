@@ -1,6 +1,6 @@
 {
   "name": "payoys-cursor-sub-agents",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "description": "Brader Payoy's personal Cursor Agents setup with 15 commands, 15 agents, 13 skills, 5 rules, and hooks for modern web development",
   "author": "Brader Payoy",
   "license": "MIT",

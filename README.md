@@ -1,6 +1,35 @@
 # Brader Payoy's Cursor Setup
 
-This plugin provides **16 slash commands**, **15 specialized AI agents**, **13 project skills**, **6 rules**, and **hooks** for trigger-based automation.
+This plugin provides **16 slash commands**, **15 specialized AI agents**, **13 project skills**, **6 rules**, and **hooks** for trigger-based automation. At its core is a **compounding development cycle** that turns feature ideas into production-ready code with clear handoffs, automated code review, and a loop until quality gates pass.
+
+## Why the compounding development cycle?
+
+This custom Cursor workflow is built around **Plan → Code → Review/Test → Plan** because that cycle gives you:
+
+- **No guesswork** — Every phase has a single source of truth (the plan). Code implements to the plan; reviewers verify against the same acceptance criteria. No “what did the AI actually build?” moments.
+- **Traceability** — Work is linked back to the plan (e.g. “implements AC-1, AC-2”). You can see why each change exists and whether it’s done.
+- **Quality gates** — Code reviewers (backend-reviewer, frontend-reviewer) run automatically after implementation. Critical issues become a rework plan; the system loops (Plan → Code → Review) until there are no critical issues and the code is **production ready**.
+- **Clear handoffs** — Each phase produces written artifacts for the next: plan → implementation notes + tests → review summary + rework list. Agents (and you) always have the right context.
+- **Separation of concerns** — Planning stays in `/feature-plan` (plan file only). Execution and review stay in `/project-manager` (Code → auto code review → loop). You choose when to run E2E. No single “do everything” prompt that forgets scope or skips review.
+
+**In practice:** You run `/feature-plan` once to get a plan file, then `/project-manager` with that plan. The project-manager runs implementation (backend, frontend, E2E test authoring), then **automatically** runs code review. If reviewers find critical issues, it re-plans, fixes, and re-reviews until the code is ready for production. You get a repeatable, auditable path from idea to shipped feature.
+
+### Workflow in one picture
+
+```
+You: /feature-plan "User profile API and edit page"
+     → Plan written to docs/plans/user-profile.md (no agents run yet)
+
+You: /project-manager docs/plans/user-profile.md
+     → Code: backend-architect → frontend-architect → e2e-runner (implement)
+     → Review: backend-reviewer → frontend-reviewer (auto, no E2E run)
+     → If critical issues: rework plan → Code (fix) → Review again (loop)
+     → When gates pass: "Production ready"
+
+You: (optional) Run E2E when you want
+```
+
+One plan, one command to run the cycle, automatic review and loop until production ready—that’s the custom workflow.
 
 ## What's Inside
 
@@ -116,9 +145,16 @@ Just ask Cursor questions like:
 
 The tech-stack-researcher agent automatically activates and provides detailed, researched answers.
 
-## Compounding development cycle
+## Compounding development cycle (in detail)
 
-This setup follows a **Plan → Code → Review/Test → Plan** cycle so work stays traceable and handoffs between agents are clear. The rule `compounding-dev-cycle` (`.cursor/rules/compounding-dev-cycle.mdc`) defines the phases and artifacts; commands, agents, and skills are aligned so each phase produces what the next one needs.
+The rule **`compounding-dev-cycle`** (`.cursor/rules/compounding-dev-cycle.mdc`) is always applied. It defines the four phases and the artifacts each phase must produce so the next one can run without guessing. Commands and agents are wired to this cycle so that:
+
+1. **Plan** produces a written plan (scope, acceptance criteria, task blocks).
+2. **Code** implements to that plan and produces implementation notes and tests.
+3. **Review/Test** verifies against the plan and produces a rework list with severity (Critical / Suggestion / Nice to have).
+4. **Plan (next)** turns rework into a small plan; then Code and Review/Test run again until gates pass and the code is **production ready**.
+
+Why we follow this cycle: it removes ambiguity, keeps a single source of truth (the plan doc), and ensures quality through automatic code review and a loop on critical issues—so the workflow scales from small tasks to full features without losing traceability or control.
 
 ### How it works
 
@@ -133,11 +169,11 @@ This setup follows a **Plan → Code → Review/Test → Plan** cycle so work st
 
 ### Commands in the cycle
 
-- **Plan:** `/feature-plan` — Produces scope, acceptance criteria, technical approach, and task blocks (Backend / Frontend / Integration & Testing) for Code-phase agents. Can spawn backend-architect, frontend-architect, and e2e-runner with the plan as context.
-- **Code:** `/api-new`, `/api-protect`, `/code-cleanup`, `/code-optimize` — Each consumes or implies a plan, implements to it, and produces implementation notes (and tests where relevant) for Review/Test.
-- **Review/Test:** `/api-test` — Generates tests that feed **test status** for backend-reviewer; supports verifying gates (AC covered, no rule violations).
+- **Plan:** `/feature-plan` — Produces scope, acceptance criteria, technical approach, and task blocks (Backend / Frontend / Integration & Testing) and **writes the plan to `docs/plans/<feature-slug>.md`**. Plan only; no agents are spawned. You run **project-manager** next to execute the cycle.
+- **Code + Review:** `/project-manager <plan-path>` — Runs the full cycle: **Code** (backend-architect, frontend-architect, e2e-runner for implementation), then **automatically** runs **code review** (backend-reviewer, frontend-reviewer only). If critical rework is found, it loops (rework plan → Code → Review) until **production ready**. E2E test execution is user-triggered only.
+- **Supporting:** `/api-new`, `/api-protect`, `/code-cleanup`, `/api-test` — Focused commands that respect the same cycle (plan or context, implementation notes, review-ready output).
 
-All of these commands reference `compounding-dev-cycle.mdc` and, where relevant, backend-reviewer / frontend-reviewer checklists so output is handoff-ready.
+All commands and agents reference `compounding-dev-cycle.mdc` so every handoff is explicit and traceable.
 
 ### Agents in the cycle
 
@@ -145,7 +181,7 @@ All of these commands reference `compounding-dev-cycle.mdc` and, where relevant,
 |-------|--------|------|
 | **Plan** | requirements-analyst, tech-stack-researcher, system-architect, backend-architect, frontend-architect | Discovery, tech choices, design; produce scope, AC, technical approach, task list. One agent may own the final plan. |
 | **Code** | backend-architect, frontend-architect, database-expert, e2e-runner (implementation), refactoring-expert | Implement to the plan; produce implementation + tests + implementation notes. |
-| **Review/Test** | backend-reviewer, frontend-reviewer, e2e-runner (coverage), security-engineer, performance-engineer | Consume plan + diff + implementation notes; produce review summary, test status, rework list. Non-trivial rework → back to Plan; trivial → to Code. |
+| **Review/Test** | backend-reviewer, frontend-reviewer (auto-triggered by project-manager after Code); e2e-runner when user runs E2E; optionally security-engineer, performance-engineer | Consume plan + diff + implementation notes; produce review summary, rework list (Critical / Suggestion / Nice to have). Critical rework → Plan → Code → Review again until production ready. E2E testing is user-triggered only. |
 
 Every agent file in `.cursor/agents/` includes a **Compounding dev cycle** section stating which phase(s) it participates in and what artifacts it produces or consumes. Supporting agents (learning-guide, technical-writer, deep-research-agent) reference the plan and standards when their work touches the cycle.
 
@@ -159,16 +195,17 @@ Every agent file in `.cursor/agents/` includes a **Compounding dev cycle** secti
 - **requirements-discovery** — PRDs, user stories, acceptance criteria; used in Plan.
 - **performance-profiling** — Measure-first optimization; used when performance is in scope in Code/Review/Test.
 
-Together, the rule, commands, agents, and skills keep the compounding cycle consistent: written handoffs, no guesswork, and a single source of truth (the plan) for the whole workflow.
+Together, the rule, commands, agents, and skills keep the compounding cycle consistent: **written handoffs, no guesswork, and a single source of truth (the plan)** for the whole workflow—from idea to production-ready code.
 
 ## Philosophy
 
 This setup emphasizes:
-- **Compounding cycle**: Plan → Code → Review/Test → Plan with clear handoffs so agents (and you) always have a single source of truth and traceable artifacts
-- **Type safety**: Never uses `any` types
-- **Best practices**: Follows modern Next.js/React patterns
-- **Productivity**: Reduces repetitive scaffolding
-- **Research**: AI-powered tech decisions with evidence
+
+- **Compounding cycle** — Plan → Code → Review/Test → Plan with clear handoffs so agents (and you) always have a single source of truth and traceable artifacts. The cycle is why this workflow stays predictable and auditable at scale.
+- **Type safety** — No `any` types; explicit types and project rules throughout.
+- **Best practices** — Modern Next.js/React patterns, API and E2E conventions.
+- **Productivity** — Less repetitive scaffolding; more time on design and review.
+- **Research** — AI-powered tech decisions with evidence (tech-stack-researcher, requirements-analyst).
 
 ## Requirements
 
