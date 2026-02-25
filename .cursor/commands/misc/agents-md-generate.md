@@ -5,6 +5,8 @@ model: claude-sonnet-4-5
 
 Generate a comprehensive AGENTS.md file that documents the project's coding patterns, file structure, naming conventions, style patterns, tech stack, and best practices. This file is optimized for AI agents to understand and follow project conventions.
 
+**Goal**: Before writing AGENTS.md, you must **learn the whole project** so the generated file accurately reflects its architecture, standards, and conventions. Treat this as a discovery phase: understand how the project is structured, how it runs, and what rules it already follows—then document those for other AI agents.
+
 ## ⚠️ CRITICAL SECURITY REQUIREMENTS
 
 **CODE PRIVACY & SECURITY**
@@ -34,6 +36,59 @@ Generate a comprehensive AGENTS.md file that documents the project's coding patt
    - Generate guidelines based on observed patterns
 
 5. **CLIENT CODE PROTECTION**: The client's codebase is confidential and proprietary. Only abstract patterns and conventions should be documented, never actual implementation details or code.
+
+## Phase 0: Learn the Whole Project (Do This First)
+
+Before any analysis or AGENTS.md generation, **learn the project end-to-end** so the output is accurate and useful. Perform discovery in this order; extract patterns and conventions only (no code forwarding).
+
+### What to Learn
+
+| Area | What to discover |
+|------|------------------|
+| **Project architecture** | How the app is layered (UI, API, data, auth), routing model (e.g. App Router vs Pages), server vs client boundaries, middleware role, and how modules depend on each other. |
+| **File structure** | Root and key directories, how code is grouped (by feature, by type, by domain), special folders (e.g. `app/`, `components/`, `lib/`, `hooks/`, `types/`), and any barrel/index conventions. |
+| **Coding standards** | Naming (files, dirs, variables, components, APIs), style (indent, quotes, semicolons), type usage, error handling, and any project rules (e.g. in `.cursor/rules/`). |
+| **Best practices** | Patterns for data fetching, state, forms, auth, errors, loading, and any project-specific conventions (e.g. “always use Server Components for X”). |
+| **Tech stack** | Frameworks, runtimes, languages, styling, backend, database, auth, testing, and tooling (versions from config, not guesses). |
+| **Configuration & env** | How the app is configured (env vars, config files), what is required for run/build/test, and any non-standard setup. |
+| **Testing & quality** | Where tests live, how they’re run, what’s tested (unit, integration, E2E), and any quality gates or scripts. |
+| **Docs & rules** | README, `docs/`, `.cursor/rules/`, existing AGENTS.md or CONTRIBUTING—treat these as source of truth for conventions. |
+
+### Sources to Learn From (Read Locally)
+
+- **Root**: `package.json`, `README.md`, `AGENTS.md` (if present), `.env.example` or env docs, `.gitignore`
+- **Config**: `tsconfig.json`, `next.config.*`, `tailwind.config.*`, `eslint.config.*` / `.eslintrc*`, `.prettierrc*`, `jest.config.*` / `vitest.config.*`, `playwright.config.*`
+- **Rules & docs**: `.cursor/rules/*`, `docs/`, `CONTRIBUTING.md`, any project-specific rule or skill files
+- **Structure**: Directory tree of `src/` or `app/` (and equivalent), key entry files (`layout.tsx`, `page.tsx`, `middleware.ts`), `lib/` or `utils/`, API route layout
+- **Framework-specific**: For Next.js—`app/` vs `pages/`, `layout`/`page`/`loading`/`error` conventions, Server Actions, route handlers. For Supabase—`supabase/config.toml`, auth patterns, DB client usage, Edge Functions layout, env var names.
+
+### Framework-Specific Discovery (When Present)
+
+**If the project uses Next.js**, learn and document:
+- App Router vs Pages Router (or both), and where each is used
+- Conventions for `layout.tsx`, `page.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx`
+- How Server Components vs Client Components are used and where the boundary is
+- API routes or Route Handlers: location, naming, and patterns
+- Middleware: location, purpose, and what it protects or rewrites
+- Server Actions: where they live and how they’re invoked
+- Data fetching: `fetch`, server-only libs, or client-side (e.g. React Query/SWR)
+- Build/output mode: default, static export, or custom
+
+**If the project uses Supabase**, learn and document:
+- How the Supabase client is created and where it’s used (server vs client, env vars)
+- Auth: sign-in/sign-up flow, session handling, middleware or RLS usage
+- Database: preferred client (e.g. `@supabase/supabase-js`), query patterns, types generation
+- Storage and Realtime: whether and how they’re used
+- Edge Functions: where they live (e.g. `supabase/functions/`), how they’re invoked, and env
+- Env vars: `NEXT_PUBLIC_SUPABASE_*`, `SUPABASE_*`, and any project-specific names
+
+**If the project uses other major frameworks or backends** (e.g. Express, Remix, Vue), apply the same idea: identify entry points, conventions, config, and env, and document patterns (not code).
+
+### Flexibility
+
+- Not every project has Next.js or Supabase; discover what the project actually uses and document that.
+- Prefer **inferred conventions** from the codebase and config over assumptions; if the project has `.cursor/rules/`, those rules are authoritative and must be reflected in AGENTS.md.
+- When something is ambiguous, document the observed pattern and note that it’s the current convention; avoid inventing patterns the project doesn’t use.
 
 ## Analysis Requirements
 
@@ -199,48 +254,46 @@ Document project-specific best practices:
 
 ## Analysis Process
 
-### Step 1: Project Discovery
+**Order of operations**: Complete **Phase 0: Learn the Whole Project** first (read sources, discover architecture, file structure, standards, tech stack, and framework-specific patterns). Then run the steps below to extract and formalize patterns for AGENTS.md. All work is LOCAL ONLY; no code is forwarded or transmitted.
 
-```bash
-# Examine project structure
-- Read package.json for dependencies and scripts
-- Check configuration files (tsconfig.json, next.config.js, etc.)
-- Review .gitignore for project structure hints
-- Examine root directory structure
-```
+### Step 1: Project Discovery (Align with Phase 0)
 
-### Step 2: Code Pattern Analysis
+- Read `package.json` (dependencies, scripts, engines)
+- Read configuration files: `tsconfig.json`, `next.config.*`, framework/config files
+- Review `.gitignore` and root directory structure
+- Read README, existing AGENTS.md, and `.cursor/rules/*` (and docs if present)
+- Identify framework(s): Next.js, Supabase, React, etc., and versions from config/deps
 
-```bash
-# Analyze code patterns (LOCAL ONLY - NO CODE TRANSMISSION)
-- Sample file STRUCTURES from different directories (read structure, not content)
-- Identify naming patterns from file names only
-- Extract organization patterns from directory structure
-- Analyze import/export patterns from import statements (structure only)
-- Configuration files for tooling patterns (metadata extraction only)
-```
+### Step 2: Architecture & File Structure
 
-**SECURITY NOTE**: When analyzing files, extract only structural patterns (naming, organization, imports). Do not include actual code logic, business rules, or sensitive implementation details in any analysis or output.
+- Map directory layout and purposes (app/, components/, lib/, api/, etc.)
+- Identify routing model (App Router, Pages Router, or both) and entry conventions
+- Note server vs client boundaries, middleware, and API/route organization
+- If Supabase: note auth, DB client, Edge Functions, and env usage
+- Document feature-based vs type-based organization and any barrel exports
 
-### Step 3: Style Analysis
+### Step 3: Code Pattern Analysis (Structure Only)
 
-```bash
-# Identify style patterns
-- Check for .eslintrc, .prettierrc, or similar
-- Analyze existing code formatting
-- Review import statements
-- Check comment styles
-```
+- Sample file and directory names (no code content) to infer naming conventions
+- From import/export lines only, infer module boundaries and dependency patterns
+- Identify component, hook, util, and type organization
+- Extract patterns for data fetching, state, and error handling (from structure, not logic)
 
-### Step 4: Tech Stack Extraction
+**SECURITY NOTE**: Extract only structural and naming patterns. Do not include actual code logic, business rules, or sensitive implementation details in any analysis or output.
 
-```bash
-# Extract tech stack
-- Parse package.json dependencies
-- Check framework-specific files
-- Identify build configuration
-- Review environment variable usage
-```
+### Step 4: Style & Standards
+
+- Read ESLint/Prettier (or equivalent) config; document indent, quotes, semicolons, line length
+- Align with `.cursor/rules/` and README for coding standards
+- Document naming rules for files, components, variables, types, and APIs
+- Note TypeScript strictness and any project-specific type conventions
+
+### Step 5: Tech Stack & Environment
+
+- List frameworks, runtimes, and key libraries with versions from package.json
+- Document build, dev, test, and lint scripts
+- Note required env vars (from .env.example or docs) and config entry points
+- Summarize testing setup (unit, integration, E2E) and where tests live
 
 ## AGENTS.md Output Format
 
@@ -259,8 +312,11 @@ The generated AGENTS.md should be:
 ## Tech Stack
 [Clear list of technologies with versions]
 
+## Architecture
+[High-level structure: routing model, server vs client boundaries, key layers (UI, API, data, auth), and how the project is organized for AI agents to navigate]
+
 ## File Structure
-[Directory organization with clear rules]
+[Directory organization with clear rules; where to find components, pages, API routes, lib, config, tests]
 
 ## Naming Conventions
 [Specific naming rules for all code elements]
@@ -286,18 +342,19 @@ The generated AGENTS.md should be:
 **⚠️ REMINDER**: All analysis is LOCAL ONLY. Extract patterns and conventions, NOT actual code. Never forward code to external services.
 
 1. **If Project is Established**:
-   - Perform comprehensive LOCAL codebase analysis (structure and patterns only)
+   - **First**: Complete Phase 0 (Learn the Whole Project)—architecture, file structure, coding standards, best practices, tech stack, rules, and framework-specific patterns (e.g. Next.js, Supabase).
+   - Then perform comprehensive LOCAL codebase analysis (structure and patterns only)
    - Extract naming and organizational patterns from file/directory structure
-   - Document conventions observed (naming, style, structure)
+   - Document conventions observed (naming, style, structure), aligning with `.cursor/rules/` and README when present
    - Identify inconsistencies and document the preferred approach
    - **DO NOT** include actual code, business logic, or sensitive data in analysis
    - **ALWAYS** include the "Code Update and Suggestion Best Practices" section (standard content, not analyzed)
 
 2. **If Project is New**:
-   - Analyze configuration files
-   - Infer patterns from framework defaults
-   - Suggest best practices based on tech stack
-   - Document recommended patterns
+   - Still complete Phase 0 discovery (config files, framework defaults, any existing rules or docs)
+   - Infer patterns from framework defaults (e.g. Next.js App Router, Supabase auth/DB patterns)
+   - Suggest best practices based on detected tech stack
+   - Document recommended patterns so future AI agents can follow them from day one
    - **ALWAYS** include the "Code Update and Suggestion Best Practices" section (standard content, not analyzed)
 
 3. **Agent Optimization**:
@@ -318,19 +375,20 @@ The generated AGENTS.md should be:
 Generate an AGENTS.md file at the project root that includes:
 
 1. **Tech Stack Section**: Complete list with versions
-2. **File Structure Section**: Clear directory organization rules
-3. **Naming Conventions Section**: Specific rules for all naming scenarios
-4. **Coding Patterns Section**: Architectural patterns and code organization
-5. **Style Guide Section**: Formatting and style rules
-6. **Best Practices Section**: Project-specific standards
-7. **Code Update and Suggestion Best Practices Section**: Standard guidelines for AI agents when updating or suggesting code (detailed content provided in the section below)
-8. **Critical Rules Section**: Must-follow rules highlighted
+2. **Architecture Section**: High-level structure (routing, server/client boundaries, key layers) so AI agents can navigate the project
+3. **File Structure Section**: Clear directory organization rules
+4. **Naming Conventions Section**: Specific rules for all naming scenarios
+5. **Coding Patterns Section**: Architectural and code organization patterns
+6. **Style Guide Section**: Formatting and style rules
+7. **Best Practices Section**: Project-specific standards
+8. **Code Update and Suggestion Best Practices Section**: Standard guidelines for AI agents when updating or suggesting code (detailed content provided in the section below)
+9. **Critical Rules Section**: Must-follow rules highlighted
 
 The file should be immediately usable by AI agents to understand and follow project conventions without ambiguity.
 
 ## Code Update and Suggestion Best Practices Content
 
-**IMPORTANT**: The "Code Update and Suggestion Best Practices" section (item #7 in Output Requirements above) must be included in every generated AGENTS.md file. This section provides standard guidelines that AI agents should follow when updating or suggesting code. This content is NOT analyzed from the codebase - it is a standard set of best practices that should always be included.
+**IMPORTANT**: The "Code Update and Suggestion Best Practices" section (item #8 in Output Requirements above) must be included in every generated AGENTS.md file. This section provides standard guidelines that AI agents should follow when updating or suggesting code. This content is NOT analyzed from the codebase - it is a standard set of best practices that should always be included.
 
 Include the following content in the "Code Update and Suggestion Best Practices" section:
 
@@ -416,12 +474,11 @@ Include the following content in the "Code Update and Suggestion Best Practices"
 
 **SECURITY & PRIVACY NOTE**: 
 
-This command performs **LOCAL ANALYSIS ONLY** - no code is forwarded, shared, or transmitted to external services. The analysis extracts only:
-- Structural patterns (file organization, naming conventions)
-- Configuration metadata (from package.json, tsconfig.json, etc.)
-- Style conventions (formatting rules, not code)
-- Tech stack information (library names/versions)
+This command performs **LOCAL ANALYSIS ONLY**—no code is forwarded, shared, or transmitted to external services. The “learn the whole project” phase and all analysis extract only:
+- **Architecture & structure**: Directory layout, routing, server/client boundaries, module organization
+- **Patterns & conventions**: Naming, style, coding standards, best practices (from structure and config, not code logic)
+- **Configuration metadata**: package.json, tsconfig, framework configs (structure and tooling, not secrets)
+- **Tech stack**: Library names and versions, scripts, env usage
+- **Existing rules**: Content of .cursor/rules, README, docs (as source of truth for conventions)
 
-The generated AGENTS.md contains **guidelines and rules only** - no actual code snippets, business logic, or sensitive implementation details. All analysis is performed locally within Cursor for maximum code security and client privacy.
-
-For new projects, it will infer patterns from configuration files and suggest best practices based on the detected tech stack without exposing any code.
+The generated AGENTS.md contains **guidelines and rules only**—no actual code snippets, business logic, or sensitive implementation details. Learning the project first ensures AGENTS.md accurately reflects the codebase so AI agents can understand and follow the project with minimal ambiguity. All work stays local within Cursor for code security and client privacy.
