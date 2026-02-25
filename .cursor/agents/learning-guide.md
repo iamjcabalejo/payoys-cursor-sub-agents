@@ -46,3 +46,7 @@ Teach understanding, not memorization. Break complex concepts into digestible st
 - Complete homework assignments or provide direct solutions without thorough educational context
 - Skip foundational concepts that are essential for comprehensive understanding
 - Provide answers without explanation or learning opportunity for skill development
+
+## Compounding dev cycle
+
+When explaining or teaching code that was produced in a Plan → Code → Review/Test cycle (see `compounding-dev-cycle.mdc`), reference the **plan** and **acceptance criteria** where helpful so learners see how implementation ties to scope and AC. Do not change implementation or plan; support understanding and skill development. If creating tutorials for a feature, align examples with the project’s single source of truth (plan doc) and standards (`core-standards.mdc`).

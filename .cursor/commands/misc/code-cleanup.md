@@ -13,37 +13,37 @@ Clean up and refactor the following code to improve readability, maintainability
    - Read the `agents` array to understand available specialized agents
    - Identify agent definitions relevant to code cleanup and refactoring
 
-2. **Identify Relevant Agents**: For code cleanup, the following agents are typically relevant:
-   - **refactoring-expert**: For systematic refactoring, SOLID principles, complexity reduction, and technical debt elimination (PRIMARY AGENT)
-   - **backend-architect**: For backend code cleanup, API design improvements, and data integrity considerations
-   - **frontend-architect**: For frontend code cleanup, React/Next.js best practices, and UI component improvements
-   - **system-architect**: For system-level code improvements, architecture patterns, and long-term maintainability
-   - **security-engineer**: For security-related code improvements, vulnerability fixes, and security best practices
-   - **performance-engineer**: For performance-related code improvements and optimization opportunities
+2. **Identify Relevant Agents**: For code cleanup, the following agents are relevant (see `.cursor/rules/compounding-dev-cycle.mdc` for the Plan → Code → Review/Test cycle):
+   - **refactoring-expert** (PRIMARY): Systematic refactoring, SOLID principles, complexity reduction, technical debt elimination, safe transformations, behavior preservation. When cleanup is driven by a rework list from Review/Test, treat rework items as scope and produce implementation notes for handoff.
+   - **backend-architect**: Backend code cleanup, API design improvements, data integrity, and alignment with `api-routes.mdc` and core-standards.
+   - **frontend-architect**: Frontend code cleanup, React/Next.js best practices, UI components, accessibility (WCAG 2.1 AA), and alignment with `react.mdc`, `typescript.mdc`.
+   - **backend-reviewer**: Use their checklist (correctness, security, API contract, tests) to self-check backend cleanup before considering done; produce handoff-ready output if this cleanup will be reviewed.
+   - **frontend-reviewer**: Use their checklist (correctness, accessibility, React/TypeScript, tests) to self-check frontend cleanup before considering done; produce handoff-ready output if this cleanup will be reviewed.
+   - **database-expert**: For query/schema/data-access cleanup: parameterized queries, indexing, transaction boundaries, and postgresql/nosql-databases skills.
+   - **system-architect**: System-level improvements, boundaries, and long-term maintainability when touching multiple layers.
+   - **security-engineer**: Security-related cleanup, vulnerability fixes, and OWASP-aligned checks when security issues are present.
+   - **performance-engineer**: Performance-related cleanup and optimization only when backed by measurement (see performance-profiling skill).
 
-3. **Load Agent Definitions**: Read the agent definition files from `.cursor/agents/` directory:
-   - `.cursor/agents/refactoring-expert.md` - Apply refactoring principles, SOLID patterns, and complexity reduction techniques (REQUIRED)
-   - `.cursor/agents/backend-architect.md` - Apply backend architecture principles if cleaning backend code
-   - `.cursor/agents/frontend-architect.md` - Apply frontend architecture principles if cleaning frontend code
-   - `.cursor/agents/system-architect.md` - Apply system architecture considerations for system-level improvements
-   - `.cursor/agents/security-engineer.md` - Apply security best practices if security issues are identified
-   - `.cursor/agents/performance-engineer.md` - Apply performance optimization principles if performance issues are found
+3. **Load Agent Definitions**: Read the agent definition files from `.cursor/agents/` directory as needed:
+   - `.cursor/agents/refactoring-expert.md` (REQUIRED) – refactoring principles, compounding dev cycle (rework list as scope, implementation notes).
+   - `.cursor/agents/backend-architect.md` – when cleaning backend/API code.
+   - `.cursor/agents/frontend-architect.md` – when cleaning frontend/UI code.
+   - `.cursor/agents/backend-reviewer.md` – when cleaning backend; use checklist to validate before done.
+   - `.cursor/agents/frontend-reviewer.md` – when cleaning frontend; use checklist to validate before done.
+   - `.cursor/agents/database-expert.md` – when cleaning queries, schema, or data access.
+   - `.cursor/agents/system-architect.md` – when cleanup crosses system boundaries.
+   - `.cursor/agents/security-engineer.md` – when security issues are identified.
+   - `.cursor/agents/performance-engineer.md` – when performance issues are in scope (measure first).
 
 4. **Apply Agent Roles**: Use the agent definitions to inform your cleanup approach:
-   - Incorporate the perspectives, principles, and guidelines from relevant agents
-   - Apply agent-specific best practices to the code cleanup process
-   - Ensure the refactored code aligns with the agent's expertise and focus areas
-   - Use refactoring-expert's systematic approach for safe, incremental improvements
-   - Apply SOLID principles and design patterns from refactoring-expert
-   - Consider security, performance, and architecture perspectives from specialized agents
+   - Incorporate perspectives and guidelines from the relevant agents above.
+   - Apply refactoring-expert's systematic approach: safe, incremental, behavior-preserving changes.
+   - Align with project rules: `core-standards.mdc`, and `api-routes.mdc` / `react.mdc` / `typescript.mdc` as applicable.
+   - If cleanup is part of a Plan → Code → Review/Test cycle: do not expand scope beyond the rework list or agreed cleanup scope; produce implementation notes (what was done, deferred, assumptions) for handoff.
 
-5. **Role Integration**: The agent definitions should shape the role and approach for this command:
-   - Combine the command's cleanup guidelines with agent-specific expertise
-   - Apply agent principles throughout code analysis, refactoring decisions, and quality improvements
-   - Ensure the cleaned code reflects the specialized knowledge from relevant agents
-   - Prioritize refactoring-expert's focus on safe transformations, behavior preservation, and measurable quality improvements
+5. **Compounding dev cycle**: When cleanup follows a **rework list** from backend-reviewer or frontend-reviewer, treat it as the **Code** phase: implement only the rework items, then produce a short summary so Review/Test can re-verify. When cleanup is standalone, still produce a brief summary (what was refactored, what was preserved) for traceability.
 
-**Note**: The agent definitions provide specialized expertise that enhances the base command instructions. Always consult and apply relevant agent definitions when cleaning up code, with refactoring-expert as the primary guide for systematic refactoring and quality improvement.
+**Note**: Agent definitions and the compounding dev cycle rule (`.cursor/rules/compounding-dev-cycle.mdc`) provide the standards for this command. Refactoring-expert is the primary guide; use backend-reviewer and frontend-reviewer checklists to validate output when cleaning backend or frontend code.
 
 ## Code to Clean
 
@@ -238,10 +238,11 @@ const data = await fetch('/api/user').then(r => r.json())
 
 ## Output Format
 
-1. **Issues Found** - List of code smells and problems
-2. **Cleaned Code** - Refactored version
-3. **Explanations** - What changed and why
-4. **Before/After Comparison** - Side-by-side if helpful
-5. **Further Improvements** - Optional enhancements
+1. **Issues Found** – List of code smells and problems (or rework items addressed, if cleanup was driven by a review rework list).
+2. **Cleaned Code** – Refactored version.
+3. **Explanations** – What changed and why.
+4. **Before/After Comparison** – Side-by-side if helpful.
+5. **Further Improvements** – Optional enhancements.
+6. **Implementation notes** (when part of a cycle) – Short list: what was done, what was deferred, any assumptions. Enables handoff to Review/Test (e.g. backend-reviewer / frontend-reviewer) for re-verification.
 
-Focus on practical improvements that make code more maintainable without over-engineering. Balance clean code with pragmatism.
+Focus on practical improvements that make code more maintainable without over-engineering. Balance clean code with pragmatism. When cleanup is driven by a rework list, limit scope to those items and keep the output traceable for the next phase.

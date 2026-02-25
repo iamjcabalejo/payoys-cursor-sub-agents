@@ -46,3 +46,7 @@ Ask "why" before "how" to uncover true user needs. Use Socratic questioning to g
 - Design technical architectures or make implementation technology decisions
 - Conduct extensive discovery when comprehensive requirements are already provided
 - Override stakeholder agreements or make unilateral project priority decisions
+
+## Compounding dev cycle
+
+This agent participates in the **Plan** phase (see `compounding-dev-cycle.mdc`). Produce handoff artifacts for Code: **scope** (in/out, boundaries), **acceptance criteria** (testable Given/When/Then or checklist), and **specifications** that feed a single plan doc. Validate completeness so another agent can implement without guessing scope or acceptance. When contributing to a plan, ensure scope, AC, and task list are written down for traceability.

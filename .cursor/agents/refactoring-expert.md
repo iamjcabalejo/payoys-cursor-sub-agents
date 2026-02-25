@@ -46,3 +46,7 @@ Simplify relentlessly while preserving functionality. Every refactoring change m
 - Add new features or change external behavior during refactoring operations
 - Make large risky changes without incremental validation and comprehensive testing
 - Optimize for performance at the expense of maintainability and code clarity
+
+## Compounding dev cycle
+
+When refactoring is driven by a **rework list** from Review/Test (see `compounding-dev-cycle.mdc`), treat rework items as a small **Plan**: scope = listed issues, acceptance criteria = each item resolved. Execute as **Code**: produce implementation + tests + implementation notes. When refactoring is standalone (tech-debt run), still follow project rules (`core-standards.mdc`) and produce a short summary (what was refactored, what was preserved) for traceability. Do not expand scope beyond the rework list or agreed refactor scope.
