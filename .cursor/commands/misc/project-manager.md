@@ -41,6 +41,14 @@ $ARGUMENTS
 
 **CRITICAL**: Spawn in this order. Use foreground mode. Pass the full plan (or relevant sections). Each subagent must follow `.cursor/rules/compounding-dev-cycle.mdc` Code phase.
 
+### A0. (Conditional) If the plan specifies database tasks: Spawn `database-expert` (foreground)
+
+- **When:** The plan includes database work (schema design, migrations, queries, data model, indexes, or DB-heavy backend tasks).
+- **Order:** Spawn **before** or **with** backend-architect so DB design and queries are DBA-reviewed before or during backend implementation.
+- **Pass:** Full plan, especially **Backend Tasks**, database/schema sections, API specs that touch data, dependencies.
+- **Instruct:** "Implement or review all database-related work from this feature plan per compounding-dev-cycle Code phase. Design/review schema, queries, indexes, and data access. Produce handoff for Review/Test: implementation (schema/queries), implementation notes (what was done, deferred, assumptions). Link work to acceptance criteria. If the plan is wrong, note it and do not expand scope. Return when complete."
+- **If no database tasks in the plan:** Skip A0 and go to A1.
+
 ### A1. Spawn `backend-architect` (foreground)
 
 - **Pass**: Full plan, especially **Backend Tasks**, feature overview, technical design, file changes, API specs, database schema, dependencies and environment variables.
@@ -56,7 +64,7 @@ $ARGUMENTS
 - **Pass**: Full plan, especially **Integration & Testing**, feature overview, user flows, backend/frontend changes, API contract, critical paths, existing test setup.
 - **Instruct**: "Implement E2E tests for this feature per compounding-dev-cycle Code phase. Cover critical user journeys. Produce handoff for Review/Test: tests and test status, implementation notes. Link coverage to acceptance criteria. Return when complete."
 
-After A1–A3: aggregate **Code → Review/Test handoff**: summary of what was implemented and where, implementation notes (done/deferred/assumptions), test status. Use this as input for Phase B.
+After A0 (if run)–A1–A3: aggregate **Code → Review/Test handoff**: summary of what was implemented and where, implementation notes (done/deferred/assumptions), test status. Use this as input for Phase B.
 
 ---
 
@@ -74,18 +82,32 @@ After A1–A3: aggregate **Code → Review/Test handoff**: summary of what was i
 - **Pass**: Plan (acceptance criteria), frontend code diff or changed frontend files, implementation notes from frontend-architect.
 - **Instruct**: "Review the frontend implementation against this plan per compounding-dev-cycle Review/Test phase. Use the plan’s acceptance criteria and project rules (core-standards, react, typescript, accessibility). Produce: (1) review summary, (2) rework list with severity—**Critical** (must fix), **Suggestion**, **Nice to have**, (3) test status. Be specific: file/component + required change + reason. Return when complete."
 
+### B3. (Conditional) If the plan marks security as in scope: Spawn `security-engineer` (foreground)
+
+- **When:** The plan includes a **Scope / Metadata** (or similar) section with `Security: critical` (or equivalent), or the feature clearly involves auth, sensitive data, or security-sensitive acceptance criteria.
+- **Pass**: Plan (acceptance criteria, security-related AC), full code diff or changed files, implementation notes from Phase A.
+- **Instruct**: "Review the implementation for security per compounding-dev-cycle Review/Test phase. Focus on the plan's security-related acceptance criteria and OWASP-aligned checks. Produce: (1) short security review summary, (2) rework list with severity (Critical / Suggestion / Nice to have). Be specific: file/line + required change + reason. Return when complete."
+- **If security not in scope:** Skip B3.
+
+### B4. (Conditional) If the plan marks performance as in scope: Spawn `performance-engineer` (foreground)
+
+- **When:** The plan includes a **Scope / Metadata** (or similar) section with `Performance: critical` (or equivalent), or the feature clearly has performance-related acceptance criteria.
+- **Pass**: Plan (acceptance criteria, performance-related AC), full code diff or changed files, implementation notes from Phase A.
+- **Instruct**: "Review the implementation for performance per compounding-dev-cycle Review/Test phase. Focus on the plan's performance-related acceptance criteria and measurement-driven checks. Produce: (1) short performance review summary, (2) rework list with severity (Critical / Suggestion / Nice to have). Be specific: file/area + required change + reason. Return when complete."
+- **If performance not in scope:** Skip B4.
+
 **E2E testing:** Do not spawn e2e-runner in this phase. Tell the user they can run E2E tests when they want (e.g. run the test suite manually or ask e2e-runner to run/verify E2E for this feature).
 
-After B1–B2: aggregate **review summaries** and **rework lists** (with severity). Use reviewers' **test status** (unit/integration) for gates. Check **gates** (rule §3): no project-rule violations, no unresolved high-severity security or data-integrity issues.
+After B1–B4 (run only B3/B4 when plan indicates scope): aggregate **review summaries** and **rework lists** (with severity). Use reviewers' **test status** (unit/integration) for gates. Check **gates** (rule §3): no project-rule violations, no unresolved high-severity security or data-integrity issues.
 
 ---
 
 ## Phase C: Decide — loop or production ready
 
 - **If there are any Critical rework items or gates not passed:**  
-  - **Plan (next iteration):** Create a short rework plan: scope = fixing the critical issues, acceptance criteria = each critical rework item. Optionally write `docs/plans/<feature>-rework-N.md` or keep in context.  
+  - **Plan (next iteration):** Create a short rework plan: scope = fixing the critical issues, acceptance criteria = each critical rework item. **Prefer writing the rework plan to `docs/plans/<feature>-rework-N.md`** when N ≥ 1 (for traceability and audit). If not written, keep in context.  
   - **Code again:** Spawn only the agents that need to fix issues (e.g. backend rework → backend-architect; frontend rework → frontend-architect; test fixes → e2e-runner). Instruct them to implement only the rework list.  
-  - **Review again:** Repeat Phase B (spawn backend-reviewer, frontend-reviewer only—no e2e-runner).  
+  - **Review again:** Repeat Phase B (spawn backend-reviewer, frontend-reviewer, and B3/B4 if plan marks security/performance in scope—no e2e-runner).  
   - **Loop** until there are **no Critical items** and gates are met.
 
 - **When there are no Critical issues and gates pass:**  
@@ -101,13 +123,13 @@ After B1–B2: aggregate **review summaries** and **rework lists** (with severit
 - **Skip when**: No backend work → only frontend-architect + e2e-runner. No frontend work → only backend-architect + e2e-runner. No user-facing flows → skip e2e-runner implementation.
 - **Database-heavy**: Spawn `database-expert` with DB sections before or with backend-architect if the plan specifies.
 
-**Review (Phase B):** Always run after Code. Spawn **backend-reviewer** and **frontend-reviewer** only. Do **not** spawn e2e-runner—E2E testing is user-triggered only. Skip a reviewer only if there was no backend or no frontend implementation to review.
+**Review (Phase B):** Always run after Code. Spawn **backend-reviewer** and **frontend-reviewer**; optionally spawn **security-engineer** and **performance-engineer** when the plan marks security or performance as in scope (e.g. Scope/Metadata: `Security: critical`, `Performance: critical`). Do **not** spawn e2e-runner—E2E testing is user-triggered only. Skip a reviewer only if there was no backend or no frontend implementation to review.
 
 **Loop (Phase C):** Critical rework or failed gates → rework plan → Code (fix only) → Review/Test again. Repeat until no critical issues and gates pass, then declare **production ready**.
 
 ## Agent definitions
 
-Read `.cursor/agents/backend-architect.md`, `.cursor/agents/frontend-architect.md`, `.cursor/agents/e2e-runner.md`, `.cursor/agents/backend-reviewer.md`, `.cursor/agents/frontend-reviewer.md` for boundaries and inputs/outputs. Pass context that matches each agent’s "When Invoked" or "When Given Implementation Tasks" sections.
+Read `.cursor/agents/backend-architect.md`, `.cursor/agents/frontend-architect.md`, `.cursor/agents/e2e-runner.md`, `.cursor/agents/backend-reviewer.md`, `.cursor/agents/frontend-reviewer.md`, and when the plan has DB tasks also `.cursor/agents/database-expert.md`. When the plan marks security or performance in scope, also read `.cursor/agents/security-engineer.md` and/or `.cursor/agents/performance-engineer.md` for boundaries and inputs/outputs. Pass context that matches each agent’s "When Invoked" or "When Given Implementation Tasks" sections.
 
 ## Output
 

@@ -11,39 +11,9 @@ $ARGUMENTS
 
 ## Agent Definitions
 
-**CRITICAL**: Before implementing the Next.js page, you MUST:
+**Apply the agent-selection skill** (`.cursor/skills/agent-selection/SKILL.md`): before implementing, identify relevant agents, read their definitions from `.cursor/agents/`, and apply their perspective to the page.
 
-1. **Read Agent Definitions**: Load and review the agent definitions from `.cursor/agents/` directory
-   - Read the agent definition files to understand available specialized agents
-   - Identify agent definitions relevant to Next.js page development
-
-2. **Identify Relevant Agents**: For Next.js page creation, the following agents are typically relevant:
-   - **frontend-architect**: For Next.js App Router patterns, page architecture, routing, metadata, and UI/UX best practices (PRIMARY AGENT)
-   - **performance-engineer**: For page performance optimization, Core Web Vitals, loading strategies, and bundle optimization
-   - **technical-writer**: For SEO metadata, Open Graph tags, structured data, and page documentation
-   - **security-engineer**: For security considerations in pages (input validation, XSS prevention, authentication patterns)
-   - **refactoring-expert**: For code quality, maintainability, and page structure following SOLID principles
-
-3. **Load Agent Definitions**: Read the agent definition files from `.cursor/agents/` directory:
-   - `.cursor/agents/frontend-architect.md` - Apply Next.js App Router patterns, routing, metadata, and page architecture best practices (REQUIRED)
-   - `.cursor/agents/performance-engineer.md` - Apply performance optimization strategies for page loading, Core Web Vitals, and bundle size
-   - `.cursor/agents/technical-writer.md` - Apply SEO and metadata best practices for discoverability
-   - `.cursor/agents/security-engineer.md` - Apply security best practices for page-level security considerations
-   - `.cursor/agents/refactoring-expert.md` - Apply code quality and maintainability principles
-
-4. **Apply Agent Roles**: Use the agent definitions to inform your page implementation:
-   - Incorporate the perspectives, principles, and guidelines from relevant agents
-   - Apply agent-specific best practices to the page creation process
-   - Ensure the generated page aligns with the agent's expertise and focus areas
-   - Balance Next.js patterns with agent-specific architectural considerations
-
-5. **Role Integration**: The agent definitions should shape the role and approach for this command:
-   - Combine the command's Next.js page guidelines with agent-specific expertise
-   - Apply agent principles throughout page design, metadata, data fetching, error handling, and performance decisions
-   - Ensure the implementation reflects the specialized knowledge from relevant agents
-   - Leverage frontend-architect's expertise for Next.js 15 App Router patterns, Server/Client Components, and modern page architecture
-
-**Note**: The agent definitions provide specialized expertise that enhances the base command instructions. Always consult and apply relevant agent definitions when creating Next.js pages to ensure production-ready, accessible, performant, SEO-optimized, and maintainable implementations.
+**Relevant agents for this command:** frontend-architect (primary), performance-engineer, technical-writer, security-engineer, refactoring-expert.
 
 ## Next.js 15 App Router Standards
 
@@ -91,6 +61,10 @@ function Page() {
   return <div>{data}</div>
 }
 ```
+
+## Compounding dev cycle (handoff)
+
+If this page is part of a feature with a plan in `docs/plans/`, implement to that plan and produce **implementation notes** for Review/Test (what was done, deferred, assumptions; link to acceptance criteria if applicable). If standalone, produce a short implementation notes (what was done, deferred, assumptions) so frontend-reviewer can verify. Use the implementation-notes template from `.cursor/rules/compounding-dev-cycle.mdc` (Done | Deferred | Assumptions | Env/config).
 
 ## What to Generate
 

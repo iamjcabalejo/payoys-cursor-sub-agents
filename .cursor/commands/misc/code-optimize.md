@@ -11,41 +11,9 @@ $ARGUMENTS
 
 ## Agent Definitions
 
-**CRITICAL**: Before optimizing the code, you MUST:
+**Apply the agent-selection skill** (`.cursor/skills/agent-selection/SKILL.md`): before optimizing, identify relevant agents, read their definitions from `.cursor/agents/`, and apply their perspective.
 
-1. **Read Agent Definitions**: Load and review the agent definitions from `.cursor-plugin/plugin.json`
-   - Read the `agents` array to understand available specialized agents
-   - Identify agent definitions relevant to code optimization and performance
-
-2. **Identify Relevant Agents**: For code optimization, the following agents are relevant (see `.cursor/rules/compounding-dev-cycle.mdc` for the Plan → Code → Review/Test cycle):
-   - **performance-engineer** (PRIMARY): Measurement-driven analysis and bottleneck elimination. "Measure first, optimize second." Profile before and after; focus on critical path and user experience. When optimization is driven by a rework list from Review/Test (performance in scope), treat rework items as scope and produce implementation notes for handoff.
-   - **refactoring-expert**: Preserve code quality and maintainability during optimization; avoid sacrificing readability for micro-optimizations. Safe, incremental changes.
-   - **backend-architect**: Backend performance, API efficiency, and alignment with `api-routes.mdc` and core-standards when touching server code.
-   - **frontend-architect**: Frontend performance, bundle optimization, Core Web Vitals, and alignment with `react.mdc`, `typescript.mdc` when touching UI.
-   - **database-expert**: Query and data-access optimization: indexes, N+1 prevention, batching, parameterized queries; use postgresql or nosql-databases skills. Profile execution plans before changing queries.
-   - **backend-reviewer**: Use their checklist to self-check backend code (correctness, tests) after optimization so output is handoff-ready if this work will be reviewed.
-   - **frontend-reviewer**: Use their checklist to self-check frontend code (correctness, accessibility, tests) after optimization so output is handoff-ready if this work will be reviewed.
-   - **system-architect**: Architectural-level performance and scalability when optimization crosses system boundaries.
-
-3. **Load Agent Definitions**: Read the agent definition files from `.cursor/agents/` directory as needed:
-   - `.cursor/agents/performance-engineer.md` (REQUIRED) – measurement-first mindset, compounding dev cycle (Review/Test when performance in scope).
-   - `.cursor/agents/refactoring-expert.md` – code quality and safe transformations during optimization.
-   - `.cursor/agents/backend-architect.md` – when optimizing backend/API code.
-   - `.cursor/agents/frontend-architect.md` – when optimizing frontend/UI code.
-   - `.cursor/agents/database-expert.md` – when optimizing queries, schema, or data access.
-   - `.cursor/agents/backend-reviewer.md` – when optimizing backend; validate with their checklist before done.
-   - `.cursor/agents/frontend-reviewer.md` – when optimizing frontend; validate with their checklist before done.
-   - `.cursor/agents/system-architect.md` – when optimization crosses component boundaries.
-
-4. **Apply Agent Roles**: Use the agent definitions to inform your optimization approach:
-   - **Measure first**: Use performance-profiling skill; identify actual bottlenecks before changing code.
-   - Incorporate perspectives from the relevant agents above; prioritize performance-engineer's measurement-driven approach.
-   - Align with project rules: `core-standards.mdc`, and `api-routes.mdc` / `react.mdc` / `typescript.mdc` as applicable.
-   - If optimization is part of a Plan → Code → Review/Test cycle: do not expand scope beyond the rework list or agreed optimization scope; produce implementation notes (what was done, deferred, before/after metrics) for handoff.
-
-5. **Compounding dev cycle**: When optimization follows a **performance rework list** from Review/Test (e.g. performance-engineer or frontend-reviewer), treat it as the **Code** phase: implement only those items, then produce a short summary and before/after metrics so Review/Test can re-verify. When optimization is standalone, still produce a brief summary and metrics for traceability.
-
-**Note**: Agent definitions and the compounding dev cycle rule (`.cursor/rules/compounding-dev-cycle.mdc`) provide the standards. Performance-engineer is the primary guide; use backend-reviewer and frontend-reviewer checklists to validate output when optimizing backend or frontend code.
+**Relevant agents for this command:** performance-engineer (primary; measure first, then optimize), refactoring-expert, backend-architect, frontend-architect, database-expert (queries/data access), backend-reviewer, frontend-reviewer (checklists when backend/frontend touched), system-architect (when crossing boundaries). Use performance-profiling skill; produce implementation notes (what was done, deferred, before/after metrics). When following a performance rework list from Review/Test, implement only those items and produce summary and metrics for re-verification.
 
 ## Optimization Strategy for Solo Developers
 

@@ -1,14 +1,14 @@
 {
   "name": "payoys-cursor-sub-agents",
-  "version": "3.0.0",
-  "description": "Brader Payoy's personal Cursor Agents setup with 15 commands, 17 agents, 13 skills, 5 rules, and hooks for modern web development",
+  "version": "3.1.0",
+  "description": "Brader Payoy's personal Cursor Agents setup with 15 commands, 17 agents, 14 skills, 6 rules, and hooks for modern web development",
   "author": "Brader Payoy",
   "license": "MIT",
   "commands": [
     {
       "name": "new-task",
       "path": ".cursor/commands/new-task.md",
-      "description": "Analyze code for performance issues and suggest optimizations"
+      "description": "Analyze task complexity and create actionable implementation plan"
     },
     {
       "name": "agents-md-generate",
@@ -230,6 +230,11 @@
       "description": "Break features into implementation tasks for backend, frontend, and E2E subagents"
     },
     {
+      "name": "agent-selection",
+      "path": ".cursor/skills/agent-selection",
+      "description": "Select and load relevant agent definitions before a task; single reference for commands that need agent perspectives"
+    },
+    {
       "name": "postgresql",
       "path": ".cursor/skills/postgresql",
       "description": "Apply PostgreSQL best practices for schema design, indexing, vector search (pgvector), and RAG pipelines"
@@ -241,6 +246,11 @@
     }
   ],
   "rules": [
+    {
+      "name": "compounding-dev-cycle",
+      "path": ".cursor/rules/compounding-dev-cycle.mdc",
+      "description": "Plan → Code → Review/Test → Plan cycle with clear handoffs between agents"
+    },
     {
       "name": "core-standards",
       "path": ".cursor/rules/core-standards.mdc",

@@ -38,7 +38,11 @@ Follow **Plan → Code → Review/Test → Plan** for every feature or change. E
 **Outputs (handoff to Review/Test):**
 - **Implementation:** Code that satisfies acceptance criteria and project standards.
 - **Tests:** Unit/integration/API tests for new behavior; follow `api-test` / E2E patterns where relevant.
-- **Implementation notes:** Short list of what was done, what was deferred, and any assumptions or env/config changes.
+- **Implementation notes:** Short list of what was done, what was deferred, and any assumptions or env/config changes. Use this minimal template for consistency:
+  - **Done:** What was implemented (and which AC it maps to, if applicable).
+  - **Deferred:** What was explicitly postponed with a brief reason.
+  - **Assumptions:** Any assumptions about environment, dependencies, or behavior.
+  - **Env/config:** Required env vars, config changes, or setup steps.
 
 **Discipline:** Do not expand scope beyond the plan without updating the plan first. If the plan is wrong, note it and either adjust the plan doc or hand back to Plan for a quick revision.
 

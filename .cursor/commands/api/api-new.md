@@ -15,34 +15,10 @@ This command delivers **Code** phase output. If the new API is part of a feature
 
 ## Agent Definitions
 
-**CRITICAL**: Before implementing the API route, you MUST:
+**Apply the agent-selection skill** (`.cursor/skills/agent-selection/SKILL.md`): before implementing, identify relevant agents, read their definitions from `.cursor/agents/`, and apply their perspective.
 
-1. **Read Agent Definitions**: Load and review the agent definitions from `.cursor-plugin/plugin.json`
-   - Read the `agents` array to understand available specialized agents
-   - Identify agent definitions relevant to API development
+**Relevant agents for this command:** backend-architect (primary), backend-reviewer (checklist for handoff), security-engineer, database-expert (when route touches DB), system-architect (when crossing boundaries). Implement in line with `api-routes.mdc`; produce implementation notes for Review/Test. The generated route should be verifiable by backend-reviewer: include tests or test guidance; document what was done, deferred, and env/config.
 
-2. **Identify Relevant Agents**: For API route creation, the following agents are relevant:
-   - **backend-architect** (PRIMARY): Backend design, data integrity, fault tolerance, API contract. Implements to plan when one exists; produces implementation notes for Review/Test handoff.
-   - **backend-reviewer**: Use their checklist (correctness, security, API contract, validation, tests) to self-check the route so output is handoff-ready for Review/Test.
-   - **security-engineer**: Authentication, authorization, input sanitization, and OWASP-aligned checks (see security-audit skill).
-   - **database-expert**: When the route touches DB: parameterized queries, indexing, transaction boundaries; use postgresql or nosql-databases skills as applicable.
-   - **system-architect**: When the route crosses system boundaries or affects long-term architecture.
-
-3. **Load Agent Definitions**: Read the agent definition files from `.cursor/agents/` directory as needed:
-   - `.cursor/agents/backend-architect.md` – backend principles and compounding dev cycle (Code phase, handoff).
-   - `.cursor/agents/backend-reviewer.md` – validate implementation against their checklist before considering done.
-   - `.cursor/agents/security-engineer.md` – when auth, validation, or security are in scope.
-   - `.cursor/agents/database-expert.md` – when the route performs DB access.
-   - `.cursor/agents/system-architect.md` – when the route has system-wide impact.
-
-4. **Apply Agent Roles**: Use the agent definitions to inform your approach:
-   - Implement in line with `api-routes.mdc` (validation at boundary, status codes, error shape `{ error: { code, message, details? } }`, no stack traces in production).
-   - Apply backend-architect and backend-reviewer perspectives so the route is ready for the next phase without rework.
-   - If part of a Plan → Code → Review/Test cycle: do not add scope beyond the plan; produce implementation notes for handoff.
-
-5. **Handoff for Review/Test**: The generated route should be verifiable by backend-reviewer: include tests (or test guidance) for success, validation, and error cases where appropriate; document what was done, deferred, and any env/config so the review phase has full context.
-
-**Note**: Follow `.cursor/rules/compounding-dev-cycle.mdc` and `.cursor/rules/api-routes.mdc`. Agent definitions and backend-reviewer’s checklist ensure the API is production-ready and handoff-ready for the compounding cycle.
 
 ## Implementation Guidelines
 

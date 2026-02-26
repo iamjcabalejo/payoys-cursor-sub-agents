@@ -29,38 +29,9 @@ Produce handoff artifacts so **Code** (via project-manager) can implement withou
 
 ## Agent Definitions
 
-**IMPORTANT**: Before planning, identify and use the correct agent definitions based on the feature's requirements.
+**Apply the agent-selection skill** (`.cursor/skills/agent-selection/SKILL.md`): before planning, identify relevant agents, read their definitions from `.cursor/agents/`, and apply their perspective to the plan.
 
-1. **Identify Relevant Agents**: Analyze the feature description to determine which agent(s) are relevant:
-   - Backend/API features ù `backend-architect`
-   - Frontend/UI features ù `frontend-architect`
-   - System architecture ù `system-architect`
-   - Security concerns ù `security-engineer`
-   - Performance needs ù `performance-engineer`
-   - Research/learning ù `tech-stack-researcher` or `learning-guide`
-   - Documentation ù `technical-writer`
-   - Requirements analysis ù `requirements-analyst`
-   - Refactoring needs ù `refactoring-expert`
-   - E2E / integration testing ù `e2e-runner`
-
-2. **Read Agent Definitions**: Load the relevant agent definition files from `.cursor/agents/` directory:
-   - Read the agent's frontmatter (name, description, category)
-   - Review triggers, behavioral mindset, focus areas, and key actions
-   - Understand the agent's boundaries and outputs
-
-3. **Apply Agent Perspective**: Incorporate the agent's perspective into the planning:
-   - Use the agent's behavioral mindset when analyzing requirements
-   - Apply the agent's focus areas to technical specifications
-   - Follow the agent's key actions in the implementation steps
-   - Respect the agent's boundaries (what it will/will not do)
-
-4. **Multi-Agent Planning**: If the feature spans multiple domains:
-   - Identify all relevant agents
-   - Read definitions for each
-   - Plan how their perspectives integrate
-   - Clearly separate concerns in the implementation plan
-
-**Example**: For a feature requiring both API and UI work, use both `backend-architect` and `frontend-architect` definitions to ensure comprehensive planning from both perspectives.
+**Relevant agents for this command:** backend-architect, frontend-architect, system-architect, security-engineer, performance-engineer, tech-stack-researcher, learning-guide, technical-writer, requirements-analyst, refactoring-expert, e2e-runner. Use the subset that matches the feature.
 
 ## Planning Framework for Solo Developers
 
@@ -137,6 +108,13 @@ Define "done":
 -  Documentation updated
 
 ## Output Format
+
+### 0. **Scope / Metadata** (optional)
+
+When the feature is security- or performance-critical, add so project-manager can spawn optional reviewers:
+
+- **Security: critical** ù when the feature involves auth, sensitive data, or security-sensitive flows (triggers security-engineer in Review phase).
+- **Performance: critical** ù when the feature has explicit performance or scalability acceptance criteria (triggers performance-engineer in Review phase).
 
 ### 1. **Feature Overview**
 - What problem does this solve?

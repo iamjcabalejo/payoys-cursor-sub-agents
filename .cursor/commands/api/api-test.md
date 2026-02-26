@@ -15,34 +15,9 @@ This command supports both **Code** and **Review/Test** phases. When tests are a
 
 ## Agent Definitions
 
-**CRITICAL**: Before generating API tests, you MUST:
+**Apply the agent-selection skill** (`.cursor/skills/agent-selection/SKILL.md`): before generating tests, identify relevant agents, read their definitions from `.cursor/agents/`, and apply their perspective.
 
-1. **Read Agent Definitions**: Load and review the agent definitions from `.cursor-plugin/plugin.json`
-   - Read the `agents` array to understand available specialized agents
-   - Identify agent definitions relevant to API testing
-
-2. **Identify Relevant Agents**: For API testing, the following agents are relevant:
-   - **backend-reviewer** (PRIMARY for handoff): Their review uses **test status**—which AC are covered, which tests pass/fail. Generate tests that satisfy their checklist (correctness, validation, auth, error cases) so the review phase can verify gates without redoing work.
-   - **backend-architect**: Reliability, data integrity, and API contract coverage in tests (success, validation, error paths).
-   - **security-engineer**: Security test cases (auth bypass, injection, invalid tokens, rate limiting) so security audit can verify.
-   - **performance-engineer**: Performance-related tests only when in scope (response time, load); measure-first per performance-profiling skill.
-   - **system-architect**: Integration and system-level test scenarios when the API crosses boundaries.
-
-3. **Load Agent Definitions**: Read the agent definition files from `.cursor/agents/` directory as needed:
-   - `.cursor/agents/backend-reviewer.md` – test status and gates (AC covered, no rule violations); align tests with their checklist.
-   - `.cursor/agents/backend-architect.md` – API contract and reliability test coverage.
-   - `.cursor/agents/security-engineer.md` – when security test cases are in scope.
-   - `.cursor/agents/performance-engineer.md` – when performance test scenarios are in scope.
-   - `.cursor/agents/system-architect.md` – when integration/system tests are needed.
-
-4. **Apply Agent Roles**: Use the agent definitions and api-testing skill to inform your approach:
-   - Cover success, validation, auth, and error cases per api-routes and backend-reviewer expectations.
-   - Map tests to acceptance criteria when a plan exists (traceability for Review/Test).
-   - If part of a Plan → Code → Review/Test cycle: produce implementation notes so backend-reviewer can report test status and rework list if needed.
-
-5. **Handoff for Review/Test**: The test suite should enable backend-reviewer to answer: which acceptance criteria are covered, which tests pass/fail, and what (if anything) is missing. Document scenarios covered and any setup (mocks, env, DB) in implementation notes.
-
-**Note**: Follow `.cursor/rules/compounding-dev-cycle.mdc` and the api-testing skill. Tests are the bridge between Code and Review/Test; backend-reviewer uses them to verify gates and produce rework list or sign-off.
+**Relevant agents for this command:** backend-reviewer (primary for handoff; align tests with their checklist and test status), backend-architect, security-engineer, performance-engineer (when performance tests in scope), system-architect (when integration tests needed). Cover success, validation, auth, and error cases per api-routes and api-testing skill. Document scenarios covered and setup in implementation notes so backend-reviewer can verify gates.
 
 ## Test Strategy for Solo Developers
 

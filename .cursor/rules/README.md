@@ -6,6 +6,7 @@ Rules in `.cursor/rules/` provide persistent AI guidance. They are `.mdc` files 
 
 | Rule | Scope | Covers |
 |------|-------|--------|
+| `compounding-dev-cycle` | Always | Plan → Code → Review/Test → Plan with handoffs between agents |
 | `core-standards` | Always | Type safety, error handling, naming, function design |
 | `typescript` | `**/*.ts` | Types, declarations, imports, type guards |
 | `react` | `**/*.tsx` | Components, accessibility, state, performance |

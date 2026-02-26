@@ -15,32 +15,9 @@ This command delivers **Code** phase output. If protection is part of a feature 
 
 ## Agent Definitions
 
-**CRITICAL**: Before implementing security and authentication, you MUST:
+**Apply the agent-selection skill** (`.cursor/skills/agent-selection/SKILL.md`): before implementing, identify relevant agents, read their definitions from `.cursor/agents/`, and apply their perspective.
 
-1. **Read Agent Definitions**: Load and review the agent definitions from `.cursor-plugin/plugin.json`
-   - Read the `agents` array to understand available specialized agents
-   - Identify agent definitions relevant to security and API protection
-
-2. **Identify Relevant Agents**: For API security and protection, the following agents are relevant:
-   - **security-engineer** (PRIMARY): Authentication, authorization, vulnerability assessment, zero-trust principles. Participates in Review/Test when security is in scope; implement so their audit can verify (rework list = handback to Code).
-   - **backend-architect**: Secure API design, data integrity, alignment with api-routes and core-standards.
-   - **backend-reviewer**: Use their checklist (auth/authz, validation, error handling, tests) to self-check so output is handoff-ready for Review/Test.
-   - **system-architect**: When security touches system boundaries or long-term architecture.
-
-3. **Load Agent Definitions**: Read the agent definition files from `.cursor/agents/` directory as needed:
-   - `.cursor/agents/security-engineer.md` – security-first mindset, OWASP-aligned checks, compounding dev cycle (Review/Test).
-   - `.cursor/agents/backend-architect.md` – secure API design and handoff.
-   - `.cursor/agents/backend-reviewer.md` – validate implementation against their checklist before considering done.
-   - `.cursor/agents/system-architect.md` – when security has system-wide impact.
-
-4. **Apply Agent Roles**: Use the agent definitions to inform your security approach:
-   - Implement in line with `api-routes.mdc` (401/403, consistent error shape, no stack traces or sensitive data in responses).
-   - Apply security-audit skill (OWASP Top 10 quick checks: access control, injection, auth failures, etc.).
-   - If part of a Plan → Code → Review/Test cycle: do not add scope beyond the plan; produce implementation notes for handoff.
-
-5. **Handoff for Review/Test**: The protected route should be verifiable by backend-reviewer and security-engineer: include tests or test guidance for auth/authz and validation; document what was done, deferred, and any env/config so the review phase has full context.
-
-**Note**: Follow `.cursor/rules/compounding-dev-cycle.mdc` and `.cursor/rules/api-routes.mdc`. Agent definitions and backend-reviewer’s checklist ensure the protected API is handoff-ready for the compounding cycle.
+**Relevant agents for this command:** security-engineer (primary), backend-architect, backend-reviewer (checklist for handoff), system-architect (when security touches boundaries). Implement in line with `api-routes.mdc` and security-audit skill (OWASP). Produce implementation notes so backend-reviewer and security-engineer can verify; include tests or test guidance for auth/authz and validation.
 
 ## Security Layers to Implement
 

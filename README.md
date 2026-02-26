@@ -1,6 +1,6 @@
 # Brader Payoy's Cursor Setup
 
-This plugin provides **15 slash commands**, **17 specialized AI agents**, **13 project skills**, **6 rules**, and **hooks** for trigger-based automation. At its core is a **compounding development cycle** that turns feature ideas into production-ready code with clear handoffs, automated code review, and a loop until quality gates pass.
+This plugin provides **15 slash commands**, **17 specialized AI agents**, **14 project skills**, **6 rules**, and **hooks** for trigger-based automation. At its core is a **compounding development cycle** that turns feature ideas into production-ready code with clear handoffs, automated code review, and a loop until quality gates pass.
 
 ## Why the compounding development cycle?
 
@@ -35,7 +35,7 @@ One plan, one command to run the cycle, automatic review and loop until producti
 
 ### 📋 Development Commands (8)
 
-- `/new-task` - Analyze code for performance issues
+- `/new-task` - Analyze task complexity and create implementation plan (for full cycle use feature-plan → project-manager)
 - `/code-explain` - Generate detailed explanations
 - `/code-optimize` - Performance optimization
 - `/code-cleanup` - Refactoring and cleanup

@@ -5,6 +5,18 @@ description: Break features into implementation tasks for backend, frontend, and
 
 # Feature Planning
 
+## Required sections (for project-manager)
+
+Plans produced by **feature-plan** should include these sections so **project-manager** can load and delegate reliably:
+
+- **Scope / Metadata** (optional): `Security: critical`, `Performance: critical` when applicable
+- **Feature Overview**: Problem, audience, key functionality
+- **Technical Design**: Components, endpoints, schema, data flow
+- **Backend Tasks**: For backend-architect (and database-expert when DB-heavy)
+- **Frontend Tasks**: For frontend-architect
+- **Integration & Testing**: For e2e-runner
+- **File Changes**: New and modified files
+
 ## Task Blocks for Hand-off
 - **Backend Tasks**: Setup → Database → API → Security
 - **Frontend Tasks**: Components → Pages → Integration → Polish
