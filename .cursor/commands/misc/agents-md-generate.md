@@ -59,6 +59,7 @@ Before any analysis or AGENTS.md generation, **learn the project end-to-end** so
 - **Root**: `package.json`, `README.md`, `AGENTS.md` (if present), `.env.example` or env docs, `.gitignore`
 - **Config**: `tsconfig.json`, `next.config.*`, `tailwind.config.*`, `eslint.config.*` / `.eslintrc*`, `.prettierrc*`, `jest.config.*` / `vitest.config.*`, `playwright.config.*`
 - **Rules & docs**: `.cursor/rules/*`, `docs/`, `CONTRIBUTING.md`, any project-specific rule or skill files
+- **Agents**: `.cursor/agents/*.md`—when analyzing coding patterns, design patterns, anti-patterns, naming consistency, duplication, and architectural boundaries, **use the workflow and focus areas from** `.cursor/agents/pattern-recognition-specialist.md` so the analysis aligns with project standards and produces findings that can feed the Plan → Code → Review/Test cycle.
 - **Structure**: Directory tree of `src/` or `app/` (and equivalent), key entry files (`layout.tsx`, `page.tsx`, `middleware.ts`), `lib/` or `utils/`, API route layout
 - **Framework-specific**: For Next.js—`app/` vs `pages/`, `layout`/`page`/`loading`/`error` conventions, Server Actions, route handlers. For Supabase—`supabase/config.toml`, auth patterns, DB client usage, Edge Functions layout, env var names.
 
@@ -274,6 +275,7 @@ Document project-specific best practices:
 
 ### Step 3: Code Pattern Analysis (Structure Only)
 
+- **Use pattern-recognition-specialist**: Read `.cursor/agents/pattern-recognition-specialist.md` and apply its workflow and focus areas: design pattern detection, anti-pattern/code-smell identification (including alignment with `core-standards.mdc`), naming convention analysis, duplication detection, and architectural boundary review. Use Grep and semantic search; produce findings that could feed a rework list (file/line or component + change + severity). This keeps AGENTS.md consistent with project standards and the compounding dev cycle.
 - Sample file and directory names (no code content) to infer naming conventions
 - From import/export lines only, infer module boundaries and dependency patterns
 - Identify component, hook, util, and type organization
@@ -335,6 +337,9 @@ The generated AGENTS.md should be:
 
 ## Critical Rules
 [Non-negotiable rules that must always be followed]
+
+## Available Agents (when present)
+[If the project has `.cursor/agents/`, list each agent with its path and when to use it—e.g. `pattern-recognition-specialist` (`.cursor/agents/pattern-recognition-specialist.md`): use when checking codebase consistency, verifying new code follows established patterns, or analyzing design patterns, anti-patterns, naming, and duplication. Source: read `.cursor/agents/*.md` or plugin.json `agents` array.]
 ```
 
 ## Generation Instructions
@@ -383,6 +388,7 @@ Generate an AGENTS.md file at the project root that includes:
 7. **Best Practices Section**: Project-specific standards
 8. **Code Update and Suggestion Best Practices Section**: Standard guidelines for AI agents when updating or suggesting code (detailed content provided in the section below)
 9. **Critical Rules Section**: Must-follow rules highlighted
+10. **Available Agents Section** (when the project has `.cursor/agents/`): List each agent (path and when to use it). Include `pattern-recognition-specialist` (`.cursor/agents/pattern-recognition-specialist.md`) for codebase consistency checks, pattern/anti-pattern/naming/duplication analysis, and verifying new code follows established patterns. Source: `.cursor/agents/*.md` or plugin.json `agents` array.
 
 The file should be immediately usable by AI agents to understand and follow project conventions without ambiguity.
 

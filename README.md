@@ -1,6 +1,6 @@
 # Brader Payoy's Cursor Setup
 
-This plugin provides **16 slash commands**, **15 specialized AI agents**, **13 project skills**, **6 rules**, and **hooks** for trigger-based automation. At its core is a **compounding development cycle** that turns feature ideas into production-ready code with clear handoffs, automated code review, and a loop until quality gates pass.
+This plugin provides **15 slash commands**, **17 specialized AI agents**, **13 project skills**, **6 rules**, and **hooks** for trigger-based automation. At its core is a **compounding development cycle** that turns feature ideas into production-ready code with clear handoffs, automated code review, and a loop until quality gates pass.
 
 ## Why the compounding development cycle?
 
@@ -65,11 +65,12 @@ One plan, one command to run the cycle, automatic review and loop until producti
 
 - `/commit-best` - Create a well-structured commit with conventional message and push
 
-### 🤖 Specialized AI Agents (15)
+### 🤖 Specialized AI Agents (17)
 
 **Architecture & Planning**
 - **tech-stack-researcher** - Technology choice recommendations with trade-offs
 - **system-architect** - Scalable system architecture design
+- **architecture-strategist** - Analyze code changes for architectural compliance, boundaries, and pattern integrity; PR and structural refactor review
 - **backend-architect** - Backend systems with data integrity & security
 - **database-expert** - Query optimization and data access best practices (20+ years DBA experience)
 - **frontend-architect** - Performant, accessible UI architecture
@@ -78,6 +79,7 @@ One plan, one command to run the cycle, automatic review and loop until producti
 **Code Quality & Testing**
 - **e2e-runner** - End-to-end testing with Playwright
 - **refactoring-expert** - Systematic refactoring and clean code
+- **pattern-recognition-specialist** - Design patterns, anti-patterns, naming conventions, duplication; codebase consistency and pattern verification
 - **performance-engineer** - Measurement-driven optimization
 - **security-engineer** - Vulnerability identification and security standards
 
@@ -179,11 +181,11 @@ All commands and agents reference `compounding-dev-cycle.mdc` so every handoff i
 
 | Phase | Agents | Role |
 |-------|--------|------|
-| **Plan** | requirements-analyst, tech-stack-researcher, system-architect, backend-architect, frontend-architect | Discovery, tech choices, design; produce scope, AC, technical approach, task list. One agent may own the final plan. |
+| **Plan** | requirements-analyst, tech-stack-researcher, system-architect, architecture-strategist (impact/boundaries), backend-architect, frontend-architect; pattern-recognition-specialist (consistency/patterns) | Discovery, tech choices, design; produce scope, AC, technical approach, task list. One agent may own the final plan. Architecture-strategist assesses impact and boundaries; pattern specialist supports consistency. |
 | **Code** | backend-architect, frontend-architect, database-expert, e2e-runner (implementation), refactoring-expert | Implement to the plan; produce implementation + tests + implementation notes. |
-| **Review/Test** | backend-reviewer, frontend-reviewer (auto-triggered by project-manager after Code); e2e-runner when user runs E2E; optionally security-engineer, performance-engineer | Consume plan + diff + implementation notes; produce review summary, rework list (Critical / Suggestion / Nice to have). Critical rework → Plan → Code → Review again until production ready. E2E testing is user-triggered only. |
+| **Review/Test** | backend-reviewer, frontend-reviewer (auto-triggered by project-manager after Code); e2e-runner when user runs E2E; optionally security-engineer, performance-engineer, pattern-recognition-specialist, architecture-strategist | Consume plan + diff + implementation notes; produce review summary, rework list (Critical / Suggestion / Nice to have). Critical rework → Plan → Code → Review again until production ready. E2E testing is user-triggered only. |
 
-Every agent file in `.cursor/agents/` includes a **Compounding dev cycle** section stating which phase(s) it participates in and what artifacts it produces or consumes. Supporting agents (learning-guide, technical-writer, deep-research-agent) reference the plan and standards when their work touches the cycle.
+Every agent file in `.cursor/agents/` includes a **Compounding dev cycle** section stating which phase(s) it participates in and what artifacts it produces or consumes. Supporting agents (learning-guide, technical-writer, deep-research-agent, pattern-recognition-specialist, architecture-strategist) reference the plan and standards when their work touches the cycle.
 
 ### Skills that support the cycle
 
