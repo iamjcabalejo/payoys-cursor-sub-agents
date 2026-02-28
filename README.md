@@ -268,18 +268,22 @@ See `.cursor/rules/README.md` for details.
 - **Inject context** — Add env vars or project context at session start
 - **Gate access** — Block reads of sensitive files or scans of prompts for PII
 
+**How hooks work in this project:** Hooks support the compounding development cycle in two ways. (1) **Session context** — At session start, `session-init.sh` injects a reminder so the agent follows Plan → Code → Review/Test → Plan, uses the plan doc as the single source of truth, and knows to run feature-plan first and project-manager for the full cycle. (2) **Consistency and traceability** — After every file edit, `format.sh` runs Prettier so Code-phase output stays consistent with project style and Review/Test sees clean diffs. Before and after shell commands, on session end, and when the agent loop stops, `audit.sh` logs events to `.cursor/hooks/audit.log`, giving you a traceable record of what ran and when—so handoffs and rework follow-up are easier.
+
 **Included hooks:**
 
 | Event | Script | Purpose |
 |-------|--------|---------|
-| afterFileEdit | format.sh | Run Prettier on edited files |
-| beforeShellExecution | audit.sh | Log shell commands |
-| sessionStart | session-init.sh | Session setup |
-| stop | audit.sh | Log when agent completes |
+| sessionStart | session-init.sh | Inject compounding-cycle reminder and plan-first context |
+| afterFileEdit | format.sh | Run Prettier on edited files (keeps Code output consistent) |
+| beforeShellExecution | audit.sh | Log “command about to run” to audit.log |
+| afterShellExecution | audit.sh | Log “command finished” to audit.log |
+| sessionEnd | audit.sh | Log session end (session boundaries for traceability) |
+| stop | audit.sh | Log when agent loop ends |
 
 **Examples:** Block risky commands, audit all activity, inject session context, block sensitive file reads—see `.cursor/hooks/README.md` for detailed examples and when/how to use each hook.
 
-Run `chmod +x .cursor/hooks/*.sh` after installation.
+Run `chmod + x .cursor/hooks/*.sh` after installation.
 
 ## Customization
 

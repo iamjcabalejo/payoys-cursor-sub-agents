@@ -20,6 +20,7 @@
   "agents": ".cursor/agents/",
   "skills": ".cursor/skills/",
   "commands": ".cursor/commands/",
+  "hooks": ".cursor/hooks.json",
   "mcpServers": {
     "context7": {
       "command": "npx",

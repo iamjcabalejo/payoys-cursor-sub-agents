@@ -175,8 +175,23 @@ The hook can return `{"permission":"ask"}` to prompt the user, or `{"permission"
 | Script | Events | Purpose |
 |--------|--------|---------|
 | `format.sh` | afterFileEdit | Runs Prettier on edited files (if available) |
-| `audit.sh` | beforeShellExecution, stop | Logs events to `.cursor/hooks/audit.log` |
+| `audit.sh` | beforeShellExecution, afterShellExecution, sessionEnd, stop | Logs events to `.cursor/hooks/audit.log` |
 | `session-init.sh` | sessionStart | Session setup (inject env, context, or block) |
+
+---
+
+## Alignment with Compounding Development Cycle
+
+This project follows **Plan → Code → Review/Test → Plan** (see `.cursor/rules/compounding-dev-cycle.mdc`). Hooks are configured to support that cycle:
+
+| Hook / script | How it supports the cycle |
+|---------------|---------------------------|
+| **sessionStart** → `session-init.sh` | Injects reminder context so agents follow the cycle: plan first (feature-plan), code to the plan, hand off with implementation notes; plan doc is the single source of truth. |
+| **afterFileEdit** → `format.sh` | Keeps Code-phase output consistent with `core-standards.mdc` (style, formatting) so Review/Test sees clean diffs. |
+| **sessionEnd** → `audit.sh` | Logs session end in `audit.log` so session boundaries are visible; supports traceability and handoff between sessions. |
+| **beforeShellExecution** / **afterShellExecution** / **stop** → `audit.sh` | Logs commands (before/after) and loop end to `audit.log` for traceability (what ran, when), supporting handoff and rework follow-up. |
+
+No hooks run automatically for Review/Test or for creating plan docs—those are driven by commands (e.g. feature-plan, project-manager) and agents (backend-reviewer, frontend-reviewer). E2E is user-triggered.
 
 ## Configuration
 
