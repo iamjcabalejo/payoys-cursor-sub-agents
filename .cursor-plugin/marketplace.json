@@ -1,11 +1,11 @@
 {
   "name": "payoys-plugins",
   "owner": {
-    "name": "Brader Payoy",
+    "name": "Jhon Cabalejo",
     "email": "iamjcabalejo@gmail.com"
   },
   "metadata": {
-    "description": "Brader Payoy's curated Cursor plugins for productive development with agents, skills, rules, and commands."
+    "description": "Jhon Cabalejo's curated Cursor plugins for productive development with agents, skills, rules, and commands."
   },
   "plugins": [
     {
@@ -14,7 +14,7 @@
       "description": "Personal Cursor Agents setup with commands, agents, skills, rules, and hooks for modern web development.",
       "version": "3.1.0",
       "author": {
-        "name": "Brader Payoy",
+        "name": "Jhon Cabalejo",
         "email": "iamjcabalejo@gmail.com"
       },
       "license": "MIT",

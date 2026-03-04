@@ -1,9 +1,9 @@
 {
   "name": "payoys-cursor-sub-agents",
-  "version": "3.1.0",
-  "description": "Brader Payoy's personal Cursor Agents setup with commands, agents, skills, rules, and hooks for modern web development",
+  "version": "3.2.0",
+  "description": "Jhon Cabalejo's personal Cursor Agents setup with commands, agents, skills, rules, and hooks for modern web development",
   "author": {
-    "name": "Brader Payoy",
+    "name": "Jhon Cabalejo",
     "email": "iamjcabalejo@gmail.com"
   },
   "license": "MIT",

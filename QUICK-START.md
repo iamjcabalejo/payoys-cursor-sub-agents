@@ -2,7 +2,7 @@
 
 ## TL;DR
 
-This plugin provides **15 slash commands**, **17 AI agents**, **14 skills**, **6 rules**, and **hooks**. At its core is a **compounding development cycle**: Plan → Code → Review/Test → Plan. Run `/feature-plan` to create a plan file, then `/project-manager <plan-path>` to implement, auto-run code review, and loop until production ready. Hooks inject cycle context at session start and keep code formatted and audited.
+This plugin provides **15 slash commands**, **19 AI agents**, **20 skills**, **6 rules**, and **hooks**. At its core is a **compounding development cycle**: Plan → Code → Review/Test → Plan. Run `/feature-plan` to create a plan file, then `/project-manager <plan-path>` to implement, auto-run code review, and loop until production ready. Hooks inject cycle context at session start and keep code formatted and audited.
 
 ## What You Have
 
@@ -13,13 +13,13 @@ This plugin provides **15 slash commands**, **17 AI agents**, **14 skills**, **6
 - Supabase: `/types-gen`, `/edge-function-new`
 - Git: `/commit-best`
 
-✅ **17 AI Agents**
-- Architecture & Planning: tech-stack-researcher, system-architect, architecture-strategist, backend-architect, database-expert, frontend-architect, requirements-analyst
+✅ **19 AI Agents**
+- Architecture & Planning: tech-stack-researcher, system-architect, architecture-strategist, backend-architect, database-expert, frontend-architect, requirements-analyst, technical-cto-advisor
 - Code Quality & Testing: e2e-runner, refactoring-expert, pattern-recognition-specialist, performance-engineer, security-engineer
 - Review (cycle): backend-reviewer, frontend-reviewer
-- Documentation & Research: technical-writer, learning-guide, deep-research-agent
+- Documentation & Research: technical-writer, learning-guide, deep-research-agent, ai-automation-expert
 
-✅ **14 Skills** (in `.cursor/skills/`) — e.g. api-design-patterns, api-testing, feature-planning, code-review, e2e-playwright, security-audit, accessibility-checklist
+✅ **20 Skills** (in `.cursor/skills/`) — e.g. api-design-patterns, api-testing, feature-planning, code-review, e2e-playwright, security-audit, accessibility-checklist, project-manager, agent-selection
 
 ✅ **6 Rules** (in `.cursor/rules/`) — core-standards, compounding-dev-cycle, typescript, react, api-routes, e2e-tests
 
