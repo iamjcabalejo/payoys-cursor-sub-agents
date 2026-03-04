@@ -1,205 +1,139 @@
 ---
-description: Produce a feature implementation plan only (no delegation); output as .md file
+description: Create a feature plan file for the compounding cycle (Plan mode only). Output is for project-manager.
 model: claude-sonnet-4-5
 ---
 
-Create a detailed implementation plan for the following feature. This command produces **only the Plan** phase of the compounding dev cycle. It does **not** spawn or delegate to other agentsùuse the **project-manager** command for that. See `.cursor/rules/compounding-dev-cycle.mdc` and the feature-planning skill.
+**Scope of this command:** This command produces **only** a feature plan document. It runs in **Plan mode** at all times: planning only, no implementation. It does **not** spawn Code or Review agents. For the full cycle, run **project-manager** with the plan path after this command.
 
-## Feature Description
+## Cursor mode: Plan mode only (strict)
+
+You MUST run this command in **Plan mode**. Do not implement code, create application files, or run build/test commands. Your only allowed output is the plan document (and writing it to `docs/plans/<feature-slug>.md`). If the user or context asks you to "also implement" or "start coding," decline and remind them: feature-plan is planning only; use project-manager with this plan to run Code ? Review/Test.
+
+## Rules to follow
+
+- **Compounding cycle:** Follow the **Plan** phase in `.cursor/rules/compounding-dev-cycle.mdc` (scope, acceptance criteria, technical approach, task list; handoff rule: plan complete when another agent can implement without guessing).
+- **Project-manager handoff:** Align with `.cursor/skills/project-manager/SKILL.md`: Plan phase uses Plan mode; your output feeds the next phase (project-manager runs Code in Agent mode, then Review/Test in Ask mode).
+- **Feature-planning skill:** Apply `.cursor/skills/feature-planning/SKILL.md` so the plan includes all required sections for project-manager.
+
+## Feature / plan target
 
 $ARGUMENTS
 
-## Output: plan file only
+**Interpret the arguments as:** a feature name or slug (e.g. `user-profile`, `auth-login`). The plan file path MUST be `docs/plans/<feature-slug>.md` (e.g. `docs/plans/user-profile.md`). If the user provides a path, use it only if it is under `docs/plans/`; otherwise derive the slug and use `docs/plans/<slug>.md`. If arguments are empty, ask the user for the feature name or slug.
 
-**This command must:**
-1. Produce a complete implementation plan (see Output Format below).
-2. **Write the plan to a file** at `docs/plans/<feature-slug>.md`. Use a short, URL-friendly slug derived from the feature name (e.g. `user-profile`, `password-reset`). Create the `docs/plans` directory if it does not exist.
-3. **Stop after writing the file.** Do not spawn subagents or suggest running other commands in this step. The user runs **project-manager** separately to delegate from the plan.
+## Required plan sections (strict)
 
-**Handoff rule**: The plan is complete when project-manager (or Code agents) can implement without guessing scope or acceptance. The written plan doc is the single source of truth for project-manager and Review/Test.
+Include every section below so **project-manager** can load and delegate without guessing. Use the feature-planning skill for task-block structure.
 
-## Compounding dev cycle (Plan phase only)
+1. **Scope / Metadata** (optional but recommended)
+   - `Security: critical` or `Performance: critical` when the feature has security or performance acceptance criteria (so project-manager can spawn security-engineer or performance-engineer in Review).
 
-Produce handoff artifacts so **Code** (via project-manager) can implement without guessing and **Review/Test** can verify against clear acceptance criteria. Produce:
+2. **Feature Overview**
+   - Problem, audience, key functionality.
 
-- **Scope**  What is in/out; dependencies and boundaries.
-- **Acceptance criteria**  Testable conditions (Given/When/Then or checklist). Each AC should be verifiable by backend-reviewer, frontend-reviewer, or e2e-runner.
-- **Technical approach**  Key components, APIs, data shapes; references to `core-standards.mdc`, `api-routes.mdc`, and other project rules.
-- **Task list**  Ordered implementation steps; optional file/area mapping. Structure as Backend / Frontend / Integration & Testing so project-manager can delegate to backend-architect, frontend-architect, e2e-runner.
+3. **Acceptance criteria**
+   - Testable conditions (Given/When/Then or checklist). Number them (AC-1, AC-2, ?) for traceability.
 
-## Agent Definitions
+4. **Technical design**
+   - Components, endpoints, schema, data flow; references to `core-standards.mdc`, `api-routes.mdc` where relevant.
 
-**Apply the agent-selection skill** (`.cursor/skills/agent-selection/SKILL.md`): before planning, identify relevant agents, read their definitions from `.cursor/agents/`, and apply their perspective to the plan.
+5. **Backend tasks**
+   - For backend-architect (and database-expert when DB-heavy). Setup ? Database ? API ? Security. Dependencies, env vars, file changes.
 
-**Relevant agents for this command:** backend-architect, frontend-architect, system-architect, security-engineer, performance-engineer, tech-stack-researcher, learning-guide, technical-writer, requirements-analyst, refactoring-expert, e2e-runner. Use the subset that matches the feature.
+6. **Frontend tasks**
+   - For frontend-architect. Components ? Pages ? Integration ? Polish. API contract, file changes.
 
-## Planning Framework for Solo Developers
+7. **Integration & testing**
+   - For e2e-runner. E2E flows, critical path coverage.
 
-### 1. **Feature Breakdown**
+8. **File changes**
+   - New and modified files (list).
 
-Analyze and break down into:
-- User stories
-- Technical requirements
-- Dependencies
-- Edge cases
-- Success criteria
+9. **Dependencies / env**
+   - Packages, env vars, config changes.
 
-### 2. **Technical Specification**
+## Detailed output format (mandatory)
 
-**Architecture**
-- Where does this fit in the codebase?
-- Which components/pages affected?
-- New vs modified files
-- Database schema changes
-- API endpoints needed
+Produce a **detailed** plan so project-manager and implementers can work without guessing. For each section, include the level of detail below.
 
-**Technology Choices**
-- Libraries/packages needed
-- Why each choice?
-- Alternatives considered
-- Trade-offs
+### Task analysis / metadata (at top of plan, after title)
+- **Type**: [Feature / Bug Fix / Refactor / Infrastructure]
+- **Complexity**: [Small / Medium / Large / Very Large] with 1?2 sentence justification
+- **Estimated effort**: X hours or days (Small: 1?2h, Medium: 0.5?1 day, Large: 2?5 days, Very Large: 1+ week)
+- **Priority**: [High / Medium / Low] (optional, if known)
 
-**Data Flow**
-```
-User Action ù Frontend ù API ù Database ù Response
-User Action ? Frontend ? API ? Database ? Response
-```
+### Scope / metadata
+- In scope: short bullet list of what is included
+- Out of scope: what is explicitly excluded (or "None" if N/A)
+- Security: `Security: critical` or omit
+- Performance: `Performance: critical` or omit
 
-### 3. **Implementation Steps**
+### Feature overview
+- **Problem**: 2?4 sentences on the problem or opportunity
+- **Audience**: Who uses this (e.g. end users, admins, API consumers)
+- **Key functionality**: 3?6 bullet points of main capabilities
 
-Break into logical,  sequential tasks:
+### Acceptance criteria
+- One criterion per bullet; each testable (Given/When/Then or clear pass/fail)
+- Number every criterion: AC-1, AC-2, AC-3, ?
+- Cover happy path and critical edge cases (auth, errors, empty states)
 
-1. **Setup** - Dependencies, configuration
-2. **Database** - Schema, migrations, RLS policies
-3. **Backend** - API routes, validation, logic
-4. **Frontend** - Components, pages, forms
-5. **Integration** - Connect pieces
-6. **Testing** - Unit, integration, E2E
-7. **Polish** - Error handling, loading states, UX
+### Technical design
+- **Components / modules**: Named components, layers, or modules and their responsibility (1?2 sentences each)
+- **Endpoints / APIs**: For each endpoint: method, path, brief purpose, request shape (key fields), response shape (key fields), errors
+- **Data model / schema**: Main entities, key fields, relationships; DB tables or collections if applicable
+- **Data flow**: Short description of how data moves (e.g. client ? API ? DB ? response)
+- **References**: Mention `core-standards.mdc`, `api-routes.mdc` (or other project rules) where they apply
 
-### 4. **Risk Assessment**
+### Backend tasks
+- **Phase 1 ? Setup**: Env vars, config, new packages; list concrete file changes
+- **Phase 2 ? Database** (if any): Schema changes, migrations, indexes; list files and key operations
+- **Phase 3 ? API**: Per endpoint or area: steps as checkboxes (e.g. `- [ ] Add GET /api/...`, `- [ ] Validate input`, `- [ ] Return 404 when not found`)
+- **Phase 4 ? Security** (if any): Auth, permissions, validation
+- For each phase: list **file changes** (path + create/modify) and **dependencies/env** (packages, env vars)
 
-Identify potential issues:
-- **Technical Risks** - Complexity, unknown territory
-- **Time Risks** - Underestimated tasks
-- **Dependency Risks** - External APIs, third-party services
-- **Data Risks** - Migration, backward compatibility
+### Frontend tasks
+- **Phase 1 ? Components**: Per component: name, responsibility, props/API; file path (create/modify)
+- **Phase 2 ? Pages / views**: Routes, layout, data loading; file changes
+- **Phase 3 ? Integration**: API client usage, state, error handling; which backend endpoints are called
+- **Phase 4 ? Polish**: Loading states, a11y, validation UX
+- Include **API contract** summary: which endpoints the frontend calls and with what payloads
 
-### 5. **Estimation**
+### Integration & testing
+- **E2E flows**: Named user journeys (e.g. "User can sign up and see dashboard") with 3?6 steps each
+- **Critical paths**: List flows that must be covered by E2E
+- **Unit / integration**: Which areas need unit tests (e.g. API handlers, utils) or integration tests (e.g. DB + API)
 
-Realistic time estimates:
-- Small task: 1-2 hours
-- Medium task: Half day
-- Large task: 1-2 days
-- Complex task: 3-5 days
+### File changes
+- Explicit list in a code block or table, e.g.:
+  - `path/to/file.ts` (create)
+  - `path/to/other.ts` (modify)
+- Group by area (backend, frontend, shared, config) if helpful
 
-**Rule of thumb**: Double your initial estimate for solo development.
+### Dependencies / env
+- **Packages**: Exact package names and purpose (e.g. `zod` for validation); optional version if project pins
+- **Env vars**: Name, purpose, example value (e.g. `API_KEY=...`), required vs optional
+- **Config changes**: Config files or keys to add/change
 
-### 6. **Success Criteria**
+### Risks / potential issues (recommended)
+- 2?5 bullets: unknown dependencies, migration risks, breaking changes, third-party limits, performance considerations
+- For each: brief mitigation or "TBD"
 
-Define "done":
--  Feature works as specified
--  Tests pass
--  No console errors
--  Accessible
--  Responsive
--  Error handling
--  Loading states
--  Documentation updated
+### Next steps (recommended)
+- 1. Run project-manager with this plan
+- 2. (Optional) Any prep the user should do before running project-manager
 
-## Output Format
+## Agent definitions (planning perspective only)
 
-### 0. **Scope / Metadata** (optional)
+**Apply the agent-selection skill** (`.cursor/skills/agent-selection/SKILL.md`): identify relevant agents for **planning** (not implementation), read their definitions from `.cursor/agents/`, and apply their perspective to the plan.
 
-When the feature is security- or performance-critical, add so project-manager can spawn optional reviewers:
+**Relevant agents for this command (planning only):** requirements-analyst, tech-stack-researcher, backend-architect, frontend-architect, system-architect, database-expert (when DB-heavy). Use them to inform scope, AC, and task blocks?do not spawn them for Code or Review.
 
-- **Security: critical** ù when the feature involves auth, sensitive data, or security-sensitive flows (triggers security-engineer in Review phase).
-- **Performance: critical** ù when the feature has explicit performance or scalability acceptance criteria (triggers performance-engineer in Review phase).
+## Output
 
-### 1. **Feature Overview**
-- What problem does this solve?
-- Who is it for?
-- Key functionality
+1. **Write the plan** to `docs/plans/<feature-slug>.md` using **all** required sections and the **detailed output format** above. The plan must be detailed enough that backend-architect, frontend-architect, and e2e-runner can implement and test without guessing scope, APIs, or file locations.
+2. **Confirm** the plan path and remind the user: "Run **project-manager** with this plan to execute Code ? Review/Test (e.g. `/project-manager docs/plans/<feature-slug>.md`). This command used **Plan mode** only; no implementation was performed."
 
-### 2. **Technical Design**
-```
-User Action ? Frontend ? API ? Database ? Response
-```
-- Component structure
-- API endpoints
-- Database schema
-- State management
+**Quality bar:** If any section would be vague or one-line, expand it with the level of detail specified in "Detailed output format (mandatory)." Prefer concrete file paths, endpoint signatures, and step-by-step task checkboxes over high-level descriptions.
 
-### 3. **Implementation Plan**
-
-Structure the plan with **clearly separated task blocks** for agent hand-off. Use these exact section headers so subagents can be spawned with the right context.
-
-**Backend Tasks** (for `backend-architect` subagent)
-- [ ] Setup: Dependencies, configuration, environment
-- [ ] Database: Schema, migrations, RLS policies
-- [ ] API: Routes, validation, business logic
-- [ ] Security: Auth, authorization, input validation
-
-**Frontend Tasks** (for `frontend-architect` subagent)
-- [ ] Components: UI elements, forms, layouts
-- [ ] Pages: Routes, data fetching, state
-- [ ] Integration: Connect to API, error handling
-- [ ] Polish: Loading states, accessibility, responsive
-
-**Integration & Testing** (for `e2e-runner` subagent)
-- [ ] End-to-end flow verification
-- [ ] E2E tests for critical user journeys
-- [ ] Unit and integration tests (as applicable)
-
-### 4. **File Changes**
-
-**New Files**
-```
-app/api/feature/route.ts
-components/FeatureComponent.tsx
-lib/feature-utils.ts
-```
-
-**Modified Files**
-```
-app/page.tsx (add new section)
-lib/database.types.ts (add new types)
-```
-
-### 5. **Dependencies**
-
-**npm packages to install**
-```bash
-npm install package-name
-```
-
-**Environment variables**
-```bash
-FEATURE_API_KEY=xxx
-```
-
-### 6. **Testing Strategy**
-
-- Unit tests for utilities
-- Integration tests for API
-- Component tests for UI
-- E2E test for full flow
-
-### 7. **Rollout Plan**
-
-- Feature flag if needed
-- Gradual rollout strategy
-- Rollback plan
-- Monitoring and metrics
-
-### 8. **Next Steps**
-
-1. **Write the plan** to `docs/plans/<feature-slug>.md` (create `docs/plans` if needed).
-2. Tell the user the plan file path and that they can run **project-manager** with that plan to delegate (Code ? code review ? loop if critical until production ready).
-3. Do **not** spawn subagents or run project-manager in this commandùplan only.
-
----
-
-## Do not delegate in this command
-
-Do **not** spawn subagents or hand off to project-manager in this command. This command only produces and writes the plan. The user runs **project-manager** (with the plan file path) to delegate tasks to agents.
+Do not suggest manual handoff without the plan file path. Do not implement or modify application code.

@@ -9,26 +9,30 @@ Use this skill whenever a command instructs you to "apply the agent-selection sk
 
 ## 1. Identify Relevant Agents
 
-From the task or feature description, determine which agent(s) apply:
+Discover available agents from **`.cursor/agents/`** (the plugin manifest `.cursor-plugin/plugin.json` points `"agents"` to that folder). For each task, pick the agent(s) whose domain matches. The command may override with a **Relevant agents for this command** list; use that when provided.
 
-| Domain | Agent |
-|--------|--------|
-| Backend / API | backend-architect |
-| Frontend / UI | frontend-architect |
-| Database / schema / queries | database-expert |
-| System architecture | system-architect |
-| Security (auth, sensitive data) | security-engineer |
-| Performance (bottlenecks, optimization) | performance-engineer |
-| Research / technology choices | tech-stack-researcher |
-| Learning / explanations | learning-guide |
-| Documentation | technical-writer |
-| Requirements / discovery | requirements-analyst |
-| Refactoring / code quality | refactoring-expert |
-| E2E / integration testing | e2e-runner |
-| Patterns / consistency | pattern-recognition-specialist |
-| Architecture compliance | architecture-strategist |
+| Domain | Agent | When to use |
+|--------|--------|-------------|
+| **Skills / agent workflows** | **ai-automation-expert** | **Write or refine technical skills, agent definitions, SKILL.md, or automation rules with strict style and philosophy** |
+| Architecture / compliance | architecture-strategist | PRs, adding services, structural refactors, pattern compliance |
+| Backend / API | backend-architect | APIs, server-side code, databases |
+| Backend review | backend-reviewer | Review APIs, server logic, data integrity; produce rework lists |
+| Database / schema / queries | database-expert | Schema design, migrations, queries, indexing, DBA-level tuning |
+| Research / deep investigation | deep-research-agent | Comprehensive research, adaptive strategies |
+| E2E / integration testing | e2e-runner | Playwright E2E tests, coverage, critical paths |
+| Frontend / UI | frontend-architect | UI, components, accessibility, client-side code |
+| Frontend review | frontend-reviewer | Review UI, a11y, performance; produce rework lists |
+| Learning / explanations | learning-guide | Teaching concepts, explaining code |
+| Patterns / consistency | pattern-recognition-specialist | Design patterns, anti-patterns, naming, duplication |
+| Performance | performance-engineer | Bottlenecks, optimization, measurement-driven analysis |
+| Refactoring / code quality | refactoring-expert | Technical debt, safe refactors, clean code |
+| Requirements / discovery | requirements-analyst | PRDs, user stories, acceptance criteria |
+| Security | security-engineer | Auth, sensitive data, OWASP-aligned checks |
+| System architecture | system-architect | Scalable design, maintainability, technical decisions |
+| Technology choices | tech-stack-researcher | New features, tech comparisons, implementation options |
+| Documentation | technical-writer | APIs, guides, README, docs structure |
 
-The command may override this with a **Relevant agents for this command** list; use that when provided.
+**Cursor-only subagent types** (for task spawning, e.g. `mcp_task`): `generalPurpose`, `explore`, `shell`, `docs-researcher`. These may not have definition files in `.cursor/agents/`; use them when the workflow requires general-purpose execution, codebase exploration, shell commands, or docs lookup.
 
 ## 2. Read Agent Definitions
 
@@ -50,4 +54,5 @@ If the task spans multiple domains:
 
 ## Single Source of Truth
 
-Agent definitions live in `.cursor/agents/`. The plugin manifest (`.cursor-plugin/plugin.json`) lists all available agents; use it to discover names and paths. Commands that use this skill may list only the subset of agents relevant to that command.
+- **Agent definitions:** `.cursor/agents/` — one `.md` file per agent (e.g. `backend-architect.md`, `frontend-reviewer.md`). The table above reflects the agents present in this folder.
+- Commands that use this skill may list only the **subset** of agents relevant to that command (e.g. feature-plan, project-manager).

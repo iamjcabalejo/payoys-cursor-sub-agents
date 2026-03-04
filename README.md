@@ -1,6 +1,6 @@
 # Brader Payoy's Cursor Setup
 
-This plugin provides **15 slash commands**, **17 specialized AI agents**, **14 project skills**, **6 rules**, and **hooks** for trigger-based automation. At its core is a **compounding development cycle** that turns feature ideas into production-ready code with clear handoffs, automated code review, and a loop until quality gates pass.
+This plugin provides **15 slash commands**, **19 specialized AI agents**, **20 project skills**, **6 rules**, and **hooks** for trigger-based automation. At its core is a **compounding development cycle** that turns feature ideas into production-ready code with clear handoffs, automated code review, and a loop until quality gates pass.
 
 ## Why the compounding development cycle?
 
@@ -33,7 +33,7 @@ One plan, one command to run the cycle, automatic review and loop until producti
 
 ## What's Inside
 
-### 📋 Development Commands (8)
+### 📋 Development Commands (9)
 
 - `/new-task` - Analyze task complexity and create implementation plan (for full cycle use feature-plan → project-manager)
 - `/code-explain` - Generate detailed explanations
@@ -65,7 +65,7 @@ One plan, one command to run the cycle, automatic review and loop until producti
 
 - `/commit-best` - Create a well-structured commit with conventional message and push
 
-### 🤖 Specialized AI Agents (17)
+### 🤖 Specialized AI Agents (19)
 
 **Architecture & Planning**
 - **tech-stack-researcher** - Technology choice recommendations with trade-offs
@@ -75,6 +75,7 @@ One plan, one command to run the cycle, automatic review and loop until producti
 - **database-expert** - Query optimization and data access best practices (20+ years DBA experience)
 - **frontend-architect** - Performant, accessible UI architecture
 - **requirements-analyst** - Transform ideas into concrete specifications
+- **technical-cto-advisor** - Align tech decisions with engineering principles and organizational standards; CTO-style evaluation before documentation
 
 **Code Quality & Testing**
 - **e2e-runner** - End-to-end testing with Playwright
@@ -91,6 +92,7 @@ One plan, one command to run the cycle, automatic review and loop until producti
 - **technical-writer** - Clear, comprehensive documentation
 - **learning-guide** - Teaching programming concepts progressively
 - **deep-research-agent** - Comprehensive research with adaptive strategies
+- **ai-automation-expert** - Write and refine skills, agent definitions, and workflows for AI with strict rules and patterns
 
 
 ## Best For
@@ -185,7 +187,7 @@ All commands and agents reference `compounding-dev-cycle.mdc` so every handoff i
 | **Code** | backend-architect, frontend-architect, database-expert, e2e-runner (implementation), refactoring-expert | Implement to the plan; produce implementation + tests + implementation notes. |
 | **Review/Test** | backend-reviewer, frontend-reviewer (auto-triggered by project-manager after Code); e2e-runner when user runs E2E; optionally security-engineer, performance-engineer, pattern-recognition-specialist, architecture-strategist | Consume plan + diff + implementation notes; produce review summary, rework list (Critical / Suggestion / Nice to have). Critical rework → Plan → Code → Review again until production ready. E2E testing is user-triggered only. |
 
-Every agent file in `.cursor/agents/` includes a **Compounding dev cycle** section stating which phase(s) it participates in and what artifacts it produces or consumes. Supporting agents (learning-guide, technical-writer, deep-research-agent, pattern-recognition-specialist, architecture-strategist) reference the plan and standards when their work touches the cycle.
+Every agent file in `.cursor/agents/` includes a **Compounding dev cycle** section stating which phase(s) it participates in and what artifacts it produces or consumes. Supporting agents (learning-guide, technical-writer, deep-research-agent, pattern-recognition-specialist, architecture-strategist, technical-cto-advisor, ai-automation-expert) reference the plan and standards when their work touches the cycle.
 
 ### Skills that support the cycle
 
@@ -222,25 +224,32 @@ This setup emphasizes:
 4. Alternatively, run the CLI command `cursor plugins install iamjcabalejo/payoys-cursor-sub-agents`.
 5. After installation, tweak any command/agent files under `.cursor/commands/` or `.cursor/agents/` to suit your workflow.
 
-### 🧩 Project Skills (13)
+### 🧩 Project Skills (20)
 
 Skills in `.cursor/skills/` provide reusable workflows and checklists that agents apply automatically:
 
 | Skill | Use Case |
 |-------|----------|
+| `agent-selection` | Choose and load relevant agents for a task |
+| `ai-automation-expert` | Author skills, agent definitions, and workflows for AI |
 | `api-design-patterns` | REST conventions, error handling |
 | `api-testing` | API test structure and coverage |
 | `accessibility-checklist` | WCAG 2.1 AA compliance |
+| `backend-architect` | Backend design and implementation |
+| `backend-reviewer` | Backend code review and rework lists |
+| `code-review` | PR review checklist |
+| `docs-structure` | README, API docs templates |
 | `e2e-playwright` | Playwright E2E patterns |
-| `security-audit` | OWASP Top 10 checks |
+| `feature-planning` | Task blocks for subagent hand-off |
+| `frontend-architect` | Frontend design and implementation |
+| `frontend-reviewer` | Frontend code review and rework lists |
+| `nosql-databases` | MongoDB, Convex, document stores—indexing, query optimization |
+| `performance-profiling` | Measure-first optimization |
+| `postgresql` | Schema design, indexing, pgvector, RAG pipelines |
+| `project-manager` | Orchestrate Plan → Code → Review/Test cycle |
 | `refactoring-checklist` | Safe refactoring steps |
 | `requirements-discovery` | User stories, PRD structure |
-| `docs-structure` | README, API docs templates |
-| `performance-profiling` | Measure-first optimization |
-| `code-review` | PR review checklist |
-| `feature-planning` | Task blocks for subagent hand-off |
-| `postgresql` | Schema design, indexing, pgvector, RAG pipelines |
-| `nosql-databases` | MongoDB, Convex, document stores—indexing, query optimization |
+| `security-audit` | OWASP Top 10 checks |
 
 See `.cursor/skills/README.md` for the full mapping to agents.
 
@@ -283,7 +292,7 @@ See `.cursor/rules/README.md` for details.
 
 **Examples:** Block risky commands, audit all activity, inject session context, block sensitive file reads—see `.cursor/hooks/README.md` for detailed examples and when/how to use each hook.
 
-Run `chmod + x .cursor/hooks/*.sh` after installation.
+Run `chmod +x .cursor/hooks/*.sh` after installation.
 
 ## Customization
 
