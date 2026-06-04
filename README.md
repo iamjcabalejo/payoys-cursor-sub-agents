@@ -1,319 +1,224 @@
 # Brader Payoy's Cursor Setup
 
-This plugin provides **17 slash commands**, **19 specialized AI agents**, **20 project skills**, **7 rules**, and **hooks** for trigger-based automation. At its core is a **compounding development cycle** that turns feature ideas into production-ready code with clear handoffs, automated code review, and a loop until quality gates pass.
+**Version 3.2.1** · [MIT License](LICENSE)
 
-## Why the compounding development cycle?
+A [Cursor plugin](https://cursor.com/docs/plugins) with **17 slash commands**, **19 specialized AI agents**, **20 project skills**, **7 rules**, and **hooks** for trigger-based automation. The workflow centers on a **compounding development cycle**—Plan → Code → Review/Test → Plan—with clear handoffs, automated code review, and a loop until quality gates pass.
 
-This custom Cursor workflow is built around **Plan → Code → Review/Test → Plan** because that cycle gives you:
+| Install | Docs |
+|--------|------|
+| `iamjcabalejo/payoys-cursor-sub-agents` | [Quick start](QUICK-START.md) · [Publishing](PUBLISHING.md) · [`.cursor/` layout](.cursor/README.md) |
 
-- **No guesswork** — Every phase has a single source of truth (the plan). Code implements to the plan; reviewers verify against the same acceptance criteria. No “what did the AI actually build?” moments.
-- **Traceability** — Work is linked back to the plan (e.g. “implements AC-1, AC-2”). You can see why each change exists and whether it’s done.
-- **Quality gates** — Code reviewers (backend-reviewer, frontend-reviewer) run automatically after implementation. Critical issues become a rework plan; the system loops (Plan → Code → Review) until there are no critical issues and the code is **production ready**.
-- **Clear handoffs** — Each phase produces written artifacts for the next: plan → implementation notes + tests → review summary + rework list. Agents (and you) always have the right context.
-- **Separation of concerns** — Planning stays in `/feature-plan` (plan file only). Execution and review stay in `/project-manager` (Code → auto code review → loop). You choose when to run E2E. No single “do everything” prompt that forgets scope or skips review.
+## Quick start
 
-**In practice:** You run `/feature-plan` once to get a plan file, then `/project-manager` with that plan. The project-manager runs implementation (backend, frontend, E2E test authoring), then **automatically** runs code review. If reviewers find critical issues, it re-plans, fixes, and re-reviews until the code is ready for production. You get a repeatable, auditable path from idea to shipped feature.
+```text
+/feature-plan "User profile API and edit page"
+  → docs/plans/user-profile.md (Plan mode only)
 
-### Workflow in one picture
-
-```
-You: /feature-plan "User profile API and edit page"
-     → Plan written to docs/plans/user-profile.md (no agents run yet)
-
-You: /project-manager docs/plans/user-profile.md
-     → Code: backend-architect → frontend-architect → e2e-runner (implement)
-     → Review: backend-reviewer → frontend-reviewer (auto, no E2E run)
-     → If critical issues: rework plan → Code (fix) → Review again (loop)
-     → When gates pass: "Production ready"
-
-You: (optional) Run E2E when you want
-```
-
-One plan, one command to run the cycle, automatic review and loop until production ready—that’s the custom workflow.
-
-## What's Inside
-
-### 📋 Development Commands (9)
-
-- `/new-task` - Analyze task complexity and create implementation plan (for full cycle use feature-plan → project-manager)
-- `/code-explain` - Generate detailed explanations
-- `/code-optimize` - Performance optimization
-- `/code-cleanup` - Refactoring and cleanup
-- `/feature-plan` - Produce feature plan only (writes `docs/plans/<feature>.md`)
-- `/project-manager` - Run Code from plan, then auto-trigger code review (backend/frontend reviewers); loop on critical until production ready. E2E testing is user-triggered only.
-- `/lint` - Linting and fixes
-- `/docs-generate` - Documentation generation
-- `/agents-md-generate` - AGENTS.md generation
-
-### 🔌 API Commands (3)
-
-- `/api-new` - Create new API endpoints
-- `/api-test` - Test API endpoints
-- `/api-protect` - Add protection & validation
-
-### 🎨 UI Commands (2)
-
-- `/component-new` - Create React components
-- `/page-new` - Create Next.js pages
-
-### 💾 Supabase Commands (2)
-
-- `/types-gen` - Generate TypeScript types
-- `/edge-function-new` - Create Edge Functions
-
-### 🔀 Git Commands (1)
-
-- `/commit-best` - Create a well-structured commit with conventional message and push
-
-### 🤖 Specialized AI Agents (19)
-
-**Architecture & Planning**
-- **tech-stack-researcher** - Technology choice recommendations with trade-offs
-- **system-architect** - Scalable system architecture design
-- **architecture-strategist** - Analyze code changes for architectural compliance, boundaries, and pattern integrity; PR and structural refactor review
-- **backend-architect** - Backend systems with data integrity & security
-- **database-expert** - Query optimization and data access best practices (20+ years DBA experience)
-- **frontend-architect** - Performant, accessible UI architecture
-- **requirements-analyst** - Transform ideas into concrete specifications
-- **technical-cto-advisor** - Align tech decisions with engineering principles and organizational standards; CTO-style evaluation before documentation
-
-**Code Quality & Testing**
-- **e2e-runner** - End-to-end testing with Playwright
-- **refactoring-expert** - Systematic refactoring and clean code
-- **pattern-recognition-specialist** - Design patterns, anti-patterns, naming conventions, duplication; codebase consistency and pattern verification
-- **performance-engineer** - Measurement-driven optimization
-- **security-engineer** - Vulnerability identification and security standards
-
-**Review (Plan → Code → Review/Test cycle)**
-- **backend-reviewer** - Review backend code for correctness, security, API contract, and data integrity; produce concrete rework lists
-- **frontend-reviewer** - Review frontend code for correctness, accessibility, performance, and standards; produce concrete rework lists
-
-**Documentation & Research**
-- **technical-writer** - Clear, comprehensive documentation
-- **learning-guide** - Teaching programming concepts progressively
-- **deep-research-agent** - Comprehensive research with adaptive strategies
-- **ai-automation-expert** - Write and refine skills, agent definitions, and workflows for AI with strict rules and patterns
-
-
-## Best For
-
-- Next.js developers
-- TypeScript projects
-- Supabase users
-- React developers
-- Full-stack engineers
-
-## Usage Examples
-
-### Creating a Commit
-
-```bash
-/commit-best
-```
-
-Runs the full workflow: if on `main`, creates a new branch; stages changes; generates a conventional commit message (feat, fix, docs, etc.); commits and pushes.
-
-### Planning and implementing a feature
-
-**Step 1 — Plan only (outputs a .md file):**
-
-```bash
-/feature-plan
-# Then describe your feature idea (e.g. "User profile API and edit page")
-```
-
-This produces a plan and writes it to `docs/plans/<feature-slug>.md`. It does not run any implementation agents.
-
-**Step 2 — Run implementation and code review:**
-
-```bash
 /project-manager docs/plans/user-profile.md
-# Or: /project-manager user-profile
+  → Code: backend-architect → frontend-architect → e2e-runner
+  → Review: backend-reviewer → frontend-reviewer (automatic)
+  → Loop on Critical rework until production ready
+  → E2E execution: run when you choose
 ```
 
-The project-manager reads the plan and: (1) **Code** — spawns backend-architect, frontend-architect, and e2e-runner (implementation) in order; (2) **Review** — automatically spawns backend-reviewer and frontend-reviewer (code review only; no E2E run); (3) if reviewers report **critical issues**, it plans rework, codes again, and reviews again until there are no critical issues and the code is **production ready**. **E2E testing** is not auto-triggered—run it when you want (e.g. run the test suite or ask e2e-runner to run/verify E2E for the feature).
+After install, make hooks executable: `chmod +x .cursor/hooks/*.sh`
 
-### Creating an API
+## What's inside
 
-```bash
-/api-new
-# Cursor will scaffold a complete API route with types, validation, and error handling
-```
+| Component | Count | Location |
+|-----------|-------|----------|
+| Commands | 17 | `.cursor/commands/` |
+| Agents | 19 | `.cursor/agents/` |
+| Skills | 20 | `.cursor/skills/` |
+| Rules | 7 | `.cursor/rules/` |
+| Hooks | 6 events | `.cursor/hooks.json` + `.cursor/hooks/` |
+| Manifest | — | `.cursor-plugin/plugin.json` |
 
-### Research Tech Choices
+### Commands (17)
 
-Just ask Cursor questions like:
-- "Should I use WebSockets or SSE?"
-- "How should I structure this database?"
-- "What's the best library for X?"
+**Development (9)** — `/new-task`, `/code-explain`, `/code-optimize`, `/code-cleanup`, `/feature-plan`, `/project-manager`, `/lint`, `/docs-generate`, `/agents-md-generate`
 
-The tech-stack-researcher agent automatically activates and provides detailed, researched answers.
+**API (3)** — `/api-new`, `/api-test`, `/api-protect`
 
-## Compounding development cycle (in detail)
+**UI (2)** — `/component-new`, `/page-new`
 
-The rule **`compounding-dev-cycle`** (`.cursor/rules/compounding-dev-cycle.mdc`) is always applied. It defines the four phases and the artifacts each phase must produce so the next one can run without guessing. Commands and agents are wired to this cycle so that:
+**Supabase (2)** — `/types-gen`, `/edge-function-new`
 
-1. **Plan** produces a written plan (scope, acceptance criteria, task blocks).
-2. **Code** implements to that plan and produces implementation notes and tests.
-3. **Review/Test** verifies against the plan and produces a rework list with severity (Critical / Suggestion / Nice to have).
-4. **Plan (next)** turns rework into a small plan; then Code and Review/Test run again until gates pass and the code is **production ready**.
+**Git (1)** — `/commit-best`
 
-Why we follow this cycle: it removes ambiguity, keeps a single source of truth (the plan doc), and ensures quality through automatic code review and a loop on critical issues—so the workflow scales from small tasks to full features without losing traceability or control.
+### Agents (19)
 
-### How it works
+**Architecture & planning** — tech-stack-researcher, system-architect, architecture-strategist, backend-architect, database-expert, frontend-architect, requirements-analyst, technical-cto-advisor
 
-| Phase | Goal | Handoff to next phase |
-|-------|------|------------------------|
-| **Plan** | Unambiguous scope, acceptance criteria (AC), technical approach, task list | Single plan doc (or in-chat artifact) so Code can implement without guessing |
-| **Code** | Implement to the plan; no scope creep | Implementation + tests + **implementation notes** (done, deferred, assumptions) |
-| **Review/Test** | Verify against AC and project rules; produce pass/fail and rework list | **Review summary** + **test status** + **rework list** (concrete, file/line + change + severity) |
-| **Plan** (next) | Rework or new scope becomes a new cycle | Rework items → new acceptance criteria → Code → Review/Test again |
+**Code quality & testing** — e2e-runner, refactoring-expert, pattern-recognition-specialist, performance-engineer, security-engineer
 
-**Cross-phase:** All phases respect `core-standards.mdc` and domain rules (`api-routes.mdc`, etc.). Traceability: link code and review back to the plan (e.g. "implements AC-1, AC-2"). The plan doc is the single source of truth; when scope or criteria change, update the plan first.
+**Review** — backend-reviewer, frontend-reviewer
 
-### Commands in the cycle
+**Documentation & research** — technical-writer, learning-guide, deep-research-agent, ai-automation-expert
 
-- **Plan:** `/feature-plan` — Produces scope, acceptance criteria, technical approach, and task blocks (Backend / Frontend / Integration & Testing) and **writes the plan to `docs/plans/<feature-slug>.md`**. Plan only; no agents are spawned. You run **project-manager** next to execute the cycle.
-- **Code + Review:** `/project-manager <plan-path>` — Runs the full cycle: **Code** (backend-architect, frontend-architect, e2e-runner for implementation), then **automatically** runs **code review** (backend-reviewer, frontend-reviewer only). If critical rework is found, it loops (rework plan → Code → Review) until **production ready**. E2E test execution is user-triggered only.
-- **Supporting:** `/api-new`, `/api-protect`, `/code-cleanup`, `/api-test` — Focused commands that respect the same cycle (plan or context, implementation notes, review-ready output).
+Every agent in `.cursor/agents/` includes a **Compounding dev cycle** section (phase, artifacts). See [skills ↔ agents mapping](.cursor/skills/README.md).
 
-All commands and agents reference `compounding-dev-cycle.mdc` so every handoff is explicit and traceable.
+### Skills (20)
 
-### Agents in the cycle
+`agent-selection`, `ai-automation-expert`, `api-design-patterns`, `api-testing`, `accessibility-checklist`, `backend-architect`, `backend-reviewer`, `code-review`, `docs-structure`, `e2e-playwright`, `feature-planning`, `frontend-architect`, `frontend-reviewer`, `nosql-databases`, `performance-profiling`, `postgresql`, `project-manager`, `refactoring-checklist`, `requirements-discovery`, `security-audit`
 
-| Phase | Agents | Role |
-|-------|--------|------|
-| **Plan** | requirements-analyst, tech-stack-researcher, system-architect, architecture-strategist (impact/boundaries), backend-architect, frontend-architect; pattern-recognition-specialist (consistency/patterns) | Discovery, tech choices, design; produce scope, AC, technical approach, task list. One agent may own the final plan. Architecture-strategist assesses impact and boundaries; pattern specialist supports consistency. |
-| **Code** | backend-architect, frontend-architect, database-expert, e2e-runner (implementation), refactoring-expert | Implement to the plan; produce implementation + tests + implementation notes. |
-| **Review/Test** | backend-reviewer, frontend-reviewer (auto-triggered by project-manager after Code); e2e-runner when user runs E2E; optionally security-engineer, performance-engineer, pattern-recognition-specialist, architecture-strategist | Consume plan + diff + implementation notes; produce review summary, rework list (Critical / Suggestion / Nice to have). Critical rework → Plan → Code → Review again until production ready. E2E testing is user-triggered only. |
+Skill folder names match the `name` field in each `SKILL.md` (Cursor discovery requirement).
 
-Every agent file in `.cursor/agents/` includes a **Compounding dev cycle** section stating which phase(s) it participates in and what artifacts it produces or consumes. Supporting agents (learning-guide, technical-writer, deep-research-agent, pattern-recognition-specialist, architecture-strategist, technical-cto-advisor, ai-automation-expert) reference the plan and standards when their work touches the cycle.
-
-### Skills that support the cycle
-
-- **feature-planning** — Task blocks for subagent hand-off (Plan → Code).
-- **code-review** — Checklist for correctness, security, maintainability, style; used by backend-reviewer and frontend-reviewer.
-- **api-design-patterns**, **api-testing** — API contract and test coverage; used in Code and Review/Test.
-- **security-audit** — OWASP-aligned checks; used by security-engineer and backend-reviewer in Review/Test.
-- **accessibility-checklist** — WCAG 2.1 AA; used by frontend-reviewer.
-- **requirements-discovery** — PRDs, user stories, acceptance criteria; used in Plan.
-- **performance-profiling** — Measure-first optimization; used when performance is in scope in Code/Review/Test.
-
-Together, the rule, commands, agents, and skills keep the compounding cycle consistent: **written handoffs, no guesswork, and a single source of truth (the plan)** for the whole workflow—from idea to production-ready code.
-
-## Philosophy
-
-This setup emphasizes:
-
-- **Compounding cycle** — Plan → Code → Review/Test → Plan with clear handoffs so agents (and you) always have a single source of truth and traceable artifacts. The cycle is why this workflow stays predictable and auditable at scale.
-- **Type safety** — No `any` types; explicit types and project rules throughout.
-- **Best practices** — Modern Next.js/React patterns, API and E2E conventions.
-- **Productivity** — Less repetitive scaffolding; more time on design and review.
-- **Research** — AI-powered tech decisions with evidence (tech-stack-researcher, requirements-analyst).
-
-## Requirements
-
-- Cursor (latest version recommended)
-- Works with any project (optimized for Next.js + Supabase)
-
-## Installation
-
-1. Push this repository to GitHub (see `PUBLISHING.md` if you need a refresher).
-2. In Cursor, open the Command Palette and choose **Install Plugin from GitHub**.
-3. Paste `iamjcabalejo/payoys-cursor-sub-agents` when prompted; Cursor will read `.cursor-plugin/plugin.json` and register all commands and agents automatically.
-4. Alternatively, run the CLI command `cursor plugins install iamjcabalejo/payoys-cursor-sub-agents`.
-5. After installation, tweak any command/agent files under `.cursor/commands/` or `.cursor/agents/` to suit your workflow.
-
-### 🧩 Project Skills (20)
-
-Skills in `.cursor/skills/` provide reusable workflows and checklists that agents apply automatically:
-
-| Skill | Use Case |
-|-------|----------|
-| `agent-selection` | Choose and load relevant agents for a task |
-| `ai-automation-expert` | Author skills, agent definitions, and workflows for AI |
-| `api-design-patterns` | REST conventions, error handling |
-| `api-testing` | API test structure and coverage |
-| `accessibility-checklist` | WCAG 2.1 AA compliance |
-| `backend-architect` | Backend design and implementation |
-| `backend-reviewer` | Backend code review and rework lists |
-| `code-review` | PR review checklist |
-| `docs-structure` | README, API docs templates |
-| `e2e-playwright` | Playwright E2E patterns |
-| `feature-planning` | Task blocks for subagent hand-off |
-| `frontend-architect` | Frontend design and implementation |
-| `frontend-reviewer` | Frontend code review and rework lists |
-| `nosql-databases` | MongoDB, Convex, document stores—indexing, query optimization |
-| `performance-profiling` | Measure-first optimization |
-| `postgresql` | Schema design, indexing, pgvector, RAG pipelines |
-| `project-manager` | Orchestrate Plan → Code → Review/Test cycle |
-| `refactoring-checklist` | Safe refactoring steps |
-| `requirements-discovery` | User stories, PRD structure |
-| `security-audit` | OWASP Top 10 checks |
-
-See `.cursor/skills/README.md` for the full mapping to agents.
-
-### 📐 Rules (7)
-
-Rules in `.cursor/rules/` provide persistent AI guidance:
+### Rules (7)
 
 | Rule | Scope | Purpose |
 |------|-------|---------|
-| `token-policy` | Always | Refine → hand off, concise sessions, lean diffs, XML blueprints for complex work |
-| `core-standards` | Always | General coding standards |
-| `compounding-dev-cycle` | Always | Plan → Code → Review/Test → Plan with clear handoffs between agents |
+| `token-policy` | Always | Refine → hand off; concise sessions; lean diffs; XML blueprints for complex work |
+| `core-standards` | Always | Type safety, errors, naming, function design |
+| `compounding-dev-cycle` | Always | Plan → Code → Review/Test → Plan; mode switching and handoffs |
 | `typescript` | `**/*.ts` | TypeScript conventions |
 | `react` | `**/*.tsx` | React component patterns |
 | `api-routes` | `**/api/**/*.ts` | API validation and error handling |
 | `e2e-tests` | `**/*.spec.ts` | Playwright E2E patterns |
 
-See `.cursor/rules/README.md` for details.
+Details: [`.cursor/rules/README.md`](.cursor/rules/README.md)
 
-### 🪝 Hooks
+### Hooks
 
-**Why hooks?** Hooks let you observe, control, and extend the agent loop automatically. Use them to:
-- **Enforce consistency** — Run Prettier/ESLint after every file edit
-- **Add safety guards** — Block risky commands (`rm -rf`, `kubectl apply`) or require approval for network calls
-- **Audit activity** — Log commands, file edits, and MCP usage for compliance or debugging
-- **Inject context** — Add env vars or project context at session start
-- **Gate access** — Block reads of sensitive files or scans of prompts for PII
-
-**How hooks work in this project:** Hooks support the compounding development cycle in two ways. (1) **Session context** — At session start, `session-init.sh` injects a reminder so the agent follows Plan → Code → Review/Test → Plan, uses the plan doc as the single source of truth, and knows to run feature-plan first and project-manager for the full cycle. (2) **Consistency and traceability** — After every file edit, `format.sh` runs Prettier so Code-phase output stays consistent with project style and Review/Test sees clean diffs. Before and after shell commands, on session end, and when the agent loop stops, `audit.sh` logs events to `.cursor/hooks/audit.log`, giving you a traceable record of what ran and when—so handoffs and rework follow-up are easier.
-
-**Included hooks:**
+`hooks.json` uses schema **`version`: 1**. Scripts run on:
 
 | Event | Script | Purpose |
 |-------|--------|---------|
-| sessionStart | session-init.sh | Inject compounding-cycle reminder and plan-first context |
-| afterFileEdit | format.sh | Run Prettier on edited files (keeps Code output consistent) |
-| beforeShellExecution | audit.sh | Log “command about to run” to audit.log |
-| afterShellExecution | audit.sh | Log “command finished” to audit.log |
-| sessionEnd | audit.sh | Log session end (session boundaries for traceability) |
-| stop | audit.sh | Log when agent loop ends |
+| `sessionStart` | `session-init.sh` | Inject cycle + plan-first context |
+| `afterFileEdit` | `format.sh` | Prettier on edited files |
+| `beforeShellExecution` / `afterShellExecution` | `audit.sh` | Log commands to `audit.log` |
+| `sessionEnd` / `stop` | `audit.sh` | Session and loop boundaries |
 
-**Examples:** Block risky commands, audit all activity, inject session context, block sensitive file reads—see `.cursor/hooks/README.md` for detailed examples and when/how to use each hook.
+Examples and patterns: [`.cursor/hooks/README.md`](.cursor/hooks/README.md)
 
-Run `chmod +x .cursor/hooks/*.sh` after installation.
+### MCP servers (optional)
+
+Configured in `.cursor-plugin/plugin.json`:
+
+- **context7** — Up-to-date library documentation
+- **playwright** — Browser automation and testing
+- **supabase** — Database operations
+
+See [`.cursor-plugin/MCP-SERVERS.md`](.cursor-plugin/MCP-SERVERS.md) if present.
+
+## Why the compounding development cycle?
+
+Built around **Plan → Code → Review/Test → Plan**:
+
+- **No guesswork** — The plan is the single source of truth; Code and Review use the same acceptance criteria.
+- **Traceability** — Link work to the plan (e.g. implements AC-1, AC-2).
+- **Quality gates** — backend-reviewer and frontend-reviewer run after Code; Critical issues → rework plan → loop until **production ready**.
+- **Clear handoffs** — Plan → implementation notes + tests → review summary + rework list.
+- **Separation of concerns** — `/feature-plan` (plan file only) vs `/project-manager` (Code + auto review). E2E execution is user-triggered.
+
+The always-on rules **`compounding-dev-cycle`** and **`token-policy`** (refine → hand off before commands/agents) apply across phases. Domain rules (`typescript`, `react`, `api-routes`, `e2e-tests`) apply by file pattern.
+
+### Cycle phases
+
+| Phase | Goal | Handoff |
+|-------|------|---------|
+| **Plan** | Scope, AC, technical approach, task list | `docs/plans/<feature>.md` |
+| **Code** | Implement to plan; no scope creep | Code + tests + implementation notes |
+| **Review/Test** | Verify AC and rules | Review summary + rework list (Critical / Suggestion / Nice to have) |
+| **Plan (rework)** | Critical items → new AC | Repeat Code → Review until gates pass |
+
+**Commands in the cycle**
+
+- **Plan:** `/feature-plan` — writes `docs/plans/<feature-slug>.md`; Plan mode only.
+- **Execute + review:** `/project-manager <plan-path>` — Code then auto review; loops on Critical.
+- **Supporting:** `/api-new`, `/api-protect`, `/api-test`, `/code-cleanup`, etc.
+
+**Agents by phase**
+
+| Phase | Agents |
+|-------|--------|
+| Plan | requirements-analyst, tech-stack-researcher, system-architect, architecture-strategist, backend-architect, frontend-architect, pattern-recognition-specialist |
+| Code | backend-architect, frontend-architect, database-expert, e2e-runner, refactoring-expert |
+| Review/Test | backend-reviewer, frontend-reviewer (auto after Code); optionally security-engineer, performance-engineer, e2e-runner (when you run E2E) |
+
+## Installation
+
+1. In Cursor: **Command Palette** → **Install Plugin from GitHub** → `iamjcabalejo/payoys-cursor-sub-agents`
+2. Or CLI: `cursor plugins install iamjcabalejo/payoys-cursor-sub-agents`
+3. Run: `chmod +x .cursor/hooks/*.sh`
+4. Customize under `.cursor/commands/`, `.cursor/agents/`, `.cursor/skills/`, `.cursor/rules/`, or `.cursor/hooks.json` as needed.
+
+To publish or fork this repo, see [PUBLISHING.md](PUBLISHING.md).
+
+## Usage examples
+
+### Feature (plan → implement → review)
+
+```bash
+/feature-plan
+# Describe the feature; plan lands in docs/plans/<slug>.md
+
+/project-manager docs/plans/user-profile.md
+```
+
+### API scaffold
+
+```bash
+/api-new
+```
+
+### Conventional commit
+
+```bash
+/commit-best
+```
+
+### Tech research
+
+Ask in chat (tech-stack-researcher activates), e.g. “WebSockets vs SSE for live updates?”
+
+## Repository layout
+
+```text
+payoys-cursor-sub-agents/
+├── .cursor-plugin/plugin.json   # Plugin manifest (v3.2.1)
+├── LICENSE
+├── .cursor/
+│   ├── agents/                  # 19 agent definitions
+│   ├── commands/                # 17 slash commands
+│   ├── skills/                  # 20 skills (SKILL.md per folder)
+│   ├── rules/                   # 7 .mdc rules
+│   ├── hooks.json               # Hook config (version: 1)
+│   └── hooks/                   # Shell hook scripts
+├── README.md
+├── QUICK-START.md
+└── PUBLISHING.md
+```
+
+Local IDE artifacts (`extensions/`, `plugins/`, `ide_state.json`, etc.) are gitignored and not part of the distributable plugin.
+
+## Best for
+
+- Next.js and TypeScript projects
+- Supabase backends
+- React / full-stack teams wanting Plan → Code → Review automation
+
+## Requirements
+
+- Cursor (latest version recommended)
+- Any modern web stack (optimized for Next.js + Supabase)
 
 ## Customization
 
-After installation, you can customize any command by editing files in `.cursor/commands/` and `.cursor/agents/`. Add or modify skills in `.cursor/skills/`, rules in `.cursor/rules/`, and hooks in `.cursor/hooks.json` to extend agent capabilities.
+Edit plugin files after install, or fork the repo. Keep skill `name` aligned with its parent folder; keep rule/command frontmatter (`description`, `alwaysApply`, `globs`) valid per [Cursor plugin reference](https://cursor.com/docs/reference/plugins).
 
 ## Contributing
 
-Feel free to:
-- Fork and customize for your needs
-- Submit issues or suggestions
-- Share your improvements
+Fork, customize, open issues, or share improvements.
 
 ## License
 
-MIT - Use freely in your projects
+[MIT License](LICENSE) — Copyright (c) 2026 Jhon Cabalejo
 
 ## Author
 
-Created by Jhon Cabalejo
+**Jhon Cabalejo** — [iamjcabalejo@gmail.com](mailto:iamjcabalejo@gmail.com)
 
 ---
 
-**Note**: Commands are optimized for Next.js + Supabase workflows but work great with any modern web stack.
+Commands and agents target Next.js + Supabase workflows but work with any modern web stack.
