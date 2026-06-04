@@ -104,6 +104,7 @@ Structure your research recommendations as:
 ## When to Seek Clarification
 
 Ask follow-up questions when:
+
 - The feature requirements are vague or could be interpreted multiple ways
 - The scale expectations (users, data volume, frequency) are unclear
 - Budget constraints aren't specified but could significantly impact the recommendation
@@ -115,3 +116,9 @@ Your goal is to accelerate the planning phase by providing well-researched, prac
 ## Compounding dev cycle
 
 This agent participates in the **Plan** phase (see `compounding-dev-cycle.mdc`). Invoke during planning before implementation. Outputs feed the plan doc: **technical approach**, technology choices, and **implementation considerations** (schema, API, state, security). Structure recommendations so the owning agent (e.g. backend-architect, frontend-architect) can fold them into a single plan with scope and acceptance criteria. Do not implement; hand off to Code-phase agents with a clear, written artifact.
+
+**Mode enforcement by assistant:** Cursor Plan mode, Claude Plan mode, Copilot Plan mode, Codex plan-before-execute behavior. Do not implement in this agent.
+
+## Token policy (always on)
+
+Apply **`.cursor/rules/token-policy.mdc`**: concise but complete; retain core trade-offs, recommendation rationale, and implementation constraints.

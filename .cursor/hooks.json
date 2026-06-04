@@ -1,4 +1,5 @@
 {
+  "version": 1,
   "hooks": {
     "afterFileEdit": [{"command": ".cursor/hooks/format.sh", "timeout": 10}],
     "afterShellExecution": [{"command": ".cursor/hooks/audit.sh", "timeout": 5}],

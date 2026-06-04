@@ -1,5 +1,5 @@
 ---
-name: backend-reviewer-skillset
+name: backend-reviewer
 description: Full criteria for reviewing backend code. Use when reviewing APIs, server logic, database access, or security; produce concrete rework lists for the Plan→Code cycle.
 ---
 

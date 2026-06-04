@@ -1,5 +1,5 @@
 ---
-name: backend-architect-skillset
+name: backend-architect
 description: Skillset for backend design and implementation. Use when working on APIs, databases, or server-side code; load referenced skills when their context matches the task.
 ---
 

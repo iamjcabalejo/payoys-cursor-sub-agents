@@ -3,9 +3,21 @@ description: Analyze task complexity and create actionable implementation plan
 model: claude-sonnet-4-5
 ---
 
+## Cursor mode: Plan mode only (strict)
+
+Run this command in **Plan mode** only. This command is planning-only: do not implement code, do not run build/test commands, and do not modify application files. If the user asks to implement, direct them to run **feature-plan** (for a plan file) and then **project-manager** (for Code → Review/Test).
+
+## Token policy (mandatory)
+
+Apply **`.cursor/rules/token-policy.mdc`** for all task-analysis output: refine the ask, then produce the breakdown; preserve scope limits, implementation risks, and success criteria.
+
 **Scope of this command:** This command produces a **task breakdown and implementation plan** only. It does **not** write to `docs/plans/` and does **not** run the full Plan → Code → Review cycle. For the full compounding cycle (plan file → delegation → code review → loop until production ready), use **feature-plan** to create a plan at `docs/plans/<feature-slug>.md`, then run **project-manager** with that plan path.
 
 Analyze the following task and create a clear, actionable implementation plan.
+
+## Clarification-first planning (interactive)
+
+If the task description is incomplete or ambiguous, ask relevant follow-up questions before producing the final plan. Prioritize questions about goals, scope boundaries, target users, constraints, integrations, dependencies, edge cases, and acceptance criteria. Do not assume missing requirements without stating them.
 
 ## Task
 
@@ -20,19 +32,23 @@ $ARGUMENTS
 ## Analysis Framework
 
 ### 1. **Task Breakdown**
+
 - Understand requirements
 - Identify dependencies
 - List affected files/components
 - Estimate complexity (Small/Medium/Large)
 
 ### 2. **Time Estimation**
+
 - **Small**: 1-2 hours (simple bug fix, minor feature)
 - **Medium**: Half day to 1 day (new component, API endpoint)
 - **Large**: 2-5 days (complex feature, multiple integrations)
 - **Very Large**: 1+ week (major refactor, new subsystem)
 
 ### 3. **Risk Assessment**
+
 Identify potential blockers:
+
 - Unknown dependencies
 - API limitations
 - Data migration needs
@@ -42,6 +58,7 @@ Identify potential blockers:
 ### 4. **Implementation Steps**
 
 Create sequential, logical steps:
+
 1. Setup/preparation
 2. Backend changes
 3. Frontend changes
@@ -52,6 +69,7 @@ Create sequential, logical steps:
 ### 5. **Success Criteria**
 
 Define "done":
+
 - Feature works as specified
 - Tests pass
 - No regressions
@@ -61,6 +79,7 @@ Define "done":
 ## Output Format
 
 ### Task Analysis
+
 - **Type**: [Bug Fix / Feature / Refactor / Infrastructure]
 - **Complexity**: [Small / Medium / Large / Very Large]
 - **Estimated Time**: X hours/days
@@ -69,14 +88,17 @@ Define "done":
 ### Implementation Plan
 
 **Phase 1: [Name]** (Time estimate)
+
 - [ ] Step 1
 - [ ] Step 2
 
 **Phase 2: [Name]** (Time estimate)
+
 - [ ] Step 3
 - [ ] Step 4
 
 ### Files to Modify/Create
+
 ```
 app/page.tsx (modify)
 components/NewComponent.tsx (create)
@@ -84,20 +106,25 @@ lib/utils.ts (modify)
 ```
 
 ### Dependencies
+
 ```bash
 npm install package-name
 ```
 
 ### Testing Strategy
+
 - Unit tests for X
 - Integration tests for Y
 - Manual testing steps
 
 ### Potential Issues
+
 - Issue 1 and mitigation
 - Issue 2 and mitigation
+- Add owner + validation evidence for each critical issue.
 
 ### Next Steps
+
 1. Start with Phase 1, Step 1
 2. Test incrementally
 3. Commit often

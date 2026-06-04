@@ -2,11 +2,11 @@
 
 ## TL;DR
 
-This plugin provides **15 slash commands**, **19 AI agents**, **20 skills**, **6 rules**, and **hooks**. At its core is a **compounding development cycle**: Plan → Code → Review/Test → Plan. Run `/feature-plan` to create a plan file, then `/project-manager <plan-path>` to implement, auto-run code review, and loop until production ready. Hooks inject cycle context at session start and keep code formatted and audited.
+This plugin provides **17 slash commands**, **19 AI agents**, **20 skills**, **7 rules**, and **hooks**. At its core is a **compounding development cycle**: Plan → Code → Review/Test → Plan. Run `/feature-plan` to create a plan file, then `/project-manager <plan-path>` to implement, auto-run code review, and loop until production ready. Hooks inject cycle context at session start and keep code formatted and audited.
 
 ## What You Have
 
-✅ **15 Slash Commands**
+✅ **17 Slash Commands**
 - Development: `/new-task`, `/code-explain`, `/code-optimize`, `/code-cleanup`, `/feature-plan`, `/project-manager`, `/lint`, `/docs-generate`, `/agents-md-generate`
 - API: `/api-new`, `/api-test`, `/api-protect`
 - UI: `/component-new`, `/page-new`
@@ -21,7 +21,7 @@ This plugin provides **15 slash commands**, **19 AI agents**, **20 skills**, **6
 
 ✅ **20 Skills** (in `.cursor/skills/`) — e.g. api-design-patterns, api-testing, feature-planning, code-review, e2e-playwright, security-audit, accessibility-checklist, project-manager, agent-selection
 
-✅ **6 Rules** (in `.cursor/rules/`) — core-standards, compounding-dev-cycle, typescript, react, api-routes, e2e-tests
+✅ **7 Rules** (in `.cursor/rules/`) — token-policy, core-standards, compounding-dev-cycle, typescript, react, api-routes, e2e-tests
 
 ✅ **Hooks** (`.cursor/hooks.json`) — session-init (cycle reminder), format (Prettier after edit), audit (traceability log). Run `chmod +x .cursor/hooks/*.sh` after installation.
 

@@ -1,0 +1,9 @@
+# Local Cursor IDE state (not part of the distributable plugin)
+.cursor/extensions/
+.cursor/plugins/
+.cursor/ide_state.json
+.cursor/argv.json
+.cursor/mcp.json
+
+# Hook runtime logs (generated locally)
+.cursor/hooks/audit.log

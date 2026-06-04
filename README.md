@@ -1,6 +1,6 @@
 # Brader Payoy's Cursor Setup
 
-This plugin provides **15 slash commands**, **19 specialized AI agents**, **20 project skills**, **6 rules**, and **hooks** for trigger-based automation. At its core is a **compounding development cycle** that turns feature ideas into production-ready code with clear handoffs, automated code review, and a loop until quality gates pass.
+This plugin provides **17 slash commands**, **19 specialized AI agents**, **20 project skills**, **7 rules**, and **hooks** for trigger-based automation. At its core is a **compounding development cycle** that turns feature ideas into production-ready code with clear handoffs, automated code review, and a loop until quality gates pass.
 
 ## Why the compounding development cycle?
 
@@ -253,12 +253,13 @@ Skills in `.cursor/skills/` provide reusable workflows and checklists that agent
 
 See `.cursor/skills/README.md` for the full mapping to agents.
 
-### 📐 Rules (6)
+### 📐 Rules (7)
 
 Rules in `.cursor/rules/` provide persistent AI guidance:
 
 | Rule | Scope | Purpose |
 |------|-------|---------|
+| `token-policy` | Always | Refine → hand off, concise sessions, lean diffs, XML blueprints for complex work |
 | `core-standards` | Always | General coding standards |
 | `compounding-dev-cycle` | Always | Plan → Code → Review/Test → Plan with clear handoffs between agents |
 | `typescript` | `**/*.ts` | TypeScript conventions |

@@ -1,6 +1,15 @@
 ---
+description: Explain and analyze code with clear narratives, diagrams, and step-by-step breakdowns (Ask mode only)
 model: claude-sonnet-4-5
 ---
+
+## Cursor mode: Ask mode only (strict)
+
+Run this command in **Ask mode** only. This command is explanation/review-only: do not modify files, do not run write operations, and do not implement changes unless the user explicitly asks to switch to implementation.
+
+## Token policy (mandatory)
+
+Apply **`.cursor/rules/token-policy.mdc`** for all explanations and analysis: concise but complete; do not remove critical caveats, assumptions, or safety constraints.
 
 # Code Explanation and Analysis
 
@@ -418,7 +427,7 @@ class AlgorithmVisualizer:
 │ │ │ │
 │ │ │ └─> Base case: Return 1
 │ │ │
-│ │ └─> Return: 1 * 1 = 1
+│ │ └─> Return: 1 \* 1 = 1
 │ │
 │ └─> Return: 2 \_ 1 = 2
 │

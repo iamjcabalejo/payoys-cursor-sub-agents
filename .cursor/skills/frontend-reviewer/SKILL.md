@@ -1,5 +1,5 @@
 ---
-name: frontend-reviewer-skillset
+name: frontend-reviewer
 description: Full criteria for reviewing frontend code. Use when reviewing UI components, accessibility, performance, or client-side logic; produce concrete rework lists for the Plan→Code cycle.
 ---
 

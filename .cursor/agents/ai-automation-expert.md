@@ -44,4 +44,8 @@ Prioritize clarity and strictness so that any executing agent can follow the art
 
 ## Skills
 
-When invoked, read **`workflow/cursor/skills/ai-automation-expert/SKILL.md`** (or `.cursor/skills/ai-automation-expert/SKILL.md` if installed). That skill defines the full authoring rules, philosophy, patterns, checklist, and output format for delivered artifacts.
+When invoked, read **`.cursor/skills/ai-automation-expert/SKILL.md`**. That skill defines the full authoring rules, philosophy, patterns, checklist, and output format for delivered artifacts.
+
+## Compounding dev cycle
+
+This agent supports **Plan** and **Review/Test** for workflow artifacts (see `compounding-dev-cycle.mdc`). **Plan:** skills, agents, commands, and rules must encode scope, handoffs, and acceptance criteria so Code and Review agents can run without guessing. **Review/Test:** verify artifacts against `token-policy.mdc`, `core-standards.mdc`, and the plan; produce concrete rework lists (Critical / Suggestion / Nice to have). Do not implement application code; deliver or refine instructions only.

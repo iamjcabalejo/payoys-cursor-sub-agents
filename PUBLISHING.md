@@ -19,7 +19,7 @@ This plugin is built around a **compounding development cycle** (Plan → Code �
 1. Go to https://github.com/new
 2. Fill in the details:
    - **Repository name**: `whatever-name-you-like`
-   - **Description**: "Brader Payoy's Cursor setup: 15 commands, 17 AI agents, 14 skills, 6 rules, and hooks. Plan → Code → Review/Test cycle with feature-plan and project-manager."
+   - **Description**: "Brader Payoy's Cursor setup: 17 commands, 19 AI agents, 20 skills, 7 rules, and hooks. Plan → Code → Review/Test cycle with feature-plan and project-manager."
    - **Visibility**: Public (so others can install it)
    - **Initialize**: ❌ Don't add README, .gitignore, or license (we already have these)
 3. Click "Create repository"
@@ -51,8 +51,8 @@ Example summary for sharing (align with your current `plugin.json` version and d
 ```json
 {
   "name": "payoys-cursor-sub-agents",
-  "description": "Brader Payoy's Cursor setup: 15 commands, 17 AI agents, 14 skills, 6 rules, and hooks for Plan → Code → Review/Test cycle",
-  "version": "1.0.0",
+  "description": "Brader Payoy's Cursor setup: 17 commands, 19 AI agents, 20 skills, 7 rules, and hooks for Plan → Code → Review/Test cycle",
+  "version": "3.2.0",
   "author": "Brader Payoy"
 }
 ```
@@ -66,7 +66,7 @@ Example post:
 ```
 🚀 Just published my Cursor setup as a plugin!
 
-15 slash commands + 17 AI agents + 14 skills + 6 rules + hooks
+17 slash commands + 19 AI agents + 20 skills + 7 rules + hooks
 
 Core workflow: Plan → Code → Review/Test → Plan
 ✅ /feature-plan — write plan to docs/plans/

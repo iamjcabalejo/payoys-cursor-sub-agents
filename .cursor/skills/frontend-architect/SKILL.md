@@ -1,5 +1,5 @@
 ---
-name: frontend-architect-skillset
+name: frontend-architect
 description: Skillset for frontend design and implementation. Use when working on UI, components, accessibility, or client-side code; load referenced skills when their context matches the task.
 ---
 
